@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35208.52
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestionAcademica.API", "GestionAcademica.API\GestionAcademica.API.csproj", "{CACBB006-EF5C-45BA-8308-48726AD558CE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CACBB006-EF5C-45BA-8308-48726AD558CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CACBB006-EF5C-45BA-8308-48726AD558CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CACBB006-EF5C-45BA-8308-48726AD558CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CACBB006-EF5C-45BA-8308-48726AD558CE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6457F792-EFC4-45F8-9A2F-92EBC4510541}
+	EndGlobalSection
+EndGlobal
