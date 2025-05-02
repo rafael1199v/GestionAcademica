@@ -37,7 +37,7 @@ public partial class GestionAcademicaContext : DbContext
     {
         modelBuilder.Entity<Class>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__classes__3213E83F5EAB86EA");
+            entity.HasKey(e => e.Id).HasName("PK__classes__3213E83F9A9145B9");
 
             entity.ToTable("classes");
 
@@ -67,7 +67,7 @@ public partial class GestionAcademicaContext : DbContext
 
         modelBuilder.Entity<Classroom>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__classroo__3213E83F819CE09E");
+            entity.HasKey(e => e.Id).HasName("PK__classroo__3213E83F5FC015F3");
 
             entity.ToTable("classrooms");
 
@@ -80,7 +80,7 @@ public partial class GestionAcademicaContext : DbContext
 
         modelBuilder.Entity<Hr>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__hr__3213E83F64B23136");
+            entity.HasKey(e => e.Id).HasName("PK__hr__3213E83FA45B6E78");
 
             entity.ToTable("hr");
 
@@ -95,7 +95,7 @@ public partial class GestionAcademicaContext : DbContext
 
         modelBuilder.Entity<Parallel>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__parallel__3213E83F96C1E403");
+            entity.HasKey(e => e.Id).HasName("PK__parallel__3213E83FFD787868");
 
             entity.ToTable("parallels");
 
@@ -111,7 +111,7 @@ public partial class GestionAcademicaContext : DbContext
 
         modelBuilder.Entity<Professor>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__professo__3213E83F8AC2E692");
+            entity.HasKey(e => e.Id).HasName("PK__professo__3213E83F94737352");
 
             entity.ToTable("professors");
 
@@ -126,7 +126,7 @@ public partial class GestionAcademicaContext : DbContext
 
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__roles__3213E83FE8D81483");
+            entity.HasKey(e => e.Id).HasName("PK__roles__3213E83FF0517115");
 
             entity.ToTable("roles");
 
@@ -139,7 +139,7 @@ public partial class GestionAcademicaContext : DbContext
 
         modelBuilder.Entity<Student>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__students__3213E83FAE6AEBAC");
+            entity.HasKey(e => e.Id).HasName("PK__students__3213E83F0DDFBB67");
 
             entity.ToTable("students");
 
@@ -154,7 +154,7 @@ public partial class GestionAcademicaContext : DbContext
 
         modelBuilder.Entity<Subject>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__subjects__3213E83FEDB20BFB");
+            entity.HasKey(e => e.Id).HasName("PK__subjects__3213E83FDB8917AE");
 
             entity.ToTable("subjects");
 
@@ -170,13 +170,11 @@ public partial class GestionAcademicaContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__users__3213E83F978B5D55");
+            entity.HasKey(e => e.Id).HasName("PK__users__3213E83FAD3A02F0");
 
             entity.ToTable("users");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.BirthDate).HasColumnName("birth_date");
             entity.Property(e => e.Email)
                 .HasMaxLength(100)
