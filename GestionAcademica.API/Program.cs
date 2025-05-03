@@ -1,4 +1,9 @@
+using GestionAcademica.API.Administrator.Application;
 using GestionAcademica.API.Models;
+using GestionAcademica.API.ProfessorModule.Domain;
+using GestionAcademica.API.ProfessorModule.Infraestructure;
+using GestionAcademica.API.StudentModule.Domain;
+using GestionAcademica.API.StudentModule.Infraestructure;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +19,11 @@ builder.Services.AddDbContext<GestionAcademicaContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+builder.Services.AddScoped<IRegisterProfessorUseCase, RegisterProfessorUseCase>();
+builder.Services.AddScoped<IRegisterStudentUseCase, RegisterStudentUseCase>();
+builder.Services.AddScoped<IProfessorRepository, ProfessorRepository>();
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 
 var app = builder.Build();
 
