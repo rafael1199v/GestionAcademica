@@ -1,6 +1,6 @@
 ﻿using GestionAcademica.API.Models;
 
-namespace GestionAcademica.API.ProfessorModule.Domain
+namespace GestionAcademica.API.Domain
 {
     public interface IProfessorRepository
     {

@@ -7,6 +7,29 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Administrator\**" />
+    <Compile Remove="ProfessorModule\**" />
+    <Compile Remove="StudentModule\**" />
+    <Content Remove="Administrator\**" />
+    <Content Remove="ProfessorModule\**" />
+    <Content Remove="StudentModule\**" />
+    <EmbeddedResource Remove="Administrator\**" />
+    <EmbeddedResource Remove="ProfessorModule\**" />
+    <EmbeddedResource Remove="StudentModule\**" />
+    <None Remove="Administrator\**" />
+    <None Remove="ProfessorModule\**" />
+    <None Remove="StudentModule\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Application\IRegisterProfessorUseCase.cs" />
+    <Compile Remove="Application\IRegisterStudentUseCase.cs" />
+    <Compile Remove="Infraestructure\AdministratorController.cs" />
+    <Compile Remove="Infraestructure\GestionAcademicaContext.cs" />
+    <Compile Remove="Infraestructure\WeatherForecastController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.15" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.15" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.15">
@@ -17,7 +40,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Administrator\Domain\" />
+    <Folder Include="Application\DTO\" />
+    <Folder Include="Application\Abstractions\" />
+    <Folder Include="Infraestructure\Controllers\" />
+    <Folder Include="Infraestructure\Repository\" />
+    <Folder Include="Domain\" />
   </ItemGroup>
 
 </Project>

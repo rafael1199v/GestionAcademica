@@ -1,19 +1,24 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace GestionAcademica.API.DTO
+namespace GestionAcademica.API.Application.DTO
 {
-    public class StudentDTO
+    public class ProfessorDTO
     {
         public int Id { get; set; }
 
-        public string Name { get; set; } = null!;
+        [Required]
+        public string? Name { get; set; } = null!;
 
         public string? MiddleName { get; set; }
 
+        [Required]
+
         public string LastName { get; set; } = null!;
- 
+
+        [Required]
         public string Password { get; set; } = null!;
 
+        [Required]
         [EmailAddress]
         public string Email { get; set; } = null!;
 

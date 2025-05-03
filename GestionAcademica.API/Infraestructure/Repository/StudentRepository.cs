@@ -1,7 +1,7 @@
-﻿using GestionAcademica.API.Models;
-using GestionAcademica.API.StudentModule.Domain;
+﻿using GestionAcademica.API.Domain;
+using GestionAcademica.API.Models;
 
-namespace GestionAcademica.API.StudentModule.Infraestructure
+namespace GestionAcademica.API.Infraestructure.Repository
 {
     public class StudentRepository : IStudentRepository
     {

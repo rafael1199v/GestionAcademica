@@ -1,8 +1,7 @@
-﻿using GestionAcademica.API.Models;
-using GestionAcademica.API.ProfessorModule.Domain;
-using Microsoft.EntityFrameworkCore.Internal;
+﻿using GestionAcademica.API.Domain;
+using GestionAcademica.API.Models;
 
-namespace GestionAcademica.API.ProfessorModule.Infraestructure
+namespace GestionAcademica.API.Infraestructure.Repository
 {
     public class ProfessorRepository : IProfessorRepository
     {

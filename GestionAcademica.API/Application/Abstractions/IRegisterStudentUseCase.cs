@@ -1,6 +1,6 @@
-﻿using GestionAcademica.API.DTO;
+﻿using GestionAcademica.API.Application.DTO;
 
-namespace GestionAcademica.API.Administrator.Application
+namespace GestionAcademica.API.Application.Abstractions
 {
     public interface IRegisterStudentUseCase
     {

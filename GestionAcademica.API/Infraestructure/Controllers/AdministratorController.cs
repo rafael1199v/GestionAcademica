@@ -1,7 +1,5 @@
-﻿using GestionAcademica.API.Administrator.Application;
-using GestionAcademica.API.DTO;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
+﻿using GestionAcademica.API.Application.Abstractions;
+using GestionAcademica.API.Application.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GestionAcademica.API.Administrator.Infraestructure

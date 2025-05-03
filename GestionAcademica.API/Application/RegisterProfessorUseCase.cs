@@ -1,8 +1,9 @@
-﻿using GestionAcademica.API.DTO;
+﻿using GestionAcademica.API.Application.Abstractions;
+using GestionAcademica.API.Application.DTO;
+using GestionAcademica.API.Domain;
 using GestionAcademica.API.Models;
-using GestionAcademica.API.ProfessorModule.Domain;
 
-namespace GestionAcademica.API.Administrator.Application
+namespace GestionAcademica.API.Application
 {
     public class RegisterProfessorUseCase : IRegisterProfessorUseCase
     {

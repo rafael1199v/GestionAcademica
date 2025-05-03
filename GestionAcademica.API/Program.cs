@@ -1,9 +1,8 @@
-using GestionAcademica.API.Administrator.Application;
+using GestionAcademica.API.Application;
+using GestionAcademica.API.Application.Abstractions;
+using GestionAcademica.API.Domain;
+using GestionAcademica.API.Infraestructure.Repository;
 using GestionAcademica.API.Models;
-using GestionAcademica.API.ProfessorModule.Domain;
-using GestionAcademica.API.ProfessorModule.Infraestructure;
-using GestionAcademica.API.StudentModule.Domain;
-using GestionAcademica.API.StudentModule.Infraestructure;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
