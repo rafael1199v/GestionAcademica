@@ -3,3 +3,4 @@
 */obj
 GestionAcademica.API/appsettings.Development.json
 .idea
+GestionAcademica.Client/package-lock.json
