@@ -9,40 +9,26 @@ namespace GestionAcademica.API.Administrator.Infraestructure
     public class AdministratorController : ControllerBase
     {
         private readonly IRegisterProfessorUseCase _registerProfessorUseCase;
-        private readonly IRegisterStudentUseCase _registerStudentUseCase;
         private readonly IDetailProfessorUseCase _detailProfessorUseCase;
 
-        public AdministratorController(IRegisterProfessorUseCase registerProfessorUseCase, IRegisterStudentUseCase registerStudentUseCase, IDetailProfessorUseCase detailProfessorUseCase)
+        public AdministratorController(IRegisterProfessorUseCase registerProfessorUseCase, IDetailProfessorUseCase detailProfessorUseCase)
         {
             _registerProfessorUseCase = registerProfessorUseCase;
             _registerStudentUseCase = registerStudentUseCase;
             _detailProfessorUseCase = detailProfessorUseCase;
         }
-
-        [HttpPost]
-        [Route("student")]
-        public IActionResult CreateStudent([FromBody] StudentDTO studentDTO)
-        {
-            try
-            {
-                _registerStudentUseCase.CreateStudent(studentDTO);
-                return Created();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
-        }
-
+        
         [HttpPost]
         [Route("professor")]
-        public  IActionResult CreateProfessor([FromBody] ProfessorDTO professorDTO)
+        public  IActionResult CreateProfessor([FromBody] CreateProfessorDTO createProfessorDto)
         {
             try
             {
-                _registerProfessorUseCase.CreateProffesor(professorDTO);
-                return Created();
+                if(!ModelState.IsValid)
+                    return BadRequest(ModelState);
+
+                ResponseProfessorDTO professor = _registerProfessorUseCase.CreateProffesor(createProfessorDto);
+                return Ok(professor);
             }
             catch (Exception ex)
             {

@@ -9,6 +9,6 @@ namespace GestionAcademica.API.Domain
         Professor GetById(int id);
         void Update(Professor professor);
         void Delete(Professor professor);
-        void Create(Professor professor);
+        Professor Create(Professor professor);
     }
 }
