@@ -3,9 +3,9 @@ import SideBar from '../components/SideBar'
 
 function Layout({children}) {
   return (
-    <div className='flex flex-row'>
+    <div className='flex min-h-screen'>
         <SideBar />
-        <div className='ml-3'>
+        <div className='flex-1 p-8'>
           {children}
         </div>
     </div>
