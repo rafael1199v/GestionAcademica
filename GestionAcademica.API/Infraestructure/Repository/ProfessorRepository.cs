@@ -12,10 +12,12 @@ namespace GestionAcademica.API.Infraestructure.Repository
             _context = context;
         }
 
-        public void Create(Professor professor)
+        public Professor Create(Professor professor)
         {
             _context.Professors.Add(professor);
             _context.SaveChanges();
+            
+            return professor;
         }
 
         public void Delete(Professor professor)

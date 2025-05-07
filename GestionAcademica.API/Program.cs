@@ -19,10 +19,14 @@ builder.Services.AddDbContext<GestionAcademicaContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+});
+
 builder.Services.AddScoped<IRegisterProfessorUseCase, RegisterProfessorUseCase>();
-builder.Services.AddScoped<IRegisterStudentUseCase, RegisterStudentUseCase>();
 builder.Services.AddScoped<IProfessorRepository, ProfessorRepository>();
-builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 
 var app = builder.Build();
 
@@ -32,6 +36,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("AllowAll");
 
 app.UseAuthorization();
 

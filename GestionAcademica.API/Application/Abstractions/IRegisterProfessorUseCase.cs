@@ -4,6 +4,6 @@ namespace GestionAcademica.API.Application.Abstractions
 {
     public interface IRegisterProfessorUseCase
     {
-        void CreateProffesor(ProfessorDTO professorDTO);
+        ResponseProfessorDTO CreateProffesor(CreateProfessorDTO createProfessorDto);
     }
 }

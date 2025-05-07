@@ -9,13 +9,15 @@ public partial class User
 
     public string Name { get; set; } = null!;
 
-    public string? MiddleName { get; set; }
-
     public string LastName { get; set; } = null!;
 
     public string Password { get; set; } = null!;
 
-    public string Email { get; set; } = null!;
+    public string Address { get; set; } = null!;
+
+    public string PersonalEmail { get; set; } = null!;
+
+    public string InstitutionalEmail { get; set; } = null!;
 
     public string? PhoneNumber { get; set; }
 

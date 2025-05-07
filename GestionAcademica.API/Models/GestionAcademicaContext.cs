@@ -32,12 +32,12 @@ public partial class GestionAcademicaContext : DbContext
     public virtual DbSet<Subject> Subjects { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
-
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Class>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__classes__3213E83F9A9145B9");
+            entity.HasKey(e => e.Id).HasName("PK__classes__3213E83F99780351");
 
             entity.ToTable("classes");
 
@@ -52,22 +52,22 @@ public partial class GestionAcademicaContext : DbContext
             entity.HasOne(d => d.Classroom).WithMany(p => p.Classes)
                 .HasForeignKey(d => d.ClassroomId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__classes__classro__4E88ABD4");
+                .HasConstraintName("FK__classes__classro__0D7A0286");
 
             entity.HasOne(d => d.Parallel).WithMany(p => p.Classes)
                 .HasForeignKey(d => d.ParallelId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__classes__paralle__4D94879B");
+                .HasConstraintName("FK__classes__paralle__0C85DE4D");
 
             entity.HasOne(d => d.Professor).WithMany(p => p.Classes)
                 .HasForeignKey(d => d.ProfessorId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__classes__profess__4CA06362");
+                .HasConstraintName("FK__classes__profess__0B91BA14");
         });
 
         modelBuilder.Entity<Classroom>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__classroo__3213E83F5FC015F3");
+            entity.HasKey(e => e.Id).HasName("PK__classroo__3213E83F4503C989");
 
             entity.ToTable("classrooms");
 
@@ -80,7 +80,7 @@ public partial class GestionAcademicaContext : DbContext
 
         modelBuilder.Entity<Hr>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__hr__3213E83FA45B6E78");
+            entity.HasKey(e => e.Id).HasName("PK__hr__3213E83F291E37ED");
 
             entity.ToTable("hr");
 
@@ -90,12 +90,12 @@ public partial class GestionAcademicaContext : DbContext
             entity.HasOne(d => d.User).WithMany(p => p.Hrs)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__hr__user_id__4222D4EF");
+                .HasConstraintName("FK__hr__user_id__01142BA1");
         });
 
         modelBuilder.Entity<Parallel>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__parallel__3213E83FFD787868");
+            entity.HasKey(e => e.Id).HasName("PK__parallel__3213E83F97DC89FE");
 
             entity.ToTable("parallels");
 
@@ -106,12 +106,12 @@ public partial class GestionAcademicaContext : DbContext
             entity.HasOne(d => d.Subject).WithMany(p => p.Parallels)
                 .HasForeignKey(d => d.SubjectId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__parallels__subje__46E78A0C");
+                .HasConstraintName("FK__parallels__subje__05D8E0BE");
         });
 
         modelBuilder.Entity<Professor>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__professo__3213E83F94737352");
+            entity.HasKey(e => e.Id).HasName("PK__professo__3213E83FCB3B8490");
 
             entity.ToTable("professors");
 
@@ -121,12 +121,12 @@ public partial class GestionAcademicaContext : DbContext
             entity.HasOne(d => d.User).WithMany(p => p.Professors)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__professor__user___3C69FB99");
+                .HasConstraintName("FK__professor__user___7B5B524B");
         });
 
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__roles__3213E83FF0517115");
+            entity.HasKey(e => e.Id).HasName("PK__roles__3213E83F2FA933AB");
 
             entity.ToTable("roles");
 
@@ -139,7 +139,7 @@ public partial class GestionAcademicaContext : DbContext
 
         modelBuilder.Entity<Student>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__students__3213E83F0DDFBB67");
+            entity.HasKey(e => e.Id).HasName("PK__students__3213E83FC50F7A34");
 
             entity.ToTable("students");
 
@@ -149,12 +149,12 @@ public partial class GestionAcademicaContext : DbContext
             entity.HasOne(d => d.User).WithMany(p => p.Students)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__students__user_i__3F466844");
+                .HasConstraintName("FK__students__user_i__7E37BEF6");
         });
 
         modelBuilder.Entity<Subject>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__subjects__3213E83FDB8917AE");
+            entity.HasKey(e => e.Id).HasName("PK__subjects__3213E83F7BF22669");
 
             entity.ToTable("subjects");
 
@@ -170,24 +170,24 @@ public partial class GestionAcademicaContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__users__3213E83FAD3A02F0");
+            entity.HasKey(e => e.Id).HasName("PK__users__3213E83F141454C0");
 
             entity.ToTable("users");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.BirthDate).HasColumnName("birth_date");
-            entity.Property(e => e.Email)
+            entity.Property(e => e.Address)
                 .HasMaxLength(100)
                 .IsUnicode(false)
-                .HasColumnName("email");
+                .HasColumnName("address");
+            entity.Property(e => e.BirthDate).HasColumnName("birth_date");
+            entity.Property(e => e.InstitutionalEmail)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("institutional_email");
             entity.Property(e => e.LastName)
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("last_name");
-            entity.Property(e => e.MiddleName)
-                .HasMaxLength(100)
-                .IsUnicode(false)
-                .HasColumnName("middle_name");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -196,6 +196,10 @@ public partial class GestionAcademicaContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("password");
+            entity.Property(e => e.PersonalEmail)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("personal_email");
             entity.Property(e => e.PhoneNumber)
                 .HasMaxLength(100)
                 .IsUnicode(false)
@@ -205,7 +209,7 @@ public partial class GestionAcademicaContext : DbContext
             entity.HasOne(d => d.Role).WithMany(p => p.Users)
                 .HasForeignKey(d => d.RoleId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__users__role_id__398D8EEE");
+                .HasConstraintName("FK__users__role_id__787EE5A0");
         });
 
         OnModelCreatingPartial(modelBuilder);
