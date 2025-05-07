@@ -10,11 +10,13 @@ namespace GestionAcademica.API.Administrator.Infraestructure
     {
         private readonly IRegisterProfessorUseCase _registerProfessorUseCase;
         private readonly IRegisterStudentUseCase _registerStudentUseCase;
+        private readonly IDetailProfessorUseCase _detailProfessorUseCase;
 
-        public AdministratorController(IRegisterProfessorUseCase registerProfessorUseCase, IRegisterStudentUseCase registerStudentUseCase)
+        public AdministratorController(IRegisterProfessorUseCase registerProfessorUseCase, IRegisterStudentUseCase registerStudentUseCase, IDetailProfessorUseCase detailProfessorUseCase)
         {
             _registerProfessorUseCase = registerProfessorUseCase;
             _registerStudentUseCase = registerStudentUseCase;
+            _detailProfessorUseCase = detailProfessorUseCase;
         }
 
         [HttpPost]
@@ -41,6 +43,20 @@ namespace GestionAcademica.API.Administrator.Infraestructure
             {
                 _registerProfessorUseCase.CreateProffesor(professorDTO);
                 return Created();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("professor")]
+        public IActionResult ProfessorListSimple()
+        {
+            try
+            {
+                return Ok(_detailProfessorUseCase.ObtainAllProfessors());
             }
             catch (Exception ex)
             {
