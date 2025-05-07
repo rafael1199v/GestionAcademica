@@ -1,5 +1,6 @@
 ﻿using GestionAcademica.API.Domain;
 using GestionAcademica.API.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace GestionAcademica.API.Infraestructure.Repository
 {
@@ -29,6 +30,12 @@ namespace GestionAcademica.API.Infraestructure.Repository
         public List<Professor> GetAll()
         {
             return _context.Professors.ToList();
+        }
+
+        public List<Professor> GetAllWithDetails()
+        {
+            
+            return _context.Professors.Include(P=>P.User).ToList();
         }
 
         public Professor GetById(int id)

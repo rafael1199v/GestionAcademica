@@ -26,6 +26,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddScoped<IRegisterProfessorUseCase, RegisterProfessorUseCase>();
+builder.Services.AddScoped<IDetailProfessorUseCase, DetailProfessorUseCase>(); 
 builder.Services.AddScoped<IProfessorRepository, ProfessorRepository>();
 
 var app = builder.Build();
