@@ -21,6 +21,7 @@ builder.Services.AddDbContext<GestionAcademicaContext>(options =>
 
 builder.Services.AddScoped<IRegisterProfessorUseCase, RegisterProfessorUseCase>();
 builder.Services.AddScoped<IRegisterStudentUseCase, RegisterStudentUseCase>();
+builder.Services.AddScoped<IDetailProfessorUseCase, DetailProfessorUseCase>(); 
 builder.Services.AddScoped<IProfessorRepository, ProfessorRepository>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 

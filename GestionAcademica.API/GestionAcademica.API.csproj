@@ -40,8 +40,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\DTO\" />
-    <Folder Include="Application\Abstractions\" />
     <Folder Include="Infraestructure\Controllers\" />
     <Folder Include="Infraestructure\Repository\" />
     <Folder Include="Domain\" />
