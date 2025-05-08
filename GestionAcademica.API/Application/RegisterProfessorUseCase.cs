@@ -42,6 +42,7 @@ namespace GestionAcademica.API.Application
 
             ResponseProfessorDTO responseProfessorDto = new ResponseProfessorDTO
             {
+                Id = professor.Id,
                 Name = professor.User.Name,
                 LastName = professor.User.LastName,
                 Address = professor.User.Address,
