@@ -14,7 +14,6 @@ namespace GestionAcademica.API.Administrator.Infraestructure
         public AdministratorController(IRegisterProfessorUseCase registerProfessorUseCase, IDetailProfessorUseCase detailProfessorUseCase)
         {
             _registerProfessorUseCase = registerProfessorUseCase;
-            _registerStudentUseCase = registerStudentUseCase;
             _detailProfessorUseCase = detailProfessorUseCase;
         }
         
