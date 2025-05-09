@@ -1,4 +1,5 @@
-﻿using GestionAcademica.API.Domain;
+﻿using System.Linq.Expressions;
+using GestionAcademica.API.Domain;
 using GestionAcademica.API.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,15 +13,7 @@ namespace GestionAcademica.API.Infraestructure.Repository
         {
             _context = context;
         }
-
-        public Professor Create(Professor professor)
-        {
-            _context.Professors.Add(professor);
-            _context.SaveChanges();
-            
-            return professor;
-        }
-
+        
         public void Delete(Professor professor)
         {
             _context.Professors.Remove(professor);
@@ -48,10 +41,23 @@ namespace GestionAcademica.API.Infraestructure.Repository
             return professor;
         }
 
+        public Professor Add(Professor professor)
+        {
+            _context.Professors.Add(professor);
+            _context.SaveChanges();
+            
+            return professor;
+        }
+
         public void Update(Professor professor)
         {
             _context.Update(professor);
             _context.SaveChanges();
+        }
+        
+        public IQueryable<Professor> FindByCondition(Expression<Func<Professor, bool>> expression)
+        {
+            return _context.Professors.Where(expression);
         }
     }
 }

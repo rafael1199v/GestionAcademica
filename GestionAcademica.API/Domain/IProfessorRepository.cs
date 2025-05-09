@@ -1,4 +1,5 @@
-﻿using GestionAcademica.API.Models;
+﻿using System.Linq.Expressions;
+using GestionAcademica.API.Models;
 
 namespace GestionAcademica.API.Domain
 {
@@ -9,6 +10,6 @@ namespace GestionAcademica.API.Domain
         Professor GetById(int id);
         void Update(Professor professor);
         void Delete(Professor professor);
-        Professor Create(Professor professor);
+        Professor Add(Professor professor);
     }
 }
