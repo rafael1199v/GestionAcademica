@@ -42,8 +42,6 @@
   <ItemGroup>
     <Folder Include="Application\Abstractions\" />
     <Folder Include="Infraestructure\Controllers\" />
-    <Folder Include="Infraestructure\Repository\" />
-    <Folder Include="Domain\" />
   </ItemGroup>
 
 </Project>
