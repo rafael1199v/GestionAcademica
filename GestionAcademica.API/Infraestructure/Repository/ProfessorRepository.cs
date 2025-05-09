@@ -55,6 +55,7 @@ namespace GestionAcademica.API.Infraestructure.Repository
             _context.SaveChanges();
         }
         
+        //TODO: Verificar la viabilidad de crear un repositorio mas abstracto
         public IQueryable<Professor> FindByCondition(Expression<Func<Professor, bool>> expression)
         {
             return _context.Professors.Where(expression);

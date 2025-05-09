@@ -1,6 +1,4 @@
-using System.Linq.Expressions;
 using FakeItEasy;
-using GestionAcademica.API.Application.Abstractions;
 using GestionAcademica.API.Application.DTO;
 using GestionAcademica.API.Domain;
 using GestionAcademica.API.Models;
@@ -107,9 +105,7 @@ public class RegisterProfessorUseCaseTest
             PhoneNumber = "12345678",
             BirthDate = "2005-04-5",
         };
-
-        var userList = new List<User> { new User() }.AsQueryable();
-
+        
         A.CallTo(() => _userRepository.GetByInstitutionalEmail(A<string>._))
             .Returns(new User());
         
@@ -135,9 +131,7 @@ public class RegisterProfessorUseCaseTest
             PhoneNumber = "12345678",
             BirthDate = "asdasdasd",
         };
-
-        var userList = new List<User> { new User() }.AsQueryable();
-
+        
         A.CallTo(() => _userRepository.GetByInstitutionalEmail(A<string>._))
             .Returns(null);
         
@@ -162,9 +156,7 @@ public class RegisterProfessorUseCaseTest
             PhoneNumber = "12345678",
             BirthDate = "2026-01-01",
         };
-
-        var userList = new List<User> { new User() }.AsQueryable();
-
+        
         A.CallTo(() => _userRepository.GetByInstitutionalEmail(A<string>._))
             .Returns(null);
         
