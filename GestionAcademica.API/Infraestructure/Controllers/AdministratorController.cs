@@ -1,5 +1,6 @@
 ﻿using GestionAcademica.API.Application.Abstractions;
 using GestionAcademica.API.Application.DTO;
+using GestionAcademica.API.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GestionAcademica.API.Administrator.Infraestructure
@@ -16,7 +17,7 @@ namespace GestionAcademica.API.Administrator.Infraestructure
             _registerProfessorUseCase = registerProfessorUseCase;
             _detailProfessorUseCase = detailProfessorUseCase;
         }
-        
+
         [HttpPost]
         [Route("professor")]
         public  IActionResult CreateProfessor([FromBody] CreateProfessorDTO createProfessorDto)
@@ -48,5 +49,6 @@ namespace GestionAcademica.API.Administrator.Infraestructure
                 return BadRequest(ex.Message);
             }
         }
+
     }
 }

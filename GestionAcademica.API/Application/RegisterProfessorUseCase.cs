@@ -12,11 +12,13 @@ namespace GestionAcademica.API.Application
 
         private readonly IProfessorRepository _professorRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IHashUseCase _hashUseCase;
 
-        public RegisterProfessorUseCase(IProfessorRepository administratorRepository, IUserRepository userRepository)
+        public RegisterProfessorUseCase(IProfessorRepository administratorRepository, IUserRepository userRepository, IHashUseCase hashUseCase)
         {
             _professorRepository = administratorRepository;
             _userRepository = userRepository;
+            _hashUseCase = hashUseCase;
         }
 
         public ResponseProfessorDTO CreateProffesor(CreateProfessorDTO createProfessorDto)
@@ -38,7 +40,7 @@ namespace GestionAcademica.API.Application
                 {
                     Name = createProfessorDto.Name,
                     LastName = createProfessorDto.LastName,
-                    Password = createProfessorDto.Password,
+                    Password = _hashUseCase.CreateHash(createProfessorDto.Password),
                     Address = createProfessorDto.Address,
                     PersonalEmail = createProfessorDto.PersonalEmail,
                     InstitutionalEmail = createProfessorDto.InstitutionalEmail,
@@ -46,7 +48,7 @@ namespace GestionAcademica.API.Application
                     BirthDate = DateOnly.Parse(createProfessorDto.BirthDate),
                     RoleId = (int)RoleEnum.Professor
                 }
-                
+
             };
 
             return professor;
