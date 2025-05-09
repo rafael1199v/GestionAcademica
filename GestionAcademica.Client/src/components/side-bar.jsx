@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import SideBarItem from "./SideBarItem";
-import { SIDE_BAR_ITEM } from "../config/SideBarItem-const";
+import SideBarItem from "./side-bar__item";
+import { SIDE_BAR_ITEM } from "../config/side-bar__item-const";
 import { HomeIcon, ArrowLeftIcon } from "@heroicons/react/16/solid";
 
 export function SideBar() {

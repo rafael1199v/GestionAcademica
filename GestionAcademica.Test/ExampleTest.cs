@@ -7,13 +7,13 @@ public class ExampleTest
     [Fact]
     public void UseCaseToTest_Function_ExpectedResultOrResponse()
     {
-        //Arrange
+        //Arrange: Configurar el test
         var expectedResult = true;
         
-        //Act
+        //Act: El test en sí
         var result = expectedResult;
 
-        //Assert
+        //Assert: Verificar que ambas respuestas sean correctas
         Assert.Equal(expectedResult, result);
     }
 }
