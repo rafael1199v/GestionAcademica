@@ -112,19 +112,8 @@ public class RegisterProfessorUseCaseTest
 
         A.CallTo(() => _userRepository.GetByInstitutionalEmail(A<string>._))
             .Returns(new User());
-        /*
-         if (user != null)
-                throw new ArgumentException("El correo institutional ya existe");
-            
-            if (DateOnly.TryParse(createProfessorDto.BirthDate, out DateOnly date))
-                throw new ArgumentException("El formato de fecha es incorrecto");
-            
-            if (date > DateOnly.FromDateTime(DateTime.Now))
-                throw new ArgumentException("La fecha de nacimiento no puede estar en el futuro");
-         */
-
-        string expected = "El correo institutional ya existe";
         
+        string expected = "El correo institutional ya existe";
         
         var exception = Assert.Throws<ArgumentException>(() => _registerProfessorUseCase.CreateProffesor(createProfessorDto: professor));
         Assert.Equal(expected, exception.Message);
