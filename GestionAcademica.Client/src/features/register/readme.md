@@ -1,0 +1,1 @@
+This directory must be used for registration forms and other handlers that match this feature. This is only an example, therefore this readme must be deleted later and, if needed, the folder should be renamed.
