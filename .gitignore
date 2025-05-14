@@ -5,3 +5,7 @@ GestionAcademica.API/appsettings.Development.json
 .idea
 GestionAcademica.Client/package-lock.json
 GestionAcademica.API/Models/GestionAcademicaContext.cs
+
+*/node_modules
+/node_modules
+package-lock.json
