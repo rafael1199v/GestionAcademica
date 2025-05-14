@@ -1,3 +1,5 @@
+using System.Security.Claims;
+using GestionAcademica.API;
 using GestionAcademica.API.Application;
 using GestionAcademica.API.Application.Abstractions;
 using GestionAcademica.API.Domain;
@@ -6,7 +8,6 @@ using GestionAcademica.API.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -85,9 +86,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseAuthentication();
 app.UseCors("AllowAll");
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
