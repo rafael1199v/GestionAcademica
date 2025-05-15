@@ -9,6 +9,8 @@ public partial class Subject
 
     public string Name { get; set; } = null!;
 
+    public string? Initial { get; set; }
+
     public int Status { get; set; }
 
     public int Capacity { get; set; }

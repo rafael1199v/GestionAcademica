@@ -11,5 +11,7 @@ public partial class Professor
 
     public virtual ICollection<Class> Classes { get; set; } = new List<Class>();
 
+    public virtual ICollection<ProfessorsFile> ProfessorsFiles { get; set; } = new List<ProfessorsFile>();
+
     public virtual User User { get; set; } = null!;
 }
