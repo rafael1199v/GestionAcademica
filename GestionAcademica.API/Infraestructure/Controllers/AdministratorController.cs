@@ -1,6 +1,7 @@
 ﻿using GestionAcademica.API.Application.Abstractions;
 using GestionAcademica.API.Application.DTO;
 using GestionAcademica.API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GestionAcademica.API.Administrator.Infraestructure
@@ -20,6 +21,7 @@ namespace GestionAcademica.API.Administrator.Infraestructure
 
         [HttpPost]
         [Route("professor")]
+        [Authorize("create:professors")]
         public  IActionResult CreateProfessor([FromBody] CreateProfessorDTO createProfessorDto)
         {
             try
@@ -38,6 +40,7 @@ namespace GestionAcademica.API.Administrator.Infraestructure
 
         [HttpGet]
         [Route("professor")]
+        [Authorize("read:professors")]
         public IActionResult ProfessorListSimple()
         {
             try
