@@ -17,12 +17,12 @@ public class HasScopeHandler : AuthorizationHandler<HasScopeRequirement>
         // Console.WriteLine(requirement.Scope);
         // Console.WriteLine(requirement.Issuer);
         
-        if (!context.User.HasClaim(c => c.Type == "scope" && c.Issuer == requirement.Scope))
+        if (!context.User.HasClaim(c => c.Type == "scope" && c.Issuer == requirement.Issuer))
             return Task.CompletedTask;
         
-        var permissions = context.User.FindFirst(c => c.Type == "scope" && c.Issuer == requirement.Scope).Value.Split(' ');
+        var permissions = context.User.FindFirst(c => c.Type == "scope" && c.Issuer == requirement.Issuer).Value.Split(' ');
         
-        if(permissions != null && permissions.Any(s => s == requirement.Issuer))
+        if(permissions != null && permissions.Any(s => s == requirement.Scope))
            context.Succeed(requirement);
            
         return Task.CompletedTask;
