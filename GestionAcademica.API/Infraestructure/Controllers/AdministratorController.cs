@@ -40,7 +40,6 @@ namespace GestionAcademica.API.Administrator.Infraestructure
 
         [HttpGet]
         [Route("professor")]
-        [Authorize("read:professors")]
         public IActionResult ProfessorListSimple()
         {
             try
