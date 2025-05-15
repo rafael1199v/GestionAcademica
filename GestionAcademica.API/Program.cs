@@ -33,22 +33,27 @@ builder.Services.AddAuthorization(options =>
         )
     );
     
-    options.AddPolicy("read:professors",
-        policy => policy.Requirements.Add(new HasScopeRequirement("read:professors", domain)));
+    options.AddPolicy(
+        "read:professors",
+        policy => policy.Requirements.Add(
+            new HasScopeRequirement("read:professors", domain)));
     
     options.AddPolicy(
             "create:professors",
-            policy => policy.Requirements.Add(new HasScopeRequirement("create:professors", domain))
+            policy => policy.Requirements.Add(
+                new HasScopeRequirement("create:professors", domain))
         );
     
     options.AddPolicy(
         "delete:professors",
-        policy => policy.Requirements.Add(new HasScopeRequirement("delete:professors", domain))
+        policy => policy.Requirements.Add(
+            new HasScopeRequirement("delete:professors", domain))
         );
     
     options.AddPolicy(
         "update:professors",
-        policy => policy.Requirements.Add(new HasScopeRequirement("update:professors", domain))
+        policy => policy.Requirements.Add(
+            new HasScopeRequirement("update:professors", domain))
         );
 });
 

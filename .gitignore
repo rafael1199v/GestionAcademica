@@ -5,3 +5,4 @@ GestionAcademica.API/appsettings.Development.json
 .idea
 GestionAcademica.Client/package-lock.json
 GestionAcademica.API/Models/GestionAcademicaContext.cs
+GestionAcademica.sln.DotSettings.user
