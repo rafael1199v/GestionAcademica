@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import SideBarItem from "./side-bar__item";
 import { SIDE_BAR_ITEM } from "../config/side-bar__item-const";
-import { HomeIcon, ArrowLeftIcon } from "@heroicons/react/16/solid";
+import {
+  HomeIcon,
+  ArrowLeftIcon,
+  UsersIcon,
+  AcademicCapIcon,
+  FolderPlusIcon,
+  ClipboardDocumentCheckIcon,
+  InboxArrowDownIcon,
+} from "@heroicons/react/16/solid";
 
 export function SideBar() {
   const [selectedItem, setSelectedItem] = useState(SIDE_BAR_ITEM.PROFESSOR);
@@ -16,17 +24,69 @@ export function SideBar() {
         <ul className="mt-6 space-y-1">
           <SideBarItem
             text="General"
-            isSelected={selectedItem === SIDE_BAR_ITEM.PROFESSOR}
-            onClick={() => setSelectedItem(SIDE_BAR_ITEM.PROFESSOR)}
+            isSelected={selectedItem === SIDE_BAR_ITEM.HOME}
+            onClick={() => {
+              setSelectedItem(SIDE_BAR_ITEM.HOME);
+            }}
             icon={<HomeIcon className="w-4 h-4" />}
+            navigateTo="/"
           />
+          <SideBarItem
+            text="Docentes"
+            isSelected={selectedItem === SIDE_BAR_ITEM.PROFESSORS}
+            onClick={() => {
+              setSelectedItem(SIDE_BAR_ITEM.PROFESSORS);
+            }}
+            icon={<UsersIcon className="w-4 h-4" />}
+            navigateTo="/docentes"
+          />
+          <SideBarItem
+            text="Reportes"
+            isSelected={selectedItem === SIDE_BAR_ITEM.REPORTS}
+            onClick={() => {
+              setSelectedItem(SIDE_BAR_ITEM.REPORTS);
+            }}
+            icon={<ClipboardDocumentCheckIcon className="w-4 h-4" />}
+            navigateTo="/reportes"
+          />
+          <SideBarItem
+            text="Materias"
+            isSelected={selectedItem === SIDE_BAR_ITEM.SUBJECTS}
+            onClick={() => {
+              setSelectedItem(SIDE_BAR_ITEM.SUBJECTS);
+            }}
+            icon={<AcademicCapIcon className="w-4 h-4" />}
+            navigateTo="/materias"
+          />
+          {/* <SideBarItem
+            text="Vacantes"
+            isSelected={selectedItem === SIDE_BAR_ITEM.VACANCIES}
+            onClick={() => {
+              setSelectedItem(SIDE_BAR_ITEM.VACANCIES);
+            }}
+            icon={<FolderPlusIcon className="w-4 h-4" />}
+            navigateTo="/vacantes"
+          />
+          <SideBarItem
+            text="Postulaciones"
+            isSelected={selectedItem === SIDE_BAR_ITEM.APPLICATIONS}
+            onClick={() => {
+              setSelectedItem(SIDE_BAR_ITEM.APPLICATIONS);
+            }}
+            icon={<InboxArrowDownIcon className="w-4 h-4" />}
+            navigateTo="/postulaciones"
+          /> */}
           <SideBarItem
             text="Cerrar sesion"
             isSelected={selectedItem === SIDE_BAR_ITEM.SIGN_OUT}
-            onClick={() => setSelectedItem(SIDE_BAR_ITEM.SIGN_OUT)}
+            onClick={() => {
+              setSelectedItem(SIDE_BAR_ITEM.HOME);
+            }}
             icon={<ArrowLeftIcon className="w-4 h-4" />}
+            // navigateTo="/signout"
           />
         </ul>
+        {/*// TODO: Filter the items based on the user role */}
       </div>
     </div>
   );
