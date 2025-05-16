@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import Button from "../components/button";
+import Button from "../../components/button";
 import { Link, useNavigate } from "react-router-dom";
-import { ValidateProfessorForm } from "../services/ValidationService";
-import { createProfessor } from "../services/AdministratorService";
+import { ValidateProfessorRegisterForm } from "../../services/ValidationService";
+import { createProfessor } from "../../services/AdministratorService";
 
-function NuevoDocente() {
+function DocenteRegisterForm() {
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const [professorForm, setProfessorForm] = useState({
@@ -21,7 +21,7 @@ function NuevoDocente() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const errors = ValidateProfessorForm(professorForm);
+    const errors = ValidateProfessorRegisterForm(professorForm);
 
     if(Object.keys(errors).length !== 0){
       setErrors(errors);
@@ -235,4 +235,4 @@ function NuevoDocente() {
   );
 }
 
-export default NuevoDocente;
+export default DocenteRegisterForm;

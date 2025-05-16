@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function ItemDocente({ item }) {
     return(
               <tr key={item.id} className="hover:bg-gray-50">
@@ -10,6 +12,12 @@ function ItemDocente({ item }) {
                 <td className="px-6 py-4 border-b">{item.institutionalEmail}</td>
                 <td className="px-6 py-4 border-b">
                   {item.phoneNumber}
+                </td>
+
+                <td className="px-6 py-4 border-b">
+                  <Link to={`/editar-docente/${item.id}`}>
+                    Editar
+                  </Link>
                 </td>
               </tr>
     )
