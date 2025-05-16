@@ -23,7 +23,11 @@ public partial class User
 
     public DateOnly BirthDate { get; set; }
 
+    public string Status { get; set; } = null!;
+
     public int RoleId { get; set; }
+
+    public virtual ICollection<Administrator> Administrators { get; set; } = new List<Administrator>();
 
     public virtual ICollection<Professor> Professors { get; set; } = new List<Professor>();
 

@@ -3,15 +3,13 @@ using System.Collections.Generic;
 
 namespace GestionAcademica.API.Models;
 
-public partial class Professor
+public partial class Administrator
 {
     public int Id { get; set; }
 
     public int UserId { get; set; }
 
-    public virtual ICollection<Class> Classes { get; set; } = new List<Class>();
+    public virtual ICollection<Career> Careers { get; set; } = new List<Career>();
 
     public virtual User User { get; set; } = null!;
-
-    public virtual ICollection<File> Files { get; set; } = new List<File>();
 }
