@@ -11,53 +11,54 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
-var domain = $"https://{builder.Configuration["Auth0:Domain"]}/";
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.Authority = domain;
-        options.Audience = builder.Configuration["Auth0:Audience"];
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            NameClaimType = ClaimTypes.NameIdentifier
-        };
-    });
 
-
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy(
-        "read:messages",
-        policy => policy.Requirements.Add(
-            new HasScopeRequirement("read:messages", domain)
-        )
-    );
-    
-    options.AddPolicy(
-        "read:professors",
-        policy => policy.Requirements.Add(
-            new HasScopeRequirement("read:professors", domain)));
-    
-    options.AddPolicy(
-            "create:professors",
-            policy => policy.Requirements.Add(
-                new HasScopeRequirement("create:professors", domain))
-        );
-    
-    options.AddPolicy(
-        "delete:professors",
-        policy => policy.Requirements.Add(
-            new HasScopeRequirement("delete:professors", domain))
-        );
-    
-    options.AddPolicy(
-        "update:professors",
-        policy => policy.Requirements.Add(
-            new HasScopeRequirement("update:professors", domain))
-        );
-});
-
-builder.Services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
+// var domain = $"https://{builder.Configuration["Auth0:Domain"]}/";
+// builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+//     .AddJwtBearer(options =>
+//     {
+//         options.Authority = domain;
+//         options.Audience = builder.Configuration["Auth0:Audience"];
+//         options.TokenValidationParameters = new TokenValidationParameters
+//         {
+//             NameClaimType = ClaimTypes.NameIdentifier
+//         };
+//     });
+//
+//
+// builder.Services.AddAuthorization(options =>
+// {
+//     options.AddPolicy(
+//         "read:messages",
+//         policy => policy.Requirements.Add(
+//             new HasScopeRequirement("read:messages", domain)
+//         )
+//     );
+//     
+//     options.AddPolicy(
+//         "read:professors",
+//         policy => policy.Requirements.Add(
+//             new HasScopeRequirement("read:professors", domain)));
+//     
+//     options.AddPolicy(
+//             "create:professors",
+//             policy => policy.Requirements.Add(
+//                 new HasScopeRequirement("create:professors", domain))
+//         );
+//     
+//     options.AddPolicy(
+//         "delete:professors",
+//         policy => policy.Requirements.Add(
+//             new HasScopeRequirement("delete:professors", domain))
+//         );
+//     
+//     options.AddPolicy(
+//         "update:professors",
+//         policy => policy.Requirements.Add(
+//             new HasScopeRequirement("update:professors", domain))
+//         );
+// });
+//
+// builder.Services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
 // Add services to the container.
 
 builder.Services.AddControllers();

@@ -40,13 +40,13 @@ namespace GestionAcademica.API.Application
                 {
                     Name = createProfessorDto.Name,
                     LastName = createProfessorDto.LastName,
-                    //Password = _hashUseCase.CreateHash(createProfessorDto.Password),
+                    Password = _hashUseCase.CreateHash(createProfessorDto.Password),
                     Address = createProfessorDto.Address,
                     PersonalEmail = createProfessorDto.PersonalEmail,
                     InstitutionalEmail = createProfessorDto.InstitutionalEmail,
                     PhoneNumber = createProfessorDto.PhoneNumber,
                     BirthDate = DateOnly.Parse(createProfessorDto.BirthDate),
-                    //RoleId = (int)RoleEnum.Professor
+                    RoleId = (int)RoleEnum.Professor
                 }
 
             };
@@ -66,7 +66,7 @@ namespace GestionAcademica.API.Application
                 InstitutionalEmail = professor.User.InstitutionalEmail,
                 PhoneNumber = professor.User.PhoneNumber,
                 BirthDate = professor.User.BirthDate.ToString(),
-                //RolId = professor.User.RoleId
+                RolId = professor.User.RoleId
             };
             
             return responseProfessorDto;
