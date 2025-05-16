@@ -23,7 +23,7 @@ function Docentes() {
     }, []);
 
   const handleNuevoDocente = () => {
-    navigate("/docentes/nuevo");
+    navigate("/nuevo-docente");
   };
   return (
     <div>

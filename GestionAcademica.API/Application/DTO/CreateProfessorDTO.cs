@@ -25,7 +25,7 @@ namespace GestionAcademica.API.Application.DTO
         [RegularExpression(@"^\d{8}$", ErrorMessage = "El numero de telefono es invalido")]
         public string? PhoneNumber { get; set; }
         
-        [RegularExpression(@"^\d{4}\-(0?[1-4]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$", ErrorMessage = "Ingrese un formato de fecha valida (YYYY-MM-DD)")]
+        [Required(ErrorMessage = "La fecha de nacimiento es requerida")]
         public string BirthDate { get; set; } = null!;
     }
 }
