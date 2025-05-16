@@ -18,4 +18,6 @@ public partial class Subject
     public int Credits { get; set; }
 
     public virtual ICollection<Parallel> Parallels { get; set; } = new List<Parallel>();
+
+    public virtual ICollection<Career> Careers { get; set; } = new List<Career>();
 }

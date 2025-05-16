@@ -15,5 +15,5 @@ public partial class File
 
     public string FilePath { get; set; } = null!;
 
-    public virtual ICollection<ProfessorsFile> ProfessorsFiles { get; set; } = new List<ProfessorsFile>();
+    public virtual ICollection<Professor> Professors { get; set; } = new List<Professor>();
 }
