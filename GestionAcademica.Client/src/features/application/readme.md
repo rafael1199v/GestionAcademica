@@ -1,1 +1,0 @@
-Directory dedicated for the application side of the program, where applicants put their data and check the status of their application. Delete this readme after filling this folder, please.

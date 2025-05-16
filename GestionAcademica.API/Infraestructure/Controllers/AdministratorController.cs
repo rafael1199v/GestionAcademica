@@ -21,7 +21,6 @@ namespace GestionAcademica.API.Administrator.Infraestructure
 
         [HttpPost]
         [Route("professor")]
-        [Authorize("create:professors")]
         public  IActionResult CreateProfessor([FromBody] CreateProfessorDTO createProfessorDto)
         {
             try
@@ -40,7 +39,6 @@ namespace GestionAcademica.API.Administrator.Infraestructure
 
         [HttpGet]
         [Route("professor")]
-        [Authorize("read:professors")]
         public IActionResult ProfessorListSimple()
         {
             try

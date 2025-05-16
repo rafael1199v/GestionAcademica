@@ -2,6 +2,6 @@ namespace GestionAcademica.API.Application.Abstractions
 {
     public interface ILoginUseCase
     {
-        public string Login(string email, string password);
+        public (string, string) Login(string email, string password);
     }
 }

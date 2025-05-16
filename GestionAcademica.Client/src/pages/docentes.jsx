@@ -1,24 +1,30 @@
 import ItemDocente from "../features/lists/item-docente";
 import Button from "../components/button";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getAllProfessors } from "../services/AdministratorService";
+
 function Docentes() {
   const navigate = useNavigate();
-    const [docentes, setDocentes] = useState([
-      // Datos de ejemplo - reemplazar con datos reales
-      {
-        id: 1,
-        userId: "001",
-        firstName: "Juan",
-        lastName: "Pérez",
-        emailAddress: "juan@ejemplo.com",
-        gender: "Masculino",
-        phoneNumber: "123456789",
-      },
-    ]);
-    const handleNuevoDocente = () => {
-      navigate("/nuevo-docente");
+    const [docentes, setDocentes] = useState([]);
+
+    const fetchDocentes = async () => {
+      try {
+        const result = await getAllProfessors();
+        setDocentes(result);
+      } catch (error) {
+        console.error("Error al obtener los docentes:", error);
+      }
     }
+
+
+    useEffect(() => {
+      fetchDocentes();
+    }, []);
+
+  const handleNuevoDocente = () => {
+    navigate("/nuevo-docente");
+  };
   return (
     <div>
       <h1>Docentes</h1>

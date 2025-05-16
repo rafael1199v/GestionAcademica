@@ -1,74 +1,56 @@
 import React, { useState } from "react";
 import Button from "../components/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { ValidateProfessorForm } from "../services/ValidationService";
+import { createProfessor } from "../services/AdministratorService";
 
 function NuevoDocente() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [birthDate, setBirthDate] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [phone, setPhone] = useState("");
-  const [gender, setGender] = useState("");
+  const navigate = useNavigate();
+  const [errors, setErrors] = useState({});
+  const [professorForm, setProfessorForm] = useState({
+    Name: "",
+    LastName: "",
+    Address: "",
+    PersonalEmail: "",
+    InstitutionalEmail: "",
+    Password: "",
+    ConfirmPassword: "",
+    PhoneNumber: "",
+    BirthDate: "",
+  });
 
-  const correctResponse = (response, message) => {
-    if (response != null && response.toString() != "" && response != undefined)
-      return true;
-    window.alert(
-      "registro no completado en " + message + ", reportanos este error."
-    );
-    return false;
-  };
-  const isAdult = (birthDateStr) => {
-    const birthDate = new Date(birthDateStr);
-    const today = new Date();
-
-    const age = today.getFullYear() - birthDate.getFullYear();
-    const monthDiff = today.getMonth() - birthDate.getMonth();
-    const dayDiff = today.getDate() - birthDate.getDate();
-
-    if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
-      return age - 1 >= 18;
-    }
-
-    return age >= 18;
-  };
-  const validate = () => {
-    if (
-      !firstName.trim() ||
-      !email.trim() ||
-      !password ||
-      !confirmPassword ||
-      !phone ||
-      !birthDate ||
-      !gender
-    ) {
-      return "Todos los campos deben ser completados.";
-    }
-    if (!checkEmail(email)) return "El correo ya existe, inicia sesion.";
-    if (password !== confirmPassword) return "contraseñas no coinciden.";
-    const phoneRegex = /^\d{8}$/;
-    if (!phoneRegex.test(phone))
-      return "El número de teléfono debe tener 8 dígitos.";
-    if (isAdult(birthDate)) return "El usuario NO puede ser un menor de edad";
-    return "correct";
-  };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const validationMessage = validate();
-    if (validationMessage !== "correct") {
-      window.alert(validationMessage);
+    const errors = ValidateProfessorForm(professorForm);
+
+    if(Object.keys(errors).length !== 0){
+      setErrors(errors);
+      console.error(errors);
       return;
     }
-    const user = {
-      firstName,
-      lastName,
-      email,
-      birthDate,
-      password,
-      phone,
-    };
+
+    try {
+      const response = await createProfessor(professorForm);
+      setErrors({});
+      navigate('/docentes');
+    }
+    catch(error) {
+      const response = error.response;
+      if (response?.status === 400 && response.data?.errors) {
+        window.alert("Campos invalidos");
+      }
+      else if (response?.status === 400 && typeof response.data === 'string') {
+        window.alert(response.data);
+      }
+      else if (response?.data?.message) {
+        window.alert(response.data.message);
+      }
+      else {
+        window.alert("Ocurrió un error inesperado.");
+        console.error(error);
+      }
+    }
+    
   };
   return (
     <div className="max-w-md mx-auto mt-28 p-4 space-y-4 bg-white rounded-xl shadow-lg">
@@ -76,84 +58,166 @@ function NuevoDocente() {
 
       <form className="space-y-6" onSubmit={handleSubmit}>
         <div className="flex gap-3">
-          <input
-            className="w-full h-12 border border-gray-800 px-3 rounded-lg"
-            type="text"
-            placeholder="First Name"
-            id="firstName"
-            name="firstName"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
-          />
-          <input
-            className="w-full h-12 border border-gray-800 px-3 rounded-lg"
-            type="text"
-            placeholder="Last Name"
-            id="lastName"
-            name="lastName"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-          />
+          <div className="flex flex-col gap-0.5">
+            <input
+              className="w-full h-12 border border-gray-800 px-3 rounded-lg"
+              type="text"
+              placeholder="Nombre"
+              name="firstName"
+              value={professorForm.Name}
+              onChange={(e) =>
+                setProfessorForm((prevProfessorForm) => ({
+                  ...prevProfessorForm,
+                  Name: e.target.value,
+                }))
+              }
+            />
+            {errors.Name && (
+              <p className="text-red-500 text-sm mt-1">{errors.Name}</p>
+            )}
+          </div>
+
+          <div className="flex flex-col gap-0.5">
+            <input
+              className="w-full h-12 border border-gray-800 px-3 rounded-lg"
+              type="text"
+              placeholder="Apellido"
+              value={professorForm.LastName}
+              onChange={(e) =>
+                setProfessorForm((prevProfessorForm) => ({
+                  ...prevProfessorForm,
+                  LastName: e.target.value,
+                }))
+              }
+            />
+            {errors.LastName && (
+              <p className="text-red-500 text-sm mt-1">{errors.LastName}</p>
+            )}
+          </div>
         </div>
         <div className="space-y-4">
           <input
             className="w-full h-12 border border-gray-800 px-3 rounded-lg"
             type="email"
-            placeholder="Email"
-            id="email"
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
+            placeholder="Email personal"
+            value={professorForm.PersonalEmail}
+            onChange={(e) =>
+              setProfessorForm((prevProfessorForm) => ({
+                ...prevProfessorForm,
+                PersonalEmail: e.target.value,
+              }))
+            }
           />
+          {errors.PersonalEmail && (
+            <p className="text-red-500 text-sm mt-1">{errors.PersonalEmail}</p>
+          )}
+
+          <input
+            className="w-full h-12 border border-gray-800 px-3 rounded-lg"
+            type="email"
+            placeholder="Email institucional"
+            value={professorForm.InstitutionalEmail}
+            onChange={(e) =>
+              setProfessorForm((prevProfessorForm) => ({
+                ...prevProfessorForm,
+                InstitutionalEmail: e.target.value,
+              }))
+            }
+          />
+          {errors.InstitutionalEmail && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.InstitutionalEmail}
+            </p>
+          )}
+
+          <input
+            className="w-full h-12 border border-gray-800 px-3 rounded-lg"
+            type="text"
+            placeholder="Direccion"
+            value={professorForm.Address}
+            onChange={(e) =>
+              setProfessorForm((prevProfessorForm) => ({
+                ...prevProfessorForm,
+                Address: e.target.value,
+              }))
+            }
+          />
+          {errors.Address && (
+            <p className="text-red-500 text-sm mt-1">{errors.Address}</p>
+          )}
+
           <input
             className="w-full h-12 border border-gray-800 px-3 rounded-lg"
             type="date"
-            value={birthDate}
-            onChange={(e) => setBirthDate(e.target.value)}
-            required
+            value={professorForm.BirthDate}
+            onChange={(e) =>
+              setProfessorForm((prevProfessorForm) => ({
+                ...prevProfessorForm,
+                BirthDate: e.target.value,
+              }))
+            }
           />
+          {errors.BirthDate && (
+            <p className="text-red-500 text-sm mt-1">{errors.BirthDate}</p>
+          )}
+
           <input
             className="w-full h-12 border border-gray-800 px-3 rounded-lg"
             type="tel"
-            placeholder="Phone Number"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
+            placeholder="Numero de telefono"
+            value={professorForm.PhoneNumber}
+            onChange={(e) =>
+              setProfessorForm((prevProfessorForm) => ({
+                ...prevProfessorForm,
+                PhoneNumber: e.target.value,
+              }))
+            }
             pattern="^\d{8}$"
             title="Please enter a valid 10-digit phone number"
-            required
           />
-          <select
-            className="w-full h-12 border border-gray-800 px-3 rounded-lg"
-            value={gender}
-            onChange={(e) => setGender(e.target.value)}
-            required
-          >
-            <option value="">Select Gender</option>
-            <option value={true}>Masculino</option>
-            <option value={false}>Femenino</option>
-          </select>
+          {errors.PhoneNumber && (
+            <p className="text-red-500 text-sm mt-1">{errors.PhoneNumber}</p>
+          )}
         </div>
+
         <div className="flex gap-3">
-          <input
-            className="w-full h-12 border border-gray-800 px-3 rounded-lg"
-            type="password"
-            placeholder="Password"
-            id="password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <input
-            className="w-full h-12 border border-gray-800 px-3 rounded-lg"
-            type="password"
-            placeholder="Confirm password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
+          <div className="flex flex-col gap-0.5">
+            <input
+              className="w-full h-12 border border-gray-800 px-3 rounded-lg"
+              type="password"
+              placeholder="Contraseña"
+              value={professorForm.Password}
+              onChange={(e) =>
+                setProfessorForm((prevProfessorForm) => ({
+                  ...prevProfessorForm,
+                  Password: e.target.value,
+                }))
+              }
+            />
+            {errors.Password && (
+              <p className="text-red-500 text-sm mt-1">{errors.Password}</p>
+            )}
+          </div>
+
+          <div className="flex flex-col gap-0.5">
+            <input
+              className="w-full h-12 border border-gray-800 px-3 rounded-lg"
+              type="password"
+              placeholder="Confirmar contraseña"
+              value={professorForm.ConfirmPassword}
+              onChange={(e) =>
+                setProfessorForm((prevProfessorForm) => ({
+                  ...prevProfessorForm,
+                  ConfirmPassword: e.target.value,
+                }))
+              }
+            />
+            {errors.ConfirmPassword && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.ConfirmPassword}
+              </p>
+            )}
+          </div>
         </div>
         <div className="text-center">
           <Button label="Submit" type="submit" />

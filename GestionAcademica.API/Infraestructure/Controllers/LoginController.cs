@@ -1,4 +1,5 @@
 using GestionAcademica.API.Application.Abstractions;
+using GestionAcademica.API.Application.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GestionAcademica.API.Infraestructure.Controllers
@@ -15,23 +16,17 @@ namespace GestionAcademica.API.Infraestructure.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginRequest request)
+        public IActionResult Login([FromBody] LoginDTO request)
         {
             try
             {
-                var token = _loginUseCase.Login(request.Email, request.Password);
-                return Ok(new { token });
+                var userCred = _loginUseCase.Login(request.Email, request.Password);
+                return Ok(new {userId = userCred.Item1, roleId = userCred.Item2});
             }
             catch (Exception ex)
             {
                 return BadRequest(new { message = ex.Message });
             }
         }
-    }
-
-    public class LoginRequest
-    {
-        public string Email { get; set; }
-        public string Password { get; set; }
     }
 }
