@@ -7,6 +7,7 @@ import Reports from "./pages/reports";
 import Materias from "./pages/materias";
 import DocenteRegisterForm from './features/docentes/DocenteRegisterForm'
 import DocenteUpdateForm from './features/docentes/DocenteUpdateForm'
+import DocenteDetails from "./features/docentes/DocenteDetails";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path="/reportes" element={<Reports />} />
             <Route path="/registrar-docente" element={<DocenteRegisterForm />}/>
             <Route path="/editar-docente/:id" element={<DocenteUpdateForm />}/>
+            <Route path="detalles-docente/:id" element={<DocenteDetails />}/>
             <Route path="/materias" element={<Materias />} />
             {/* <Route path="/vacantes" element={<Vacantes />} />
             <Route path="/postulaciones" element={<Postulaciones />} /> */}

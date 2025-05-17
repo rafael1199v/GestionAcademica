@@ -11,6 +11,8 @@ public partial class Parallel
 
     public int SubjectId { get; set; }
 
+    public int Capacity { get; set; }
+
     public virtual ICollection<Class> Classes { get; set; } = new List<Class>();
 
     public virtual Subject Subject { get; set; } = null!;

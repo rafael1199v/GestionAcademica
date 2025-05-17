@@ -31,29 +31,29 @@ function DocenteTable() {
         <h1>Docentes</h1>
         <p>Esta es la página de docentes.</p>
         <Button label="Nuevo docente" onClick={handleNuevoDocente} />
-          <table className="min-w-full bg-white border rounded-lg">
-            <thead>
-              <tr className="bg-gray-100">
-                <th className="px-6 py-3 border-b text-left text-xs font-semibold text-gray-600 uppercase">
-                  ID
-                </th>
-                <th className="px-6 py-3 border-b text-left text-xs font-semibold text-gray-600 uppercase">
-                  Nombre
-                </th>
-                <th className="px-6 py-3 border-b text-left text-xs font-semibold text-gray-600 uppercase">
-                  Apellido
-                </th>
-                <th className="px-6 py-3 border-b text-left text-xs font-semibold text-gray-600 uppercase">
-                  Email
-                </th>
-                <th className="px-6 py-3 border-b text-left text-xs font-semibold text-gray-600 uppercase">
-                  Género
-                </th>
-                <th className="px-6 py-3 border-b text-left text-xs font-semibold text-gray-600 uppercase">
-                  Teléfono
-                </th>
-              </tr>
-            </thead>
+        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 shadow-md">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th scope="col" className="px-6 py-3">
+                Nombre completo
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Dirección
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Email
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Teléfono
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Estado
+              </th>
+              <th scope="col" className="px-6 py-3 w-1/8">
+                {/* Acciones */}
+              </th>
+            </tr>
+          </thead>
             <tbody>
               {docentes.map((docente) => (
                 <ItemDocente key={docente.id} item={docente} />
