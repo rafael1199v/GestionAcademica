@@ -63,13 +63,13 @@ public class RegisterProfessorUseCaseTest
                     Id = 1,
                     Name = professor.Name,
                     LastName = professor.LastName,
-                    //Password = professor.Password,
+                    Password = professor.Password,
                     PersonalEmail = professor.PersonalEmail,
                     InstitutionalEmail = professor.InstitutionalEmail,
                     Address = professor.Address,
                     PhoneNumber = professor.PhoneNumber,
                     BirthDate = DateOnly.Parse(professor.BirthDate),
-                    //RoleId = (int) RoleEnum.Professor
+                    RoleId = (int) RoleEnum.Professor
                 }
             });
 

@@ -17,7 +17,7 @@ namespace GestionAcademica.API.Application
         public (string, string) Login(string email, string password)
         {
             User? user = _userRepository.GetByInstitutionalEmail(email) ?? throw new Exception("No se encontro el usuario");
-            if (_hashUseCase.CreateHash(password) == user.Password)
+            if (_hashUseCase.CreateHash(password) != user.Password)
                 throw new Exception("Contraseña incorrecta");
 
             return (user.Id.ToString(), user.RoleId.ToString());
