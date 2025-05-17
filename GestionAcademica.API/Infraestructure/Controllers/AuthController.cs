@@ -16,7 +16,7 @@ namespace GestionAcademica.API.Infraestructure.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginDTO request)
+        public IActionResult Login([FromBody] AuthDTO request)
         {
             try
             {

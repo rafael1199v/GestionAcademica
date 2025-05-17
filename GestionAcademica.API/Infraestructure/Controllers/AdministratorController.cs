@@ -51,5 +51,21 @@ namespace GestionAcademica.API.Administrator.Infraestructure
             }
         }
 
+
+        [HttpPut]
+        [Route("professor")]
+        public IActionResult UpdateProfessor(UpdateProfessorDTO updateProfessorDto)
+        {
+            try
+            {
+                return Ok("Docente actualizado correctamente");
+            }
+
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }
