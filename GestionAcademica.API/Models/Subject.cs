@@ -11,9 +11,7 @@ public partial class Subject
 
     public string? Initial { get; set; }
 
-    public int Status { get; set; }
-
-    public int Capacity { get; set; }
+    public string Description { get; set; } = null!;
 
     public int Credits { get; set; }
 
