@@ -28,6 +28,7 @@ namespace GestionAcademica.API.Application
                     InstitutionalEmail = item.User.InstitutionalEmail,
                     Address = item.User.Address,
                     PhoneNumber = item.User.PhoneNumber,
+                    Status = item.User.Status,
                     subjects = new List<ClassDTO>()
                 });
             }
