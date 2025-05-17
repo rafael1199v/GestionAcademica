@@ -25,9 +25,6 @@ namespace GestionAcademica.API.Administrator.Infraestructure
         {
             try
             {
-                if(!ModelState.IsValid)
-                    return BadRequest(ModelState);
-
                 ResponseProfessorDTO professor = _registerProfessorUseCase.CreateProffesor(createProfessorDto);
                 return Ok(professor);
             }
@@ -58,7 +55,7 @@ namespace GestionAcademica.API.Administrator.Infraestructure
         {
             try
             {
-                return Ok("Docente actualizado correctamente");
+                return Ok(new { message = "Docente actualizado correctamente"});
             }
 
             catch (Exception ex)

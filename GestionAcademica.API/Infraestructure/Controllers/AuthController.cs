@@ -25,7 +25,7 @@ namespace GestionAcademica.API.Infraestructure.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                return BadRequest(ex.Message);
             }
         }
     }
