@@ -6,9 +6,7 @@ import {
   ArrowLeftIcon,
   UsersIcon,
   AcademicCapIcon,
-  FolderPlusIcon,
   ClipboardDocumentCheckIcon,
-  InboxArrowDownIcon,
 } from "@heroicons/react/16/solid";
 
 export function SideBar() {
