@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import SideBarItem from "./side-bar__item";
 import { SIDE_BAR_ITEM } from "../config/side-bar__item-const";
+import { useAuth } from "../Pages/AuthContext";
+import { useNavigate } from "react-router-dom";
 import {
   HomeIcon,
   ArrowLeftIcon,
@@ -11,6 +13,20 @@ import {
 
 export function SideBar() {
   const [selectedItem, setSelectedItem] = useState(SIDE_BAR_ITEM.PROFESSOR);
+
+  const navigate = useNavigate();
+  const { setIsAuthenticated } = useAuth();
+
+  const handleLogOut = async (e) => {
+    try {
+      localStorage.removeItem('userId');
+      localStorage.removeItem('roleId');
+      setIsAuthenticated(false);
+      navigate("/login");
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
 
   return (
     <div className="w-64 h-screen flex-col justify-between border-e border-gray-100 bg-white">
@@ -79,9 +95,9 @@ export function SideBar() {
             isSelected={selectedItem === SIDE_BAR_ITEM.SIGN_OUT}
             onClick={() => {
               setSelectedItem(SIDE_BAR_ITEM.HOME);
+              handleLogOut();
             }}
             icon={<ArrowLeftIcon className="w-4 h-4" />}
-            // navigateTo="/signout"
           />
         </ul>
         {/*// TODO: Filter the items based on the user role */}

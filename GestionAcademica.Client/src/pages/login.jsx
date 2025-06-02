@@ -3,12 +3,14 @@ import Button from "../components/button";
 import { Link } from "react-router-dom";
 import { login } from "../services/AuthService";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "./AuthContext";
 
 const LoginForm = () => {
+  const { setIsAuthenticated } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,6 +18,7 @@ const LoginForm = () => {
       const response = await login({email, password});
       localStorage.setItem('userId', response.userId);
       localStorage.setItem('roleId', response.roleId);
+      setIsAuthenticated(true);
       navigate("/");
     } catch (err) {
       console.log(err.message);

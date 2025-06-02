@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "./Pages/Layout";
 import Home from "./pages/home";
 import Docentes from "./features/docentes/DocenteTable";
@@ -10,30 +8,28 @@ import DocenteUpdateForm from "./features/docentes/DocenteUpdateForm";
 import DocenteDetails from "./features/docentes/DocenteDetails";
 import LoginForm from "./pages/login";
 import { AuthService } from "./services/AuthService";
+import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./pages/AuthContext";
 
 function App() {
   return (
-    <>
+    <AuthProvider>
       <Router>
-        <Routes>
-          <Route path="/login" element={<LoginForm />} />
-        </Routes>
-
-        {AuthService.isLogIn() && (
-          <Layout>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/docentes" element={<Docentes />} />
-              <Route path="/reportes" element={<Reports />} />
-              <Route path="/registrar-docente" element={<DocenteRegisterForm />} />
-              <Route path="/editar-docente/:id" element={<DocenteUpdateForm />} />
-              <Route path="detalles-docente/:id" element={<DocenteDetails />} />
-              <Route path="/materias" element={<Materias />} />
-            </Routes>
-          </Layout>
-        )}
+        <Layout>
+          <Routes>
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/docentes" element={<Docentes />} />
+            <Route path="/reportes" element={<Reports />} />
+            <Route path="/registrar-docente" element={<DocenteRegisterForm />} />
+            <Route path="/editar-docente/:id" element={<DocenteUpdateForm />} />
+            <Route path="detalles-docente/:id" element={<DocenteDetails />} />
+            <Route path="/materias" element={<Materias />} />
+          </Routes>
+        </Layout>
       </Router>
-    </>
+    </AuthProvider>
   );
 }
 
