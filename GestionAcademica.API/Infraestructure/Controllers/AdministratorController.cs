@@ -74,7 +74,6 @@ namespace GestionAcademica.API.Administrator.Infraestructure
         {
             try
             {
-                Console.WriteLine($"El Id del docente es: {id}");
                 return Ok(_getProfessorInformation.GetProfessorInformationRun(id));
             }
             catch (Exception ex)
