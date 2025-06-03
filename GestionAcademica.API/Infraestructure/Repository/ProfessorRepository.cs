@@ -33,7 +33,9 @@ namespace GestionAcademica.API.Infraestructure.Repository
 
         public Professor GetById(int id)
         {
-            Professor? professor = _context.Professors.FirstOrDefault(_professor => _professor.Id == id);
+            Professor? professor = _context.Professors
+                .Include(_professor => _professor.User)
+                .FirstOrDefault(_professor => _professor.Id == id);
 
             if (professor == null)
                 throw new Exception("Profesor no encontrado");

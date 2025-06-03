@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SideBar from "../components/side-bar";
 import { useAuth } from "./AuthContext";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -8,15 +8,21 @@ function Layout({ children }) {
   const navigate = useNavigate();
   const location = useLocation();
 
+  useEffect(() => { 
+    if (!isAuthenticated) {
+      navigate("/login");
+      console.log("ASDASDASD"); 
+    };
+  }, []);
+
   const isLoginPage = location.pathname === "/login";
 
   if (isLoginPage) {
     return <div className="flex-1">{children}</div>;
   }
-  if (!isAuthenticated) {
-    navigate("/login");
-    return null;
-  }
+  
+
+  
 
   return (
     <div className="flex min-h-screen">

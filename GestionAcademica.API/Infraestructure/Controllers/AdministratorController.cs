@@ -12,16 +12,19 @@ namespace GestionAcademica.API.Administrator.Infraestructure
     {
         private readonly IRegisterProfessorUseCase _registerProfessorUseCase;
         private readonly IDetailProfessorUseCase _detailProfessorUseCase;
+        private readonly IGetProfessorInformation _getProfessorInformation;
 
-        public AdministratorController(IRegisterProfessorUseCase registerProfessorUseCase, IDetailProfessorUseCase detailProfessorUseCase)
+        public AdministratorController(IRegisterProfessorUseCase registerProfessorUseCase,
+            IDetailProfessorUseCase detailProfessorUseCase, IGetProfessorInformation getProfessorInformation)
         {
             _registerProfessorUseCase = registerProfessorUseCase;
             _detailProfessorUseCase = detailProfessorUseCase;
+            _getProfessorInformation = getProfessorInformation;
         }
 
         [HttpPost]
         [Route("professor")]
-        public  IActionResult CreateProfessor([FromBody] CreateProfessorDTO createProfessorDto)
+        public IActionResult CreateProfessor([FromBody] CreateProfessorDTO createProfessorDto)
         {
             try
             {
@@ -55,7 +58,7 @@ namespace GestionAcademica.API.Administrator.Infraestructure
         {
             try
             {
-                return Ok(new { message = "Docente actualizado correctamente"});
+                return Ok(new { message = "Docente actualizado correctamente" });
             }
 
             catch (Exception ex)
@@ -64,5 +67,21 @@ namespace GestionAcademica.API.Administrator.Infraestructure
             }
         }
 
-    }
+
+        [HttpGet]
+        [Route("professor/{id}")]
+        public IActionResult GetProfessorInformation(int id)
+        {
+            try
+            {
+                Console.WriteLine($"El Id del docente es: {id}");
+                return Ok(_getProfessorInformation.GetProfessorInformationRun(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+}
 }

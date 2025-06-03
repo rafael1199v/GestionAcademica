@@ -18,10 +18,11 @@ const LoginForm = () => {
       const response = await login({email, password});
       localStorage.setItem('userId', response.userId);
       localStorage.setItem('roleId', response.roleId);
+      
       setIsAuthenticated(true);
       navigate("/");
     } catch (err) {
-      console.log(err.message);
+      console.log(err);
     }
   };
 
