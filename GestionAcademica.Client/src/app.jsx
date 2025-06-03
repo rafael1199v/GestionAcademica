@@ -1,4 +1,4 @@
-import Layout from "./Pages/Layout";
+import Layout from "./pages/layout";
 import Home from "./pages/home";
 import Docentes from "./features/docentes/DocenteTable";
 import Reports from "./pages/reports";
