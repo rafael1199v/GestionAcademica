@@ -11,7 +11,7 @@ export const createProfessor = async (professor) => {
 }
 
 export const getProfessorById = async (id) => {
-    //const response = await axionsInstance.get(`/Administrator/professor/${id}`);
+    //const response = await axiosInstance.get(`/Administrator/professor/${id}`);
     const response = {
         data: {
             Id: 1,
@@ -34,20 +34,12 @@ export const updateProfessor = async (professor) => {
 }
 
 export const getSubjectById = async (id) => {
-    const response = await axionsInstance.get(`/Administrator/professor/${id}`);
-    // const response = {
-    //     data: {
-    //         Id: 1,
-    //         Name: 'Intro a progra',
-    //         Description: 'aaaaaaaaaaaaaaaaaaaaaaaaa',
-    //         Professor: 'Don Juan'
-    //     }
-    // }
+    const response = await axiosInstance.get(`/Administrator/subject/${id}`);
 
     return response.data;
 }
 
-export const updateSubject = async (ci) => {
-    const response = await axiosInstance.put('/Administrator/subject', ci);
+export const updateSubject = async (subject) => {
+    const response = await axiosInstance.put('/Administrator/subject', subject);
     return response.data;
 }

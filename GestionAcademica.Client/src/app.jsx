@@ -27,7 +27,7 @@ function App() {
             <Route path="/editar-docente/:id" element={<DocenteUpdateForm />} />
             <Route path="detalles-docente/:id" element={<DocenteDetails />} />
             <Route path="/materias" element={<Materias />} />
-            <Route path="/materia" element={<Materia />} />
+            <Route path="/materia/:id" element={<Materia />} />
           </Routes>
         </Layout>
       </Router>

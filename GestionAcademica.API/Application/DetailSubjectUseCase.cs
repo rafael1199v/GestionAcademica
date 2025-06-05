@@ -27,12 +27,30 @@ namespace GestionAcademica.API.Application
                     Description = item.Description,
                     Credits = item.Credits,
                     ProfessorId = 0,
-                    ProfessorName = "",
-                    ProfessorLastName = ""
+                    ProfessorName = ""
                 });
             }
 
             return result;
+        }
+        public SubjectDTO ObtainSubjectById(int id)
+        {
+            Subject subject = _subjectRepository.GetById(id);
+
+            return new SubjectDTO
+            {
+                Id = subject.Id,
+                Name = subject.Name,
+                Description = subject.Description,
+                Credits = subject.Credits,
+                ProfessorId = 0,
+                ProfessorName = ""
+            };
+        }
+
+        public void UpdateSubject(SubjectDTO subject)
+        {
+            throw new NotImplementedException();
         }
     }
 }

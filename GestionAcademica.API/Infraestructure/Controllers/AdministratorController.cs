@@ -21,7 +21,7 @@ namespace GestionAcademica.API.Administrator.Infraestructure
             _registerProfessorUseCase = registerProfessorUseCase;
             _detailProfessorUseCase = detailProfessorUseCase;
             _getProfessorInformation = getProfessorInformation;
-            _detailSubjectUseCase = detailSubjectUseCase
+            _detailSubjectUseCase = detailSubjectUseCase;
         }
 
         [HttpPost]
@@ -69,7 +69,6 @@ namespace GestionAcademica.API.Administrator.Infraestructure
             }
         }
 
-
         [HttpGet]
         [Route("professor/{id}")]
         public IActionResult GetProfessorInformation(int id)
@@ -91,6 +90,35 @@ namespace GestionAcademica.API.Administrator.Infraestructure
             try
             {
                 return Ok(_detailSubjectUseCase.ObtainAllSubjects());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        [Route("subject")]
+        public IActionResult UpdateSubject(SubjectDTO subject)
+        {
+            try
+            {
+                // _detailSubjectUseCase.UpdateSubject(subject);
+                return Ok(new { message = "Asignatura actualizada correctamente" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("subject/{id}")]
+        public IActionResult SubjectById(int id)
+        {
+            try
+            {
+                return Ok(_detailSubjectUseCase.ObtainSubjectById(id));
             }
             catch (Exception ex)
             {

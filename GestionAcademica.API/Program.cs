@@ -85,6 +85,8 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IHashUseCase, HashUseCase>();
 builder.Services.AddScoped<ILoginUseCase, LoginUseCase>();
 builder.Services.AddScoped<IGetProfessorInformation, GetProfessorInformation>();
+builder.Services.AddScoped<IDetailSubjectUseCase, DetailSubjectUseCase>();
+builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
 
 var app = builder.Build();
 

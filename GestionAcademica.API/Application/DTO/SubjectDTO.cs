@@ -12,6 +12,4 @@ public class SubjectDTO
     public int ProfessorId { get; set; }
     
     public string ProfessorName { get; set; } = null!;
-    
-    public string ProfessorLastName { get; set; } = null!;
 }
