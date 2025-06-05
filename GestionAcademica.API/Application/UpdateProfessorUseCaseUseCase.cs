@@ -5,12 +5,12 @@ using GestionAcademica.API.Models;
 
 namespace GestionAcademica.API.Application;
 
-public class UpdateProfessor : IUpdateProfessor
+public class UpdateProfessorUseCaseUseCase : IUpdateProfessorUseCase
 {
     private readonly IProfessorRepository _professorRepository;
 
 
-    public UpdateProfessor(IProfessorRepository professorRepository)
+    public UpdateProfessorUseCaseUseCase(IProfessorRepository professorRepository)
     {
         _professorRepository = professorRepository;
     }

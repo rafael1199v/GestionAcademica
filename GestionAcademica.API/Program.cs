@@ -37,8 +37,8 @@ builder.Services.AddScoped<IProfessorRepository, ProfessorRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IHashUseCase, HashUseCase>();
 builder.Services.AddScoped<ILoginUseCase, LoginUseCase>();
-builder.Services.AddScoped<IGetProfessorInformation, GetProfessorInformation>();
-builder.Services.AddScoped<IUpdateProfessor, UpdateProfessor>();
+builder.Services.AddScoped<IGetProfessorInformationUseCase, GetProfessorInformationUseCaseUseCase>();
+builder.Services.AddScoped<IUpdateProfessorUseCase, UpdateProfessorUseCaseUseCase>();
 
 var app = builder.Build();
 

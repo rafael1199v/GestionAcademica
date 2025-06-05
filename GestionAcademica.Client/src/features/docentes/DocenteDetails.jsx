@@ -1,11 +1,12 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import React, { useState, useEffect} from "react";
-import { updateProfessor, getProfessorById } from "../../services/AdministratorService";
+import { getProfessorById } from "../../services/AdministratorService";
 
 function DocenteDetails() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [professorForm, setProfessorForm] = useState({
+ 
+  const [professor, setProfessor] = useState({
     Id: id,
     Name: "",
     LastName: "",
@@ -14,20 +15,23 @@ function DocenteDetails() {
     InstitutionalEmail: "",
     PhoneNumber: "",
     BirthDate: "",
-  });
+  })
   const getProfessor = async (id) => {
-    const professor = await getProfessorById(id);
-    setProfessorForm({
-      Name: professor.Name || "",
-      LastName: professor.LastName || "",
-      Address: professor.Address || "",
-      PersonalEmail: professor.PersonalEmail || "",
-      InstitutionalEmail: professor.InstitutionalEmail || "",
-      PhoneNumber: professor.PhoneNumber || "",
-      BirthDate: professor.BirthDate || "",
+    const professorResponse = await getProfessorById(id);
+    console.log(professorResponse)
+    setProfessor({
+      Name: professorResponse.name || "",
+      LastName: professorResponse.lastName || "",
+      Address: professorResponse.address || "",
+      PersonalEmail: professorResponse.personalEmail || "",
+      InstitutionalEmail: professorResponse.institutionalEmail || "",
+      PhoneNumber: professorResponse.phoneNumber || "",
+      BirthDate: professorResponse.birthDate || "",
     });
   };
+
   useEffect(() => {
+      console.log("El id del docente es", id);
       getProfessor(id);
     }, [])
 
@@ -39,27 +43,27 @@ function DocenteDetails() {
       <div class="flex flex-col mb-4">
         <div class="flex flex-row mb-2">
           <label>Nombre Completo:</label>
-          <p>{professorForm.Name} {professorForm.LastName}</p>
+          <p>{' '} {professor.Name} {professor.LastName}</p>
         </div>
         <div class="flex flex-row mb-2">
           <label>Dirección:</label>
-          <p>{professorForm.Address}</p>
+          <p>{' '} {professor.Address}</p>
         </div>
         <div class="flex flex-row mb-2">
           <label>Email Personal:</label>
-          <p>{professorForm.PersonalEmail}</p>
+          <p>{' '} {professor.PersonalEmail}</p>
         </div>
         <div class="flex flex-row mb-2">
           <label>Email Institucional:</label>
-          <p>{professorForm.InstitutionalEmail}</p>
+          <p>{' '} {professor.InstitutionalEmail}</p>
         </div>
         <div class="flex flex-row mb-2">
-          <label>Teléfono:</label>
-          <p>{professorForm.PhoneNumber}</p>
+          <label>Teléfono</label>
+          <p>{' '} {professor.PhoneNumber}</p>
         </div>
         <div class="flex flex-row mb-2">
           <label>Fecha de Nacimiento:</label>
-          <p>{professorForm.BirthDate}</p>
+          <p>{' '} {professor.BirthDate}</p>
         </div>
 
         <button onClick={() => navigate('/docentes')}>Volver</button>
