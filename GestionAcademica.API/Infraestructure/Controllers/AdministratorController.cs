@@ -13,13 +13,16 @@ namespace GestionAcademica.API.Administrator.Infraestructure
         private readonly IRegisterProfessorUseCase _registerProfessorUseCase;
         private readonly IDetailProfessorUseCase _detailProfessorUseCase;
         private readonly IGetProfessorInformation _getProfessorInformation;
+        private readonly IUpdateProfessor _updateProfessor;
 
         public AdministratorController(IRegisterProfessorUseCase registerProfessorUseCase,
-            IDetailProfessorUseCase detailProfessorUseCase, IGetProfessorInformation getProfessorInformation)
+            IDetailProfessorUseCase detailProfessorUseCase, IGetProfessorInformation getProfessorInformation,
+            IUpdateProfessor updateProfessor)
         {
             _registerProfessorUseCase = registerProfessorUseCase;
             _detailProfessorUseCase = detailProfessorUseCase;
             _getProfessorInformation = getProfessorInformation;
+            _updateProfessor = updateProfessor;
         }
 
         [HttpPost]
@@ -58,9 +61,9 @@ namespace GestionAcademica.API.Administrator.Infraestructure
         {
             try
             {
+                _updateProfessor.UpdateProfessorRun(updateProfessorDto);
                 return Ok(new { message = "Docente actualizado correctamente" });
             }
-
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
