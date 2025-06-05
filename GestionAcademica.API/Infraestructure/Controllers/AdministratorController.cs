@@ -13,13 +13,15 @@ namespace GestionAcademica.API.Administrator.Infraestructure
         private readonly IRegisterProfessorUseCase _registerProfessorUseCase;
         private readonly IDetailProfessorUseCase _detailProfessorUseCase;
         private readonly IGetProfessorInformation _getProfessorInformation;
+        private readonly IDetailSubjectUseCase _detailSubjectUseCase;
 
         public AdministratorController(IRegisterProfessorUseCase registerProfessorUseCase,
-            IDetailProfessorUseCase detailProfessorUseCase, IGetProfessorInformation getProfessorInformation)
+            IDetailProfessorUseCase detailProfessorUseCase, IGetProfessorInformation getProfessorInformation, IDetailSubjectUseCase detailSubjectUseCase)
         {
             _registerProfessorUseCase = registerProfessorUseCase;
             _detailProfessorUseCase = detailProfessorUseCase;
             _getProfessorInformation = getProfessorInformation;
+            _detailSubjectUseCase = detailSubjectUseCase
         }
 
         [HttpPost]
@@ -82,5 +84,18 @@ namespace GestionAcademica.API.Administrator.Infraestructure
             }
         }
 
-}
+        [HttpGet]
+        [Route("subject")]
+        public IActionResult SubjectListSimple()
+        {
+            try
+            {
+                return Ok(_detailSubjectUseCase.ObtainAllSubjects());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+    }
 }

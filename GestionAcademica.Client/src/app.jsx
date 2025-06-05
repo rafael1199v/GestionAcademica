@@ -11,6 +11,7 @@ import { AuthService } from "./services/AuthService";
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./pages/AuthContext";
+import Materia from "./pages/materia";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path="/editar-docente/:id" element={<DocenteUpdateForm />} />
             <Route path="detalles-docente/:id" element={<DocenteDetails />} />
             <Route path="/materias" element={<Materias />} />
+            <Route path="/materia" element={<Materia />} />
           </Routes>
         </Layout>
       </Router>
