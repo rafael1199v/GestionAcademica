@@ -21,9 +21,6 @@ function Layout({ children }) {
     return <div className="flex-1">{children}</div>;
   }
   
-
-  
-
   return (
     <div className="flex min-h-screen">
       <SideBar />

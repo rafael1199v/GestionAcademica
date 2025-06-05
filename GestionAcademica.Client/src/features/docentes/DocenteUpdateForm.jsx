@@ -3,6 +3,8 @@ import Button from "../../components/button";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ValidateProfessorUpdateForm } from "../../services/ValidationService";
 import { updateProfessor, getProfessorById } from "../../services/AdministratorService";
+import { parse, format } from "date-fns"
+
 
 function DocenteUpdateForm() {
   const navigate = useNavigate();
@@ -21,15 +23,19 @@ function DocenteUpdateForm() {
 
   const getProfessor = async (id) => {
     const professor = await getProfessorById(id);
+    console.log(professor.birthDate)
+    const dateFormated = parse(professor.birthDate, 'dd/MM/yyyy', new Date());
+
     setProfessorForm({
-      Name: professor.Name || "",
-      LastName: professor.LastName || "",
-      Address: professor.Address || "",
-      PersonalEmail: professor.PersonalEmail || "",
-      InstitutionalEmail: professor.InstitutionalEmail || "",
-      PhoneNumber: professor.PhoneNumber || "",
-      BirthDate: professor.BirthDate || "",
-    })
+      Id: id,
+      Name: professor.name || "",
+      LastName: professor.lastName || "",
+      Address: professor.address || "",
+      PersonalEmail: professor.personalEmail || "",
+      InstitutionalEmail: professor.institutionalEmail || "",
+      PhoneNumber: professor.phoneNumber || "",
+      BirthDate: format(dateFormated, 'yyyy-MM-dd') || "",
+    });
   }
 
   useEffect(() => {
@@ -48,7 +54,7 @@ function DocenteUpdateForm() {
 
     try {
       const response = await updateProfessor(professorForm);
-      window.alert(response);
+      window.alert(response.message);
       setErrors({});
       navigate('/docentes');
     }
@@ -72,7 +78,7 @@ function DocenteUpdateForm() {
   };
   return (
     <div className="max-w-md mx-auto mt-28 p-4 space-y-4 bg-white rounded-xl shadow-lg">
-      <h2 className="text-lg font-bold text-center">Registro</h2>
+      <h2 className="text-lg font-bold text-center">Actualizar</h2>
 
       <form className="space-y-6" onSubmit={handleSubmit}>
         <div className="flex gap-3">
