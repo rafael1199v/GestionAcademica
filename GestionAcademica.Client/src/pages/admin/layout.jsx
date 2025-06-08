@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import SideBar from "../components/side-bar";
+import SideBar from "../../components/side-bar";
 
 function Layout({ children }) {
   const { isAuthenticated } = useAuth();
@@ -17,9 +17,6 @@ function Layout({ children }) {
   if (isLoginPage) {
     return <div className="flex-1">{children}</div>;
   }
-  
-
-  
 
   return (
     <div className="flex min-h-screen">

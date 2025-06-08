@@ -1,5 +1,7 @@
-import ItemVacante from "../features/lists/item-vacante";
-function Vacantes() {
+import React from 'react'
+import ItemVacante from '../../features/lists/item-vacante';
+
+function Vacancies() {
   return (
     <div>
       <h1>Vacantes</h1>
@@ -22,7 +24,7 @@ function Vacantes() {
         />
       </ul>
     </div>
-  );
+  )
 }
 
-export default Vacantes;
+export default Vacancies

@@ -1,6 +1,5 @@
 import ItemMateria from "../features/lists/item-materia";
 import { useNavigate } from "react-router-dom";
-
 function Materias(){
     const navigate = useNavigate();
     return(
