@@ -14,6 +14,7 @@ import { ROLES } from "./config/role-const";
 import LayoutApplicant from "./pages/applicant/LayoutApplicant";
 import Vacancies from "./pages/applicant/Vacancies";
 import Applications from './pages/applicant/Applications'
+import ApplicationDetail from "./pages/applicant/ApplicationDetail";
 
 function App() {
 
@@ -40,6 +41,7 @@ function App() {
                   <Route path="/applicant" element={<Home />} />
                   <Route path="/applicant/vacancies" element={<Vacancies />} />
                   <Route path="/applicant/applications" element={ <Applications />} />
+                  <Route path="/applicant/applications/:id" element={ <ApplicationDetail />}/>
               </Route>
             </Route>
           </Routes>
