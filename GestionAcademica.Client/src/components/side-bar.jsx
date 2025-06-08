@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import SideBarItem from "./side-bar__item";
 import { SIDE_BAR_ITEM } from "../config/side-bar__item-const";
-import { useAuth } from "../Pages/AuthContext";
+import { useAuthContext } from "../hooks/UseAuthContext";
 import { useNavigate } from "react-router-dom";
 import {
   HomeIcon,
@@ -13,15 +13,15 @@ import {
 
 export function SideBar() {
   const [selectedItem, setSelectedItem] = useState(SIDE_BAR_ITEM.PROFESSOR);
-
   const navigate = useNavigate();
-  const { setIsAuthenticated } = useAuth();
+  const { setUsersession } = useAuthContext();
 
   const handleLogOut = async (e) => {
     try {
       localStorage.removeItem('userId');
       localStorage.removeItem('roleId');
-      setIsAuthenticated(false);
+      setUsersession(null);
+      
       navigate("/login");
     } catch (err) {
       console.log(err.message);
