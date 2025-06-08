@@ -3,13 +3,13 @@ import Button from "../components/button";
 import { Link } from "react-router-dom";
 import { login } from "../services/AuthService";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "./AuthContext";
+import { useAuthContext } from "../hooks/UseAuthContext";
+import { constructNow } from "date-fns";
 
 const LoginForm = () => {
-  const { setIsAuthenticated } = useAuth();
+  const { setUsersession } = useAuthContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -19,7 +19,7 @@ const LoginForm = () => {
       localStorage.setItem('userId', response.userId);
       localStorage.setItem('roleId', response.roleId);
       
-      setIsAuthenticated(true);
+      setUsersession({userId: response.userId, roleId: response.roleId});
       navigate("/");
     } catch (err) {
       console.log(err);

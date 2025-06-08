@@ -12,15 +12,18 @@ namespace GestionAcademica.API.Administrator.Infraestructure
     {
         private readonly IRegisterProfessorUseCase _registerProfessorUseCase;
         private readonly IDetailProfessorUseCase _detailProfessorUseCase;
-        private readonly IGetProfessorInformation _getProfessorInformation;
+        private readonly IGetProfessorInformationUseCase _getProfessorInformationUseCase;
         private readonly IDetailSubjectUseCase _detailSubjectUseCase;
+        private readonly IUpdateProfessorUseCase _updateProfessorUseCase;
 
         public AdministratorController(IRegisterProfessorUseCase registerProfessorUseCase,
-            IDetailProfessorUseCase detailProfessorUseCase, IGetProfessorInformation getProfessorInformation, IDetailSubjectUseCase detailSubjectUseCase)
+            IDetailProfessorUseCase detailProfessorUseCase, IGetProfessorInformationUseCase getProfessorInformationUseCase,
+            IUpdateProfessorUseCase updateProfessorUseCase, IDetailSubjectUseCase detailSubjectUseCase)
         {
             _registerProfessorUseCase = registerProfessorUseCase;
             _detailProfessorUseCase = detailProfessorUseCase;
-            _getProfessorInformation = getProfessorInformation;
+            _getProfessorInformationUseCase = getProfessorInformationUseCase;
+            _updateProfessorUseCase = updateProfessorUseCase;
             _detailSubjectUseCase = detailSubjectUseCase;
         }
 
@@ -60,9 +63,9 @@ namespace GestionAcademica.API.Administrator.Infraestructure
         {
             try
             {
+                _updateProfessorUseCase.UpdateProfessorRun(updateProfessorDto);
                 return Ok(new { message = "Docente actualizado correctamente" });
             }
-
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
@@ -75,7 +78,7 @@ namespace GestionAcademica.API.Administrator.Infraestructure
         {
             try
             {
-                return Ok(_getProfessorInformation.GetProfessorInformationRun(id));
+                return Ok(_getProfessorInformationUseCase.GetProfessorInformationRun(id));
             }
             catch (Exception ex)
             {

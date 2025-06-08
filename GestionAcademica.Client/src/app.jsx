@@ -7,17 +7,18 @@ import DocenteRegisterForm from "./features/docentes/DocenteRegisterForm";
 import DocenteUpdateForm from "./features/docentes/DocenteUpdateForm";
 import DocenteDetails from "./features/docentes/DocenteDetails";
 import LoginForm from "./pages/login";
-import { AuthService } from "./services/AuthService";
-import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./pages/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
+import { useAuthContext } from "./hooks/UseAuthContext";
 import Materia from "./pages/materia";
 
 function App() {
+
+  const { userSession } = useAuthContext();
+
   return (
-    <AuthProvider>
       <Router>
-        <Layout>
           <Routes>
             <Route path="/login" element={<LoginForm />} />
             <Route path="/" element={<Home />} />
@@ -27,11 +28,8 @@ function App() {
             <Route path="/editar-docente/:id" element={<DocenteUpdateForm />} />
             <Route path="detalles-docente/:id" element={<DocenteDetails />} />
             <Route path="/materias" element={<Materias />} />
-            <Route path="/materia/:id" element={<Materia />} />
           </Routes>
-        </Layout>
       </Router>
-    </AuthProvider>
   );
 }
 

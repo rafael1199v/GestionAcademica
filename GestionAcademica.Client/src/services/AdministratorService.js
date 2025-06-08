@@ -1,4 +1,5 @@
 import { axiosInstance } from "./AxiosInstance";
+import { ROLES } from "../config/role-const";
 
 export const getAllProfessors = async () => {
     const response = await axiosInstance.get('/Administrator/professor');
@@ -11,7 +12,7 @@ export const createProfessor = async (professor) => {
 }
 
 export const getProfessorById = async (id) => {
-    //const response = await axiosInstance.get(`/Administrator/professor/${id}`);
+    //const response = await axionsInstance.get(`/Administrator/professor/${id}`);
     const response = {
         data: {
             Id: 1,
@@ -29,6 +30,7 @@ export const getProfessorById = async (id) => {
 }
 
 export const updateProfessor = async (professor) => {
+    professor.roleId = ROLES.PROFESSOR;
     const response = await axiosInstance.put('/Administrator/professor', professor);
     return response.data;
 }
