@@ -1,10 +1,10 @@
+import { SidebarApplicant } from "../../components/SidebarApplicant";
 import { Outlet } from "react-router-dom";
-import SideBar from "../components/side-bar";
 
-function Layout({ children }) {
+function LayoutApplicant() {
   return (
     <div className="flex min-h-screen">
-      <SideBar />
+      <SidebarApplicant />
       <div className="flex-1 p-8">
         <Outlet />
       </div>
@@ -12,4 +12,4 @@ function Layout({ children }) {
   );
 }
 
-export default Layout;
+export default LayoutApplicant

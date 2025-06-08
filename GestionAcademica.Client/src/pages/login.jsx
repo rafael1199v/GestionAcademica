@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { login } from "../services/AuthService";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/UseAuthContext";
-import { constructNow } from "date-fns";
+import { ROLES } from "../config/role-const";
 
 const LoginForm = () => {
   const { setUsersession } = useAuthContext();
@@ -20,7 +20,13 @@ const LoginForm = () => {
       localStorage.setItem('roleId', response.roleId);
       
       setUsersession({userId: response.userId, roleId: response.roleId});
-      navigate("/");
+
+      if(response.roleId == ROLES.APPLICANT)
+        navigate("/applicant");
+      else
+        navigate("/");
+
+        
     } catch (err) {
       console.log(err);
     }

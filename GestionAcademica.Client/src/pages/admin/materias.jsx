@@ -1,4 +1,4 @@
-import ItemMateria from "../features/lists/item-materia";
+import ItemMateria from "../../features/lists/item-materia";
 function Materias(){
     return(
         <div>
