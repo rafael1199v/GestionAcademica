@@ -33,7 +33,6 @@ function Materia() {
 
   const loadProfessors = async () => {
     const professorsList = await getAllProfessors();
-    console.log(professorsList);
     setProfessors(professorsList);
   };
 

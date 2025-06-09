@@ -4,7 +4,6 @@ import { ROLES } from "../config/role-const";
 export const getAllProfessors = async () => {
     try {
         const response = await axiosInstance.get('/Administrator/professor');
-        console.log('Response:', response);
         return response.data;
     } catch (error) {
         console.error('Error fetching professors:', error);
@@ -39,4 +38,15 @@ export const getSubjectById = async (id) => {
 export const updateSubject = async (subject) => {
     const response = await axiosInstance.put('/Administrator/subject', subject);
     return response.data;
+}
+
+export const getAllSubjects = async () => {
+    try {
+        const response = await axiosInstance.get('/Administrator/subject');
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching subjects:', error);
+        console.error('Error details:', error.response?.data);
+        throw error;
+    }
 }
