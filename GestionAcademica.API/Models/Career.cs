@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GestionAcademica.API.Models;
+namespace GestionAcademica.API;
 
 public partial class Career
 {
