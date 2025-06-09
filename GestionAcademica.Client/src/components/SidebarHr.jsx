@@ -3,8 +3,6 @@ import SideBarItem from "./side-bar__item";
 import { SIDE_BAR_ITEM } from "../config/side-bar__item-const";
 import { useAuthContext } from "../hooks/UseAuthContext";
 import { useNavigate } from "react-router-dom";
-
-
 import {
   HomeIcon,
   ArrowLeftIcon,
@@ -12,7 +10,7 @@ import {
   InboxArrowDownIcon
 } from "@heroicons/react/16/solid";
 
-export function SidebarApplicant() {
+function SidebarHr() {
   const [selectedItem, setSelectedItem] = useState(SIDE_BAR_ITEM.HOME);
   const navigate = useNavigate();
   const { setUsersession } = useAuthContext();
@@ -44,16 +42,7 @@ export function SidebarApplicant() {
               setSelectedItem(SIDE_BAR_ITEM.HOME);
             }}
             icon={<HomeIcon className="w-4 h-4" />}
-            navigateTo="/applicant"
-          />
-          <SideBarItem
-            text="Vacantes"
-            isSelected={selectedItem === SIDE_BAR_ITEM.VACANCIES}
-            onClick={() => {
-              setSelectedItem(SIDE_BAR_ITEM.VACANCIES);
-            }}
-            icon={<FolderPlusIcon className="w-4 h-4" />}
-            navigateTo="/applicant/vacancies"
+            navigateTo="/hr"
           />
           <SideBarItem
             text="Postulaciones"
@@ -62,7 +51,7 @@ export function SidebarApplicant() {
               setSelectedItem(SIDE_BAR_ITEM.APPLICATIONS);
             }}
             icon={<InboxArrowDownIcon className="w-4 h-4" />}
-            navigateTo="/applicant/applications"
+            navigateTo="/hr/applications"
           />
           <SideBarItem
             text="Cerrar sesion"
@@ -79,4 +68,4 @@ export function SidebarApplicant() {
   );
 }
 
-export default SidebarApplicant;
+export default SidebarHr

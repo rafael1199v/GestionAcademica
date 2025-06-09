@@ -9,7 +9,7 @@ public partial class Professor
 
     public int UserId { get; set; }
 
-    public virtual ICollection<Class> Classes { get; set; } = new List<Class>();
+    public virtual ICollection<Subject> Subjects { get; set; } = new List<Subject>();
 
     public virtual User User { get; set; } = null!;
 

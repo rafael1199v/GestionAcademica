@@ -15,6 +15,8 @@ import LayoutApplicant from "./pages/applicant/LayoutApplicant";
 import Vacancies from "./pages/applicant/Vacancies";
 import Applications from './pages/applicant/Applications'
 import ApplicationDetail from "./pages/applicant/ApplicationDetail";
+import LayoutHr from "./pages/hr/LayoutHr";
+import ApplicationsHr from "./pages/hr/ApplicationsHr";
 
 function App() {
 
@@ -42,6 +44,14 @@ function App() {
                   <Route path="/applicant/vacancies" element={<Vacancies />} />
                   <Route path="/applicant/applications" element={ <Applications />} />
                   <Route path="/applicant/applications/:id" element={ <ApplicationDetail />}/>
+              </Route>
+            </Route>
+              
+
+            <Route element={ <ProtectedRoute canActivate={!!(userSession?.userId) && !!(userSession?.roleId) && userSession?.roleId == ROLES.HR} /> } redirectPath="/login">
+              <Route element={ <LayoutHr /> }>
+                <Route path="/hr" element={ <Home /> }/>
+                <Route path="/hr/applications" element={ <ApplicationsHr /> }/>
               </Route>
             </Route>
           </Routes>
