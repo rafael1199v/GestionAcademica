@@ -4,7 +4,7 @@ using GestionAcademica.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GestionAcademica.API.Administrator.Infraestructure
+namespace GestionAcademica.API.Infraestructure.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -111,7 +111,7 @@ namespace GestionAcademica.API.Administrator.Infraestructure
         {
             try
             {
-                // _detailSubjectUseCase.UpdateSubject(subject);
+                _detailSubjectUseCase.UpdateSubject(subject);
                 return Ok(new { message = "Asignatura actualizada correctamente" });
             }
             catch (Exception ex)

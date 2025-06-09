@@ -8,9 +8,11 @@ namespace GestionAcademica.API.Application
     public class DetailSubjectUseCase : IDetailSubjectUseCase
     {
         private readonly ISubjectRepository _subjectRepository;
-        public DetailSubjectUseCase(ISubjectRepository subjectRepository)
+        private readonly IGetProfessorInformationUseCase _getProfessorInformationUseCase;
+        public DetailSubjectUseCase(ISubjectRepository subjectRepository, IGetProfessorInformationUseCase getProfessorInformationUseCase)
         {
             _subjectRepository = subjectRepository;
+            _getProfessorInformationUseCase = getProfessorInformationUseCase;
         }
         public List<SubjectDTO> ObtainAllSubjects()
         {
@@ -36,6 +38,10 @@ namespace GestionAcademica.API.Application
         public SubjectDTO ObtainSubjectById(int id)
         {
             Subject subject = _subjectRepository.GetById(id);
+            // var professor = _context.Professors.FirstOrDefault(p => p.Id == subject.ProfessorId);
+            var professor = _getProfessorInformationUseCase.GetProfessorInformationRun((int)subject.ProfessorId);
+            if (subject == null)
+                throw new Exception("Asignatura no encontrada");
 
             return new SubjectDTO
             {
@@ -43,25 +49,24 @@ namespace GestionAcademica.API.Application
                 Name = subject.Name,
                 Description = subject.Description,
                 Credits = subject.Credits,
-                ProfessorId = 0,
-                ProfessorName = ""
+                ProfessorId = (int)subject.ProfessorId,
+                ProfessorName = professor.Name+professor.LastName ?? ""
             };
         }
 
-public void UpdateSubject(SubjectDTO subjectDTO)
-{
-    Subject subject = _subjectRepository.GetById(subjectDTO.Id);
-    
-    if (subject == null)
-        throw new Exception("Asignatura no encontrada");
+        public void UpdateSubject(SubjectDTO subjectDTO)
+        {
+            Subject subject = _subjectRepository.GetById(subjectDTO.Id);
 
-    // Actualizar las propiedades
-    subject.Name = subjectDTO.Name;
-    subject.Description = subjectDTO.Description;
-    subject.Credits = subjectDTO.Credits;
-    subject.ProfessorId = subjectDTO.ProfessorId;
+            if (subject == null)
+                throw new Exception("Asignatura no encontrada");
 
-    _subjectRepository.Update(subject);
-}
+            subject.Name = subjectDTO.Name;
+            subject.Description = subjectDTO.Description;
+            subject.Credits = subjectDTO.Credits;
+            subject.ProfessorId = subjectDTO.ProfessorId;
+
+            _subjectRepository.Update(subject);
+        }
     }
 }

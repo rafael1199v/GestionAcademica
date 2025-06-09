@@ -15,7 +15,9 @@ public partial class Subject
 
     public int Credits { get; set; }
 
-    public virtual ICollection<Parallel> Parallels { get; set; } = new List<Parallel>();
+    public int? ProfessorId { get; set; }
+
+    public virtual Professor? Professor { get; set; }
 
     public virtual ICollection<Career> Careers { get; set; } = new List<Career>();
 }

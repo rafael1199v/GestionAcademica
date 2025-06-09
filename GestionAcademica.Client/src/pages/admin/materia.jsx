@@ -1,6 +1,10 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import { getSubjectById, getAllProfessors, updateSubject } from "../../services/AdministratorService"
+import {
+  getSubjectById,
+  getAllProfessors,
+  updateSubject,
+} from "../../services/AdministratorService";
 
 function Materia() {
   const navigate = useNavigate();
@@ -34,15 +38,20 @@ function Materia() {
   };
 
   const handleProfessorChange = async (e) => {
-    const selectedProfessorId = e.target.value;
+    const selectedProfessorId = parseInt(e.target.value);
+    const selectedProfessor = professors.find(
+      (p) => p.id === selectedProfessorId
+    );
+
     const updatedSubject = {
       ...subjectForm,
-      ProfessorId: selectedProfessorId
+      ProfessorId: selectedProfessorId,
+      ProfessorName: selectedProfessor ? selectedProfessor.fullName : "",
     };
 
     try {
       await updateSubject(updatedSubject);
-      await getSubject(id);
+      setSubjectForm(updatedSubject);
     } catch (error) {
       console.error("Error al actualizar el profesor:", error);
     }
@@ -56,11 +65,11 @@ function Materia() {
   return (
     <div className="container mt-4">
       <h1>Materia: {subjectForm.Name}</h1>
-      <p>{subjectForm.Description}</p>
-      
+      <p>Descripcion:<br></br>{subjectForm.Description}</p>
+
       <div className="form-group mt-4">
         <label htmlFor="professor">Profesor asignado:</label>
-        <select 
+        <select
           className="form-control"
           id="professor"
           value={subjectForm.ProfessorId}
@@ -76,7 +85,9 @@ function Materia() {
       </div>
 
       <p className="mt-2">
-        Profesor actual: {subjectForm.ProfessorName || "No asignado"}
+        <br></br>
+        <br></br>
+        Usa la tabla desplegable para actualizar el docente, el proceso puede tardar unos segundos
       </p>
     </div>
   );
