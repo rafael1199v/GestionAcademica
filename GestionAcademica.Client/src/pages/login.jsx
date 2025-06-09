@@ -20,9 +20,11 @@ const LoginForm = () => {
       localStorage.setItem('roleId', response.roleId);
       
       setUsersession({userId: response.userId, roleId: response.roleId});
-
+  
       if(response.roleId == ROLES.APPLICANT)
         navigate("/applicant");
+      else if(response.roleId == ROLES.HR)
+        navigate("/hr");
       else
         navigate("/");
 
