@@ -1,7 +1,7 @@
 import Layout from "./pages/admin/layout";
 import Home from "./pages/home";
 import Docentes from "./features/docentes/DocenteTable";
-import Reports from "./pages/admin/reports";
+import VacanciesAdmin from "./pages/admin/VacanciesAdmin";
 import Materias from "./pages/admin/materias";
 import DocenteRegisterForm from "./features/docentes/DocenteRegisterForm";
 import DocenteUpdateForm from "./features/docentes/DocenteUpdateForm";
@@ -33,7 +33,7 @@ function App() {
               <Route element={<Layout />}>
                   <Route path="/" element={<Home />} />
                   <Route path="/docentes" element={<Docentes />} />
-                  <Route path="/reportes" element={<Reports />} />
+                  <Route path="/vacancies" element={<VacanciesAdmin />} />
                   <Route path="/registrar-docente" element={<DocenteRegisterForm />} />
                   <Route path="/editar-docente/:id" element={<DocenteUpdateForm />} />
                   <Route path="/detalles-docente/:id" element={<DocenteDetails />} />

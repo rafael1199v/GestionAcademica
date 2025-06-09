@@ -55,13 +55,13 @@ export function SideBar() {
             navigateTo="/docentes"
           />
           <SideBarItem
-            text="Reportes"
+            text="Vacantes"
             isSelected={selectedItem === SIDE_BAR_ITEM.REPORTS}
             onClick={() => {
               setSelectedItem(SIDE_BAR_ITEM.REPORTS);
             }}
             icon={<ClipboardDocumentCheckIcon className="w-4 h-4" />}
-            navigateTo="/reportes"
+            navigateTo="/vacancies"
           />
           <SideBarItem
             text="Materias"
