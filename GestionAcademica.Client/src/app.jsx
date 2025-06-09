@@ -17,6 +17,7 @@ import Applications from './pages/applicant/Applications'
 import ApplicationDetail from "./pages/applicant/ApplicationDetail";
 import LayoutHr from "./pages/hr/LayoutHr";
 import ApplicationsHr from "./pages/hr/ApplicationsHr";
+import ApplicationDetailsHr from "./pages/hr/ApplicationDetailsHr";
 
 function App() {
 
@@ -52,6 +53,7 @@ function App() {
               <Route element={ <LayoutHr /> }>
                 <Route path="/hr" element={ <Home /> }/>
                 <Route path="/hr/applications" element={ <ApplicationsHr /> }/>
+                <Route path="/hr/applications/:id" element={ <ApplicationDetailsHr /> }/>
               </Route>
             </Route>
           </Routes>

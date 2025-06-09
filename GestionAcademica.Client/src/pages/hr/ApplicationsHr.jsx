@@ -1,6 +1,12 @@
+import ApplicationsHrTable from "../../features/hr/ApplicationsHrTable"
+
 function ApplicationsHr() {
   return (
-    <div>ApplicationsHr</div>
+    <>
+      <h1 className='text-4xl'>Postulaciones</h1>
+      <ApplicationsHrTable />
+    </>
+    
   )
 }
 
