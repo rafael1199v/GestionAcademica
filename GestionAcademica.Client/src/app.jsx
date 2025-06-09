@@ -14,10 +14,12 @@ import { ROLES } from "./config/role-const";
 import LayoutApplicant from "./pages/applicant/LayoutApplicant";
 import Vacancies from "./pages/applicant/Vacancies";
 import Applications from './pages/applicant/Applications'
+import Materia from "./pages/admin/materia";
 import ApplicationDetail from "./pages/applicant/ApplicationDetail";
 import LayoutHr from "./pages/hr/LayoutHr";
 import ApplicationsHr from "./pages/hr/ApplicationsHr";
 import ApplicationDetailsHr from "./pages/hr/ApplicationDetailsHr";
+
 
 function App() {
 
@@ -36,6 +38,7 @@ function App() {
                   <Route path="/editar-docente/:id" element={<DocenteUpdateForm />} />
                   <Route path="/detalles-docente/:id" element={<DocenteDetails />} />
                   <Route path="/materias" element={<Materias />} />
+                  <Route path="/materia/:id" element={<Materia />} />
               </Route>
             </Route>
 

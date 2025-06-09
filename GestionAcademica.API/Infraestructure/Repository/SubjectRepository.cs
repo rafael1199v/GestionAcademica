@@ -1,5 +1,6 @@
 ﻿using GestionAcademica.API.Domain;
 using GestionAcademica.API.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace GestionAcademica.API.Infraestructure.Repository
 {
@@ -24,17 +25,35 @@ namespace GestionAcademica.API.Infraestructure.Repository
 
         public List<Subject> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Subjects.ToList();
         }
 
         public Subject GetById(int id)
         {
-            throw new NotImplementedException();
+            Subject? subject = _context.Subjects
+                .FirstOrDefault(s => s.Id == id);
+
+            if (subject == null)
+                throw new Exception("Asignatura no encontrada");
+
+            return subject;
         }
 
         public void Update(Subject subject)
         {
-            throw new NotImplementedException();
+            Subject? existingSubject = _context.Subjects
+                .FirstOrDefault(s => s.Id == subject.Id);
+
+            if (existingSubject == null)
+                throw new Exception("Asignatura no encontrada");
+
+            existingSubject.Name = subject.Name;
+            existingSubject.Description = subject.Description;
+            existingSubject.Credits = subject.Credits;
+            existingSubject.ProfessorId = subject.ProfessorId;
+
+            _context.Entry(existingSubject).State = EntityState.Modified;
+            _context.SaveChanges();
         }
     }
 }
