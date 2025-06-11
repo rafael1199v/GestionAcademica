@@ -32,9 +32,9 @@ public class UserRepository : IUserRepository
     {
         return _context.Users.FirstOrDefault(user => user.PersonalEmail == Email);
     }
-    public User Add(User user)
+    public Applicant Add(Applicant user)
     {
-        _context.Users.Add(user);
+        _context.Applicants.Add(user);
         _context.SaveChanges();
 
         return user;

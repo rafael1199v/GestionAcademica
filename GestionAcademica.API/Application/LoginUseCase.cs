@@ -18,7 +18,10 @@ namespace GestionAcademica.API.Application
 
         public (string, string) Login(string email, string password)
         {
-            User? user = _userRepository.GetByInstitutionalEmail(email) ?? throw new Exception("No se encontro el usuario");
+            User? user = _userRepository.GetByInstitutionalEmail(email)
+            ?? _userRepository.GetByEmail(email)
+            ?? throw new Exception("No se encontro el usuario");
+            
             if (_hashUseCase.CreateHash(password) != user.Password)
                 throw new Exception("Contraseña incorrecta");
 
@@ -28,7 +31,7 @@ namespace GestionAcademica.API.Application
         public void SignUp(CreateUserDTO userDto)
         {
             Validate(userDto);
-            User user = MapDtoToUser(userDto);
+            Applicant user = MapDtoToUser(userDto);
             _userRepository.Add(user);
         }
         private void Validate(CreateUserDTO Dto)
@@ -45,18 +48,22 @@ namespace GestionAcademica.API.Application
                 throw new ArgumentException("La fecha de nacimiento no puede estar en el futuro");
 
         }
-        private User MapDtoToUser(CreateUserDTO user)
+        private Applicant MapDtoToUser(CreateUserDTO user)
         {
-            User result = new User
+            Applicant result = new Applicant
             {
-                Name = user.Name,
-                LastName = user.LastName,
-                Password = _hashUseCase.CreateHash(user.Password),
-                Address = user.Address,
-                PersonalEmail = user.Email,
-                PhoneNumber = user.PhoneNumber,
-                BirthDate = DateOnly.Parse(user.BirthDate),
-                RoleId = (int)RoleEnum.Applicant
+                User = new User
+                {
+                    Name = user.Name,
+                    LastName = user.LastName,
+                    Password = _hashUseCase.CreateHash(user.Password),
+                    Address = user.Address,
+                    PersonalEmail = user.Email,
+                    InstitutionalEmail = "",
+                    PhoneNumber = user.PhoneNumber,
+                    BirthDate = DateOnly.Parse(user.BirthDate),
+                    RoleId = (int)RoleEnum.Applicant
+                }
             };
 
             return result;
