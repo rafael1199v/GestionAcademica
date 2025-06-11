@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using GestionAcademica.API.Models;
 
 namespace GestionAcademica.API.Models;
 

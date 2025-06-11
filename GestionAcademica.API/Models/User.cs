@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using GestionAcademica.API.Models;
 
 namespace GestionAcademica.API.Models;
 
@@ -29,6 +28,10 @@ public partial class User
     public int RoleId { get; set; }
 
     public virtual ICollection<Administrator> Administrators { get; set; } = new List<Administrator>();
+
+    public virtual ICollection<Applicant> Applicants { get; set; } = new List<Applicant>();
+
+    public virtual ICollection<Hr> Hrs { get; set; } = new List<Hr>();
 
     public virtual ICollection<Professor> Professors { get; set; } = new List<Professor>();
 

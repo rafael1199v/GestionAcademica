@@ -3,9 +3,11 @@ using System.Collections.Generic;
 
 namespace GestionAcademica.API.Models;
 
-public partial class Classroom
+public partial class Hr
 {
     public int Id { get; set; }
 
-    public string Code { get; set; } = null!;
+    public int UserId { get; set; }
+
+    public virtual User User { get; set; } = null!;
 }

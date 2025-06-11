@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using GestionAcademica.API.Models;
 
 namespace GestionAcademica.API.Models;
 
@@ -19,6 +18,8 @@ public partial class Subject
     public int? ProfessorId { get; set; }
 
     public virtual Professor? Professor { get; set; }
+
+    public virtual ICollection<Vacancy> Vacancies { get; set; } = new List<Vacancy>();
 
     public virtual ICollection<Career> Careers { get; set; } = new List<Career>();
 }

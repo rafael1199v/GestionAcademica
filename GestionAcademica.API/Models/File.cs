@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using GestionAcademica.API.Models;
 
 namespace GestionAcademica.API.Models;
 
@@ -15,6 +14,8 @@ public partial class File
     public string? FileDescription { get; set; }
 
     public string FilePath { get; set; } = null!;
+
+    public virtual ICollection<Application> Applications { get; set; } = new List<Application>();
 
     public virtual ICollection<Professor> Professors { get; set; } = new List<Professor>();
 }
