@@ -7,4 +7,6 @@ public interface IUserRepository
 {
     User GetById(int id);
     User? GetByInstitutionalEmail(string institutionalEmail);
+    public User? GetByEmail(string Email);
+    Applicant Add(Applicant user);
 }

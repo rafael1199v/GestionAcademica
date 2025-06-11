@@ -5,5 +5,6 @@
         Administrator = 1,
         Professor = 2,
         Student = 3,
+        Applicant = 4,
     }
 }

@@ -19,6 +19,7 @@ import ApplicationDetail from "./pages/applicant/ApplicationDetail";
 import LayoutHr from "./pages/hr/LayoutHr";
 import ApplicationsHr from "./pages/hr/ApplicationsHr";
 import ApplicationDetailsHr from "./pages/hr/ApplicationDetailsHr";
+import Register from "./pages/register";
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
       <Router>
           <Routes>
             <Route path="/login" element={<LoginForm />} />
+            <Route path="/register" element={<Register />} />
             <Route element={<ProtectedRoute canActivate={!!(userSession?.userId) && !!(userSession?.roleId) && userSession?.roleId == ROLES.ADMIN}  redirectPath="/login"/>}>
               <Route element={<Layout />}>
                   <Route path="/" element={<Home />} />
