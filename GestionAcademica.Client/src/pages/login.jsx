@@ -65,8 +65,9 @@ const LoginForm = () => {
           <Button type="submit" label="Sign in" />
         </div>
         <p className="mt-4 text-sm text-gray-600 text-center">
-          <Link to="/" className="text-blue-600 hover:underline font-semibold">
-            Regresar
+          No tienes una cuenta? {" "}
+          <Link to="/register" className="text-blue-600 hover:underline font-semibold">
+            Regístrate
           </Link>
         </p>
       </form>
