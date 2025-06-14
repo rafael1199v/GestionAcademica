@@ -12,7 +12,7 @@ import {
 } from "@heroicons/react/16/solid";
 
 export function SideBar() {
-  const [selectedItem, setSelectedItem] = useState(SIDE_BAR_ITEM.PROFESSOR);
+  const [selectedItem, setSelectedItem] = useState(SIDE_BAR_ITEM.PROFESSORS);
   const navigate = useNavigate();
   const { setUsersession } = useAuthContext();
 
