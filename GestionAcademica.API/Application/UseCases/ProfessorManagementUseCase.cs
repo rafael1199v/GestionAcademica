@@ -68,7 +68,7 @@ public class ProfessorManagementUseCase : IProfessorManagementUseCase
         if(professor == null)
             throw new Exception("Professor no existe");
         
-        ValidateEmails(updateProfessorDto.InstitutionalEmail, updateProfessorDto.PersonalEmail);
+        ValidateUpdateEmails(professor.UserId, updateProfessorDto.InstitutionalEmail, updateProfessorDto.PersonalEmail);
 
         if (!DateOnly.TryParse(updateProfessorDto.BirthDate, out DateOnly birthDate))
             throw new ArgumentException("La fecha es invalida");
@@ -122,6 +122,30 @@ public class ProfessorManagementUseCase : IProfessorManagementUseCase
 
         if (user != null)
             throw new ArgumentException("El correo institucional ya esta en uso");
+        
+        user = _userRepository.GetByEmail(personalEmail);
+
+        if (user != null)
+            throw new ArgumentException("El correo personal ya esta en uso");
+        
+        if(!IsValidEmail(institutionalEmail))
+            throw new ArgumentException("El correo institucional no es valido");
+        
+        if(!IsValidEmail(personalEmail))
+            throw new ArgumentException("El correo personal no es valido");
+    }
+
+    private void ValidateUpdateEmails(int userId, string institutionalEmail, string personalEmail)
+    {
+        User? user = _userRepository.GetByInstitutionalEmail(institutionalEmail);
+
+        if (user != null && user.Id != userId)
+            throw new ArgumentException("El correo institucional ya esta en uso");
+        
+        user = _userRepository.GetByEmail(personalEmail);
+
+        if (user != null && user.Id != userId)
+            throw new ArgumentException("El correo personal ya esta en uso");
         
         if(!IsValidEmail(institutionalEmail))
             throw new ArgumentException("El correo institucional no es valido");
