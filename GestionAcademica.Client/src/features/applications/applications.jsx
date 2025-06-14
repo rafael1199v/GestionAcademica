@@ -1,5 +1,5 @@
 import React from 'react'
-import ApplicationCard from '../../features/applications/ApplicationCard'
+import ApplicationCard from './application-card'
 import { useNavigate } from 'react-router-dom'
 
 function Applications() {

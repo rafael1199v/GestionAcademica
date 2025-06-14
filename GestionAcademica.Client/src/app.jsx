@@ -1,25 +1,25 @@
-import Layout from "./pages/admin/layout";
+import Layout from "./pages/layout";
 import Home from "./pages/home";
-import Docentes from "./features/docentes/DocenteTable";
-import VacanciesAdmin from "./pages/admin/VacanciesAdmin";
-import Materias from "./pages/admin/materias";
-import DocenteRegisterForm from "./features/docentes/DocenteRegisterForm";
-import DocenteUpdateForm from "./features/docentes/DocenteUpdateForm";
-import DocenteDetails from "./features/docentes/DocenteDetails";
-import LoginForm from "./pages/login";
+import Docentes from "./features/professors/professor-list";
+import VacanciesAdmin from "./features/vacancies/vacancies-admin";
+import Materias from "./features/subjects/subject-list";
+import DocenteRegisterForm from "./features/professors/professor-create";
+import DocenteUpdateForm from "./features/professors/professor-update";
+import DocenteDetails from "./features/professors/professor-details";
+import LoginForm from "./features/login-handling/login";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { useAuthContext } from "./hooks/UseAuthContext";
 import { ROLES } from "./config/role-const";
-import LayoutApplicant from "./pages/applicant/LayoutApplicant";
-import Vacancies from "./pages/applicant/Vacancies";
-import Applications from './pages/applicant/Applications'
-import Materia from "./pages/admin/materia";
-import ApplicationDetail from "./pages/applicant/ApplicationDetail";
-import LayoutHr from "./pages/hr/LayoutHr";
-import ApplicationsHr from "./pages/hr/ApplicationsHr";
-import ApplicationDetailsHr from "./pages/hr/ApplicationDetailsHr";
-import Register from "./pages/register";
+import LayoutApplicant from "./features/side-bar/LayoutApplicant";
+import VacanciesList from "./features/vacancies/vacancy-list";
+import Applications from "./features/applications/applications"; //Why does it give an error on lowercase???
+import Materia from "./features/subjects/subject-details";
+import ApplicationDetail from "./features/applications/application-detail";
+import LayoutHr from "./features/side-bar/LayoutHr";
+import ApplicationsHr from "./features/applications/applications-hr";
+import ApplicationDetailsHr from "./features/applications/application-details-hr";
+import Register from "./features/login-handling/register";
 
 
 function App() {
@@ -47,7 +47,7 @@ function App() {
             <Route element={ <ProtectedRoute canActivate={!!(userSession?.userId) && !!(userSession?.roleId) && userSession?.roleId == ROLES.APPLICANT} redirectPath="/login" /> }>
               <Route element={<LayoutApplicant />}>
                   <Route path="/applicant" element={<Home />} />
-                  <Route path="/applicant/vacancies" element={<Vacancies />} />
+                  <Route path="/applicant/vacancies" element={<VacanciesList />} />
                   <Route path="/applicant/applications" element={ <Applications />} />
                   <Route path="/applicant/applications/:id" element={ <ApplicationDetail />}/>
               </Route>

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import ItemVacante from '../../features/lists/item-vacante';
-import ApplyModal from '../../features/vacancies/applyModal';
+import ItemVacante from './vacancy-item';
+import ApplyModal from './apply-to-vacancy-modal';
 
-function Vacancies() {
+function VacanciesList() {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedSubject, setSelectedSubject] = useState(null);
 
@@ -14,9 +14,7 @@ function Vacancies() {
     setModalOpen(true);
   }
 
-  const apply = () => {
-
-  }
+  // TODO: Verificar el rol del usuario para permitir crear nuevas vacantes
 
   return (
     <>
@@ -50,4 +48,4 @@ function Vacancies() {
   )
 }
 
-export default Vacancies
+export default VacanciesList

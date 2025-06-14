@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Button from "../components/button";
+import Button from "../../components/button";
 import { Link, useNavigate } from "react-router-dom";
-import { ValidateNewUserRegisterForm } from "../services/ValidationService";
-import { createApplicant } from "../services/AuthService";
+import { ValidateNewUserRegisterForm } from "../../services/ValidationService";
+import { createApplicant } from "../../services/AuthService";
 
 function Register() {
   const navigate = useNavigate();

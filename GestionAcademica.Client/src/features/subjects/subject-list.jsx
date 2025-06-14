@@ -1,4 +1,4 @@
-import ItemMateria from "../../features/lists/item-materia";
+import ItemMateria from "./subject-item";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { getAllSubjects } from "../../services/AdministratorService";

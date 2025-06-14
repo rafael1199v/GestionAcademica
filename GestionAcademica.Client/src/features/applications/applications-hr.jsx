@@ -1,4 +1,4 @@
-import ApplicationsHrTable from "../../features/hr/ApplicationsHrTable"
+import ApplicationsHrTable from "./applications-hr-table"
 
 function ApplicationsHr() {
   return (

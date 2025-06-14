@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import Button from "../components/button";
+import Button from "../../components/button";
 import { Link } from "react-router-dom";
-import { login } from "../services/AuthService";
+import { login } from "../../services/AuthService";
 import { useNavigate } from "react-router-dom";
-import { useAuthContext } from "../hooks/UseAuthContext";
-import { ROLES } from "../config/role-const";
+import { useAuthContext } from "../../hooks/UseAuthContext";
+import { ROLES } from "../../config/role-const";
 
 const LoginForm = () => {
   const { setUsersession } = useAuthContext();

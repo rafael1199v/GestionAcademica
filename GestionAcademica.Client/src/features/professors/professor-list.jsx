@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Button from "../../components/button";
 import { getAllProfessors } from "../../services/AdministratorService";
-import ItemDocente from "../lists/item-docente";
+import ItemDocente from "./professor-item";
 
 function DocenteTable() {
     const navigate = useNavigate();

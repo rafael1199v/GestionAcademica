@@ -1,4 +1,4 @@
-import SidebarHr from "../../components/SidebarHr"
+import SidebarHr from "./SidebarHr"
 import { Outlet } from "react-router-dom"
 
 function LayoutHr() {

@@ -1,4 +1,4 @@
-import { SidebarApplicant } from "../../components/SidebarApplicant";
+import SidebarApplicant from "./SidebarApplicant";
 import { Outlet } from "react-router-dom";
 
 function LayoutApplicant() {
@@ -12,4 +12,4 @@ function LayoutApplicant() {
   );
 }
 
-export default LayoutApplicant
+export default LayoutApplicant;

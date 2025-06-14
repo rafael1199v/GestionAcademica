@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import SideBarItem from "./side-bar__item";
-import { SIDE_BAR_ITEM } from "../config/side-bar__item-const";
-import { useAuthContext } from "../hooks/UseAuthContext";
+import { SIDE_BAR_ITEM } from "../../config/side-bar__item-const";
+import { useAuthContext } from "../../hooks/UseAuthContext";
 import { useNavigate } from "react-router-dom";
 import {
   HomeIcon,
   ArrowLeftIcon,
-  FolderPlusIcon,
-  InboxArrowDownIcon
+  UsersIcon,
+  AcademicCapIcon,
+  ClipboardDocumentCheckIcon,
 } from "@heroicons/react/16/solid";
 
-function SidebarHr() {
-  const [selectedItem, setSelectedItem] = useState(SIDE_BAR_ITEM.HOME);
+export function SideBar() {
+  const [selectedItem, setSelectedItem] = useState(SIDE_BAR_ITEM.PROFESSOR);
   const navigate = useNavigate();
   const { setUsersession } = useAuthContext();
 
@@ -42,7 +43,43 @@ function SidebarHr() {
               setSelectedItem(SIDE_BAR_ITEM.HOME);
             }}
             icon={<HomeIcon className="w-4 h-4" />}
-            navigateTo="/hr"
+            navigateTo="/"
+          />
+          <SideBarItem
+            text="Docentes"
+            isSelected={selectedItem === SIDE_BAR_ITEM.PROFESSORS}
+            onClick={() => {
+              setSelectedItem(SIDE_BAR_ITEM.PROFESSORS);
+            }}
+            icon={<UsersIcon className="w-4 h-4" />}
+            navigateTo="/docentes"
+          />
+          <SideBarItem
+            text="Vacantes"
+            isSelected={selectedItem === SIDE_BAR_ITEM.REPORTS}
+            onClick={() => {
+              setSelectedItem(SIDE_BAR_ITEM.REPORTS);
+            }}
+            icon={<ClipboardDocumentCheckIcon className="w-4 h-4" />}
+            navigateTo="/vacancies"
+          />
+          <SideBarItem
+            text="Materias"
+            isSelected={selectedItem === SIDE_BAR_ITEM.SUBJECTS}
+            onClick={() => {
+              setSelectedItem(SIDE_BAR_ITEM.SUBJECTS);
+            }}
+            icon={<AcademicCapIcon className="w-4 h-4" />}
+            navigateTo="/materias"
+          />
+          {/* <SideBarItem
+            text="Vacantes"
+            isSelected={selectedItem === SIDE_BAR_ITEM.VACANCIES}
+            onClick={() => {
+              setSelectedItem(SIDE_BAR_ITEM.VACANCIES);
+            }}
+            icon={<FolderPlusIcon className="w-4 h-4" />}
+            navigateTo="/vacantes"
           />
           <SideBarItem
             text="Postulaciones"
@@ -51,8 +88,8 @@ function SidebarHr() {
               setSelectedItem(SIDE_BAR_ITEM.APPLICATIONS);
             }}
             icon={<InboxArrowDownIcon className="w-4 h-4" />}
-            navigateTo="/hr/applications"
-          />
+            navigateTo="/postulaciones"
+          /> */}
           <SideBarItem
             text="Cerrar sesion"
             isSelected={selectedItem === SIDE_BAR_ITEM.SIGN_OUT}
@@ -63,9 +100,10 @@ function SidebarHr() {
             icon={<ArrowLeftIcon className="w-4 h-4" />}
           />
         </ul>
+        {/*// TODO: Filter the items based on the user role */}
       </div>
     </div>
   );
 }
 
-export default SidebarHr
+export default SideBar;
