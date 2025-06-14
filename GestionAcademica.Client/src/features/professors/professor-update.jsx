@@ -23,9 +23,7 @@ function DocenteUpdateForm() {
 
   const getProfessor = async (id) => {
     const professor = await getProfessorById(id);
-    console.log(professor.birthDate)
-    const dateFormated = parse(professor.birthDate, 'dd/MM/yyyy', new Date());
-
+  
     setProfessorForm({
       Id: id,
       Name: professor.name || "",
@@ -34,7 +32,7 @@ function DocenteUpdateForm() {
       PersonalEmail: professor.personalEmail || "",
       InstitutionalEmail: professor.institutionalEmail || "",
       PhoneNumber: professor.phoneNumber || "",
-      BirthDate: format(dateFormated, 'yyyy-MM-dd') || "",
+      BirthDate: professor.birthDate || "",
     });
   }
 
