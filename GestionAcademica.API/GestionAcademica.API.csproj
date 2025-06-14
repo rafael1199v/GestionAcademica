@@ -19,10 +19,4 @@
     <PackageReference Include="System.Security.Cryptography.Algorithms" Version="4.3.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Infraestructure\Repository\" />
-    <Folder Include="Domain\" />
-    <Folder Include="Infraestructure\Controllers\" />
-  </ItemGroup>
-
 </Project>
