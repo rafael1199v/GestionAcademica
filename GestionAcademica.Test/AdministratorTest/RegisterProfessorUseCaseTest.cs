@@ -1,10 +1,11 @@
 using FakeItEasy;
-using GestionAcademica.API.Application.DTO;
-using GestionAcademica.API.Domain;
-using GestionAcademica.API.Models;
-using GestionAcademica.API.Application;
-using GestionAcademica.API.Application.Abstractions;
-using GestionAcademica.API.Application.Enums;
+using GestionAcademica.API.Application.DTOs;
+using GestionAcademica.API.Application.Interfaces.Repositories;
+using GestionAcademica.API.Application.Interfaces.UseCases;
+using GestionAcademica.API.Application.Interfaces.Utilities;
+using GestionAcademica.API.Application.UseCases;
+using GestionAcademica.API.Domain.Enums;
+using GestionAcademica.API.Infrastructure.Persistance.Models;
 
 namespace GestionAcademica.Test.AdministratorTest;
 
@@ -14,14 +15,14 @@ public class RegisterProfessorUseCaseTest
     private readonly IProfessorRepository _professorRepository;
     private readonly IUserRepository _userRepository;
     private readonly RegisterProfessorUseCase _registerProfessorUseCase;
-    private readonly IHashUseCase _hashUseCase;
+    private readonly IHashUtility _hashUtility;
 
     public RegisterProfessorUseCaseTest()
     {
         _professorRepository = A.Fake<IProfessorRepository>();
         _userRepository = A.Fake<IUserRepository>();
-        _hashUseCase = A.Fake<IHashUseCase>();
-        _registerProfessorUseCase = new RegisterProfessorUseCase(_professorRepository, _userRepository, _hashUseCase);
+        _hashUtility = A.Fake<IHashUtility>();
+        _registerProfessorUseCase = new RegisterProfessorUseCase(_professorRepository, _userRepository, _hashUtility);
     }
     
     [Fact]

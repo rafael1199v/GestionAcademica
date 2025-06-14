@@ -18,11 +18,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     <PackageReference Include="System.Security.Cryptography.Algorithms" Version="4.3.1" />
   </ItemGroup>
-
+  
   <ItemGroup>
-    <Folder Include="Infraestructure\Repository\" />
-    <Folder Include="Domain\" />
-    <Folder Include="Infraestructure\Controllers\" />
+    <Folder Include="Application\Utilities\" />
   </ItemGroup>
 
 </Project>

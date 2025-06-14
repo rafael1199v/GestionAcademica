@@ -1,10 +1,11 @@
 using System.Security.Claims;
 using GestionAcademica.API;
-using GestionAcademica.API.Application;
-using GestionAcademica.API.Application.Abstractions;
-using GestionAcademica.API.Domain;
-using GestionAcademica.API.Infraestructure.Repository;
-using GestionAcademica.API.Models;
+using GestionAcademica.API.Application.Interfaces.Repositories;
+using GestionAcademica.API.Application.Interfaces.UseCases;
+using GestionAcademica.API.Application.Interfaces.Utilities;
+using GestionAcademica.API.Application.UseCases;
+using GestionAcademica.API.Infrastructure.Persistance.Context;
+using GestionAcademica.API.Infrastructure.Persistance.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
@@ -35,7 +36,7 @@ builder.Services.AddScoped<IRegisterProfessorUseCase, RegisterProfessorUseCase>(
 builder.Services.AddScoped<IDetailProfessorUseCase, DetailProfessorUseCase>(); 
 builder.Services.AddScoped<IProfessorRepository, ProfessorRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IHashUseCase, HashUseCase>();
+builder.Services.AddScoped<IHashUtility, HashUtility>();
 builder.Services.AddScoped<ILoginUseCase, LoginUseCase>();
 builder.Services.AddScoped<IGetProfessorInformationUseCase, GetProfessorInformationUseCaseUseCase>();
 builder.Services.AddScoped<IUpdateProfessorUseCase, UpdateProfessorUseCaseUseCase>();
