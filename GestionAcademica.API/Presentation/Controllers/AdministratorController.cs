@@ -8,25 +8,13 @@ namespace GestionAcademica.API.Presentation.Controllers
     [ApiController]
     public class AdministratorController : ControllerBase
     {
-        private readonly IRegisterProfessorUseCase _registerProfessorUseCase;
-        private readonly IDetailProfessorUseCase _detailProfessorUseCase;
-        private readonly IGetProfessorInformationUseCase _getProfessorInformationUseCase;
         private readonly IDetailSubjectUseCase _detailSubjectUseCase;
-        private readonly IUpdateProfessorUseCase _updateProfessorUseCase;
-        
         private readonly IProfessorManagementUseCase _professorManagementUseCase;
 
-        public AdministratorController(IRegisterProfessorUseCase registerProfessorUseCase,
-            IDetailProfessorUseCase detailProfessorUseCase, IGetProfessorInformationUseCase getProfessorInformationUseCase,
-            IUpdateProfessorUseCase updateProfessorUseCase, IDetailSubjectUseCase detailSubjectUseCase,
+        public AdministratorController(IDetailSubjectUseCase detailSubjectUseCase,
             IProfessorManagementUseCase professorManagementUseCase)
         {
-            _registerProfessorUseCase = registerProfessorUseCase;
-            _detailProfessorUseCase = detailProfessorUseCase;
-            _getProfessorInformationUseCase = getProfessorInformationUseCase;
-            _updateProfessorUseCase = updateProfessorUseCase;
             _detailSubjectUseCase = detailSubjectUseCase;
-
             _professorManagementUseCase = professorManagementUseCase;
         }
 

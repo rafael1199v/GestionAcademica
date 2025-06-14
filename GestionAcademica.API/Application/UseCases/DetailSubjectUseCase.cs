@@ -8,11 +8,11 @@ namespace GestionAcademica.API.Application.UseCases
     public class DetailSubjectUseCase : IDetailSubjectUseCase
     {
         private readonly ISubjectRepository _subjectRepository;
-        private readonly IGetProfessorInformationUseCase _getProfessorInformationUseCase;
-        public DetailSubjectUseCase(ISubjectRepository subjectRepository, IGetProfessorInformationUseCase getProfessorInformationUseCase)
+        private readonly IProfessorManagementUseCase _professorManagementUseCase;
+        public DetailSubjectUseCase(ISubjectRepository subjectRepository, IProfessorManagementUseCase professorManagementUseCase)
         {
             _subjectRepository = subjectRepository;
-            _getProfessorInformationUseCase = getProfessorInformationUseCase;
+            _professorManagementUseCase = professorManagementUseCase;
         }
         public List<SubjectDTO> ObtainAllSubjects()
         {
@@ -29,7 +29,7 @@ namespace GestionAcademica.API.Application.UseCases
                     Description = item.Description,
                     Credits = item.Credits,
                     ProfessorId = item.ProfessorId.HasValue ? (int)item.ProfessorId : 0,
-                    ProfessorName = item.ProfessorId.HasValue ? _getProfessorInformationUseCase.GetProfessorInformationRun((int)item.ProfessorId).Name + " " + _getProfessorInformationUseCase.GetProfessorInformationRun((int)item.ProfessorId).LastName : ""
+                    ProfessorName = item.ProfessorId.HasValue ? _professorManagementUseCase.GetProfessorInformation((int)item.ProfessorId).Name + " " + _professorManagementUseCase.GetProfessorInformation((int)item.ProfessorId).LastName : ""
                 });
             }
 
@@ -43,7 +43,7 @@ namespace GestionAcademica.API.Application.UseCases
             string professorName = "";
             if (subject.ProfessorId.HasValue)
             {
-                var professor = _getProfessorInformationUseCase.GetProfessorInformationRun((int)subject.ProfessorId);
+                var professor = _professorManagementUseCase.GetProfessorInformation((int)subject.ProfessorId);
                 professorName = professor.Name + " " + professor.LastName;
             }
 

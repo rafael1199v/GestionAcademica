@@ -63,7 +63,6 @@ public class ProfessorManagementUseCase : IProfessorManagementUseCase
 
     public void UpdateProfessor(UpdateProfessorDTO updateProfessorDto)
     {
-        // Obtener el modelo de la base de datos
         Professor? professor = _professorRepository.GetById(updateProfessorDto.Id);
         
         if(professor == null)

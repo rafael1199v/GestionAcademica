@@ -31,7 +31,7 @@ public class UserEntity
     public UserEntity(string name, string lastName, string address, string personalEmail,
         string institutionalEmail, string password, string? phoneNumber, DateOnly birthDate, string status, int roleId)
     {
-        this.ValidateInformation(name, lastName, address, personalEmail, institutionalEmail, password, phoneNumber, status);
+        this.ValidateInformation(name, lastName, address, personalEmail, institutionalEmail, password, phoneNumber, status ,birthDate);
 
         Id = 0;
         Name = name;
@@ -47,7 +47,7 @@ public class UserEntity
     }
 
     private void ValidateInformation(string name, string lastName, string address, string personalEmail,
-        string institutionalEmail, string password, string? phoneNumber, string status)
+        string institutionalEmail, string password, string? phoneNumber, string status, DateOnly birthDate)
     {
         if (string.IsNullOrWhiteSpace(name))
             throw new DomainException("El nombre no puede esta vacio");
@@ -78,6 +78,9 @@ public class UserEntity
         
         if(string.IsNullOrWhiteSpace(status))
             throw new DomainException("El estado no puede esta vacio");
+
+        if (birthDate > DateOnly.FromDateTime(DateTime.Now))
+            throw new DomainException("La fecha de nacimiento no puede esta en el futuro");
     }
     
     

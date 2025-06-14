@@ -36,14 +36,10 @@ builder.Services.AddCors(options =>
         policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 });
 
-builder.Services.AddScoped<IRegisterProfessorUseCase, RegisterProfessorUseCase>();
-builder.Services.AddScoped<IDetailProfessorUseCase, DetailProfessorUseCase>(); 
 builder.Services.AddScoped<IProfessorRepository, ProfessorRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IHashUtility, HashUtility>();
 builder.Services.AddScoped<ILoginUseCase, LoginUseCase>();
-builder.Services.AddScoped<IGetProfessorInformationUseCase, GetProfessorInformationUseCaseUseCase>();
-builder.Services.AddScoped<IUpdateProfessorUseCase, UpdateProfessorUseCaseUseCase>();
 builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
 builder.Services.AddScoped<IDetailSubjectUseCase, DetailSubjectUseCase>();
 builder.Services.AddScoped<ICreateSubjectUseCase, CreateSubjectUseCase>();

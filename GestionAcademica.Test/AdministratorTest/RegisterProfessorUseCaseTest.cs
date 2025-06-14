@@ -3,8 +3,10 @@ using GestionAcademica.API.Application.DTOs;
 using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Application.Interfaces.UseCases;
 using GestionAcademica.API.Application.Interfaces.Utilities;
+using GestionAcademica.API.Application.Mappers;
 using GestionAcademica.API.Application.UseCases;
 using GestionAcademica.API.Domain.Enums;
+using GestionAcademica.API.Domain.Exceptions;
 using GestionAcademica.API.Infrastructure.Persistance.Models;
 
 namespace GestionAcademica.Test.AdministratorTest;
@@ -14,15 +16,15 @@ public class RegisterProfessorUseCaseTest
 {
     private readonly IProfessorRepository _professorRepository;
     private readonly IUserRepository _userRepository;
-    private readonly RegisterProfessorUseCase _registerProfessorUseCase;
     private readonly IHashUtility _hashUtility;
-
+    private readonly ProfessorManagementUseCase _professorManagementUseCase;
+    
     public RegisterProfessorUseCaseTest()
     {
         _professorRepository = A.Fake<IProfessorRepository>();
         _userRepository = A.Fake<IUserRepository>();
         _hashUtility = A.Fake<IHashUtility>();
-        _registerProfessorUseCase = new RegisterProfessorUseCase(_professorRepository, _userRepository, _hashUtility);
+        _professorManagementUseCase = new ProfessorManagementUseCase(_professorRepository, _userRepository, new ProfessorMapper(_hashUtility));
     }
     
     [Fact]
@@ -78,7 +80,7 @@ public class RegisterProfessorUseCaseTest
             .Returns(null);
         
         //Act
-        ResponseProfessorDTO responseProfessor = _registerProfessorUseCase.CreateProffesor(professor);
+        ResponseProfessorDTO responseProfessor = _professorManagementUseCase.RegisterProfessor(professor);
 
         //Assert
         Assert.NotNull(responseProfessor);
@@ -113,10 +115,10 @@ public class RegisterProfessorUseCaseTest
         A.CallTo(() => _userRepository.GetByInstitutionalEmail(A<string>._))
             .Returns(new User());
         
-        string expected = "El correo institutional ya existe";
+        string expected = "El correo institucional ya esta en uso";
         
-        var exception = Assert.Throws<ArgumentException>(() => _registerProfessorUseCase.CreateProffesor(createProfessorDto: professor));
-        Assert.Equal(expected, exception.Message);
+        var exception = Assert.Throws<ArgumentException>(() => _professorManagementUseCase.RegisterProfessor(createProfessorDto: professor));
+         Assert.Equal(expected, exception.Message);
         
     }
     
@@ -139,9 +141,9 @@ public class RegisterProfessorUseCaseTest
         A.CallTo(() => _userRepository.GetByInstitutionalEmail(A<string>._))
             .Returns(null);
         
-        string expected = "El formato de fecha es incorrecto";
+        string expected = "La fecha es invalida";
         
-        var exception = Assert.Throws<ArgumentException>(() => _registerProfessorUseCase.CreateProffesor(createProfessorDto: professor));
+        var exception = Assert.Throws<ArgumentException>(() => _professorManagementUseCase.RegisterProfessor(createProfessorDto: professor));
         Assert.Equal(expected, exception.Message);
         
     }
@@ -164,9 +166,9 @@ public class RegisterProfessorUseCaseTest
         A.CallTo(() => _userRepository.GetByInstitutionalEmail(A<string>._))
             .Returns(null);
         
-        string expected = "La fecha de nacimiento no puede estar en el futuro";
+        string expected = "La fecha de nacimiento no puede esta en el futuro";
         
-        var exception = Assert.Throws<ArgumentException>(() => _registerProfessorUseCase.CreateProffesor(createProfessorDto: professor));
+        var exception = Assert.Throws<DomainException>(() => _professorManagementUseCase.RegisterProfessor(createProfessorDto: professor));
         Assert.Equal(expected, exception.Message);
         
     }
