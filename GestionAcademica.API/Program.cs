@@ -1,10 +1,14 @@
 using System.Security.Claims;
 using GestionAcademica.API;
+using GestionAcademica.API.Application.Interfaces.Mappers;
 using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Application.Interfaces.UseCases;
 using GestionAcademica.API.Application.Interfaces.Utilities;
+using GestionAcademica.API.Application.Mappers;
 using GestionAcademica.API.Application.UseCases;
+using GestionAcademica.API.Application.Utilities;
 using GestionAcademica.API.Infrastructure.Persistance.Context;
+using GestionAcademica.API.Infrastructure.Persistance.Models;
 using GestionAcademica.API.Infrastructure.Persistance.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -42,6 +46,9 @@ builder.Services.AddScoped<IGetProfessorInformationUseCase, GetProfessorInformat
 builder.Services.AddScoped<IUpdateProfessorUseCase, UpdateProfessorUseCaseUseCase>();
 builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
 builder.Services.AddScoped<IDetailSubjectUseCase, DetailSubjectUseCase>();
+builder.Services.AddScoped<ICreateSubjectUseCase, CreateSubjectUseCase>();
+builder.Services.AddScoped<IProfessorMapper, ProfessorMapper>();
+builder.Services.AddScoped<IProfessorManagementUseCase, ProfessorManagementUseCase>();
 
 var app = builder.Build();
 

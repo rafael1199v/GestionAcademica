@@ -5,7 +5,7 @@ namespace GestionAcademica.API.Application.Interfaces.UseCases;
 public interface IProfessorManagementUseCase
 {
     //Create
-    ResponseProfessorDTO CreateProfessor(CreateProfessorDTO createProfessorDto);
+    ResponseProfessorDTO RegisterProfessor(CreateProfessorDTO createProfessorDto);
     
     //Update
     void UpdateProfessor(UpdateProfessorDTO updateProfessorDto);

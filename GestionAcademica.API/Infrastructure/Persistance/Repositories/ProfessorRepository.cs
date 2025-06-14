@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using GestionAcademica.API.Application.Interfaces.Repositories;
+using GestionAcademica.API.Domain.Entities;
 using GestionAcademica.API.Infrastructure.Persistance.Context;
 using GestionAcademica.API.Infrastructure.Persistance.Models;
 using Microsoft.EntityFrameworkCore;
@@ -62,6 +63,24 @@ namespace GestionAcademica.API.Infrastructure.Persistance.Repositories
         public IQueryable<Professor> FindByCondition(Expression<Func<Professor, bool>> expression)
         {
             return _context.Professors.Where(expression);
+        }
+
+        private ProfessorEntity ToEntity(Professor professor)
+        {
+            return new ProfessorEntity
+            {
+                Id = professor.Id,
+                UserId = professor.User.Id
+            };
+        }
+
+        private Professor ToModel(ProfessorEntity professor)
+        {
+            return new Professor
+            {
+                Id = professor.Id,
+                UserId = professor.UserId
+            };
         }
     }
 }

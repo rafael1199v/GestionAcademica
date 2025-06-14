@@ -1,9 +1,8 @@
 ﻿using System.Text;
-using GestionAcademica.API.Application.Interfaces.UseCases;
 using GestionAcademica.API.Application.Interfaces.Utilities;
 using SHA3.Net;
 
-namespace GestionAcademica.API.Application.UseCases
+namespace GestionAcademica.API.Application.Utilities
 {
     public class HashUtility : IHashUtility
     {

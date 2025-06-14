@@ -13,16 +13,21 @@ namespace GestionAcademica.API.Presentation.Controllers
         private readonly IGetProfessorInformationUseCase _getProfessorInformationUseCase;
         private readonly IDetailSubjectUseCase _detailSubjectUseCase;
         private readonly IUpdateProfessorUseCase _updateProfessorUseCase;
+        
+        private readonly IProfessorManagementUseCase _professorManagementUseCase;
 
         public AdministratorController(IRegisterProfessorUseCase registerProfessorUseCase,
             IDetailProfessorUseCase detailProfessorUseCase, IGetProfessorInformationUseCase getProfessorInformationUseCase,
-            IUpdateProfessorUseCase updateProfessorUseCase, IDetailSubjectUseCase detailSubjectUseCase)
+            IUpdateProfessorUseCase updateProfessorUseCase, IDetailSubjectUseCase detailSubjectUseCase,
+            IProfessorManagementUseCase professorManagementUseCase)
         {
             _registerProfessorUseCase = registerProfessorUseCase;
             _detailProfessorUseCase = detailProfessorUseCase;
             _getProfessorInformationUseCase = getProfessorInformationUseCase;
             _updateProfessorUseCase = updateProfessorUseCase;
             _detailSubjectUseCase = detailSubjectUseCase;
+
+            _professorManagementUseCase = professorManagementUseCase;
         }
 
         [HttpPost]
@@ -31,7 +36,7 @@ namespace GestionAcademica.API.Presentation.Controllers
         {
             try
             {
-                ResponseProfessorDTO professor = _registerProfessorUseCase.CreateProffesor(createProfessorDto);
+                ResponseProfessorDTO professor = _professorManagementUseCase.RegisterProfessor(createProfessorDto);
                 return Ok(professor);
             }
             catch (Exception ex)
@@ -46,7 +51,7 @@ namespace GestionAcademica.API.Presentation.Controllers
         {
             try
             {
-                var result = _detailProfessorUseCase.ObtainAllProfessors();
+                var result = _professorManagementUseCase.ObtainAllProfessors();
                 if (result == null || result.Count == 0)
                 {
                     return NotFound("No se encontraron profesores");
@@ -66,7 +71,7 @@ namespace GestionAcademica.API.Presentation.Controllers
         {
             try
             {
-                _updateProfessorUseCase.UpdateProfessorRun(updateProfessorDto);
+                _professorManagementUseCase.UpdateProfessor(updateProfessorDto);
                 return Ok(new { message = "Docente actualizado correctamente" });
             }
             catch (Exception ex)
@@ -81,7 +86,7 @@ namespace GestionAcademica.API.Presentation.Controllers
         {
             try
             {
-                return Ok(_getProfessorInformationUseCase.GetProfessorInformationRun(id));
+                return Ok(_professorManagementUseCase.GetProfessorInformation(id));
             }
             catch (Exception ex)
             {

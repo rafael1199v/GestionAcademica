@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using GestionAcademica.API.Domain.Exceptions;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace GestionAcademica.API.Domain.Entities;
 
@@ -27,12 +28,12 @@ public class UserEntity
 
     public int RoleId { get; set; }
 
-    public UserEntity(int id, string name, string lastName, string address, string personalEmail,
+    public UserEntity(string name, string lastName, string address, string personalEmail,
         string institutionalEmail, string password, string? phoneNumber, DateOnly birthDate, string status, int roleId)
     {
-        this.validateInformation(name, lastName, address, personalEmail, institutionalEmail, password, phoneNumber, birthDate, status);
-        
-        Id = id;
+        this.ValidateInformation(name, lastName, address, personalEmail, institutionalEmail, password, phoneNumber, status);
+
+        Id = 0;
         Name = name;
         LastName = lastName;
         Address = address;
@@ -40,10 +41,13 @@ public class UserEntity
         InstitutionalEmail = institutionalEmail;
         Password = password;
         PhoneNumber = phoneNumber;
+        RoleId = roleId;
+        Status = status;
+        BirthDate = birthDate;
     }
 
-    private void validateInformation(string name, string lastName, string address, string personalEmail,
-        string institutionalEmail, string password, string? phoneNumber, DateOnly birthDate, string status)
+    private void ValidateInformation(string name, string lastName, string address, string personalEmail,
+        string institutionalEmail, string password, string? phoneNumber, string status)
     {
         if (string.IsNullOrWhiteSpace(name))
             throw new DomainException("El nombre no puede esta vacio");
@@ -74,10 +78,7 @@ public class UserEntity
         
         if(string.IsNullOrWhiteSpace(status))
             throw new DomainException("El estado no puede esta vacio");
-        
-        if (birthDate > DateOnly.FromDateTime(DateTime.Now))
-            throw new ArgumentException("La fecha de nacimiento no puede estar en el futuro");
-        
     }
+    
     
 }
