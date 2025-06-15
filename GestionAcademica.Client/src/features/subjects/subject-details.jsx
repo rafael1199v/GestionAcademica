@@ -6,7 +6,7 @@ import {
   updateSubject,
 } from "../../services/AdministratorService";
 
-function Materia() {
+function SubjectDetails() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [professors, setProfessors] = useState([]);
@@ -92,4 +92,4 @@ function Materia() {
   );
 }
 
-export default Materia;
+export default SubjectDetails;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ROLES } from "../../config/role-const";
-import SideBarItem from "./side-bar__item";
+import SideBarItem from "./components/side-bar__item";
 import { SIDE_BAR_ITEM } from "../../config/side-bar__item-const";
 import { useAuthContext } from "../../hooks/UseAuthContext";
 import { useNavigate } from "react-router-dom";
@@ -72,7 +72,6 @@ export function SideBar() {
             icon={<HomeIcon className="w-4 h-4" />}
             navigateTo={role == "" ? "/" : role}
           />
-          {role == "" ? (<> {/* admin */}
           <SideBarItem
             text="Docentes"
             isSelected={selectedItem === SIDE_BAR_ITEM.PROFESSORS}
@@ -80,8 +79,9 @@ export function SideBar() {
               setSelectedItem(SIDE_BAR_ITEM.PROFESSORS);
             }}
             icon={<UsersIcon className="w-4 h-4" />}
-            navigateTo="/docentes"
+            navigateTo={role+"/professors"}
           />
+          {role == "" ? (<> {/* admin */}
           <SideBarItem
             text="Materias"
             isSelected={selectedItem === SIDE_BAR_ITEM.SUBJECTS}
@@ -89,7 +89,7 @@ export function SideBar() {
               setSelectedItem(SIDE_BAR_ITEM.SUBJECTS);
             }}
             icon={<AcademicCapIcon className="w-4 h-4" />}
-            navigateTo="/materias"
+            navigateTo="/subjects"
           />
           </>) : (<>
           <SideBarItem

@@ -6,7 +6,7 @@ import { updateProfessor, getProfessorById } from "../../services/AdministratorS
 import { parse, format } from "date-fns"
 
 
-function DocenteUpdateForm() {
+function ProfessorUpdateForm() {
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const { id } = useParams();
@@ -54,7 +54,7 @@ function DocenteUpdateForm() {
       const response = await updateProfessor(professorForm);
       window.alert(response.message);
       setErrors({});
-      navigate('/docentes');
+      navigate('/professors');
     }
     catch(error) {
       const response = error.response;
@@ -206,7 +206,7 @@ function DocenteUpdateForm() {
         </div>
         <p className="mt-4 text-sm text-gray-600 text-center">
           <Link
-            to="/docentes"
+            to="/professors"
             className="text-blue-600 hover:underline font-semibold"
           >
             Volver
@@ -217,4 +217,4 @@ function DocenteUpdateForm() {
   );
 }
 
-export default DocenteUpdateForm;
+export default ProfessorUpdateForm;

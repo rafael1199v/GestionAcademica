@@ -1,9 +1,9 @@
-import ItemMateria from "./subject-item";
+import SubjectItem from "./subject-item";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { getAllSubjects } from "../../services/AdministratorService";
 
-function Materias(){
+function Subjects(){
 
     const [subjects, setSubjects] = useState([]);
     const loadSubjects = async () => {
@@ -27,11 +27,11 @@ function Materias(){
             <div className="p-5"></div>
             <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {subjects.map((subject) => (
-                    <ItemMateria 
+                    <SubjectItem 
                         key={subject.id} 
                         title={subject.name} 
                         description={subject.description} 
-                        onClick={() => navigate(`/materia/${subject.id}`)} 
+                        onClick={() => navigate(`/subject-details/${subject.id}`)} 
                     />
                 ))}
             </ul>
@@ -39,4 +39,4 @@ function Materias(){
     )
 }
 
-export default Materias;
+export default Subjects;

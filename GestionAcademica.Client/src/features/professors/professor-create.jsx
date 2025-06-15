@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ValidateProfessorRegisterForm } from "../../services/ValidationService";
 import { createProfessor } from "../../services/AdministratorService";
 
-function DocenteRegisterForm() {
+function ProfessorRegisterForm() {
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const [professorForm, setProfessorForm] = useState({
@@ -32,7 +32,7 @@ function DocenteRegisterForm() {
     try {
       const response = await createProfessor(professorForm);
       setErrors({});
-      navigate('/docentes');
+      navigate('/professors');
     }
     catch(error) {
       const response = error.response;
@@ -224,7 +224,7 @@ function DocenteRegisterForm() {
         </div>
         <p className="mt-4 text-sm text-gray-600 text-center">
           <Link
-            to="/docentes"
+            to="/professors"
             className="text-blue-600 hover:underline font-semibold"
           >
             Volver
@@ -235,4 +235,4 @@ function DocenteRegisterForm() {
   );
 }
 
-export default DocenteRegisterForm;
+export default ProfessorRegisterForm;

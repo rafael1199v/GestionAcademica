@@ -1,4 +1,4 @@
-function ItemMateria({ title, description, onClick }) {
+function SubjectItem({ title, description, onClick }) {
   return (
     <a
       href="#"
@@ -13,4 +13,4 @@ function ItemMateria({ title, description, onClick }) {
   );
 }
 
-export default ItemMateria;
+export default SubjectItem;
