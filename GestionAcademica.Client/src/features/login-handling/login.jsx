@@ -18,8 +18,9 @@ const LoginForm = () => {
       const response = await login({email, password});
       localStorage.setItem('userId', response.userId);
       localStorage.setItem('roleId', response.roleId);
+      localStorage.setItem('userRoleId', response.userRoleId);
       
-      setUsersession({userId: response.userId, roleId: response.roleId});
+      setUsersession({userId: response.userId, roleId: response.roleId, userRoleId: response.userRoleId});
   
       if(response.roleId == ROLES.APPLICANT)
         navigate("/applicant");

@@ -35,19 +35,22 @@ builder.Services.AddCors(options =>
         policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 });
 
-builder.Services.AddScoped<IProfessorRepository, ProfessorRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IHashUtility, HashUtility>();
-builder.Services.AddScoped<ILoginUseCase, LoginUseCase>();
+builder.Services.AddScoped<IProfessorRepository, ProfessorRepository>();
 builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
+builder.Services.AddScoped<IAdministratorRepository, AdministratorRepository>();
+builder.Services.AddScoped<IHrRepository, HrRepository>();
+builder.Services.AddScoped<IApplicantRepository, ApplicantRepository>();
+builder.Services.AddScoped<IVacancyRepository, VacancyRepository>();
+
+builder.Services.AddScoped<IHashUtility, HashUtility>();
+
+builder.Services.AddScoped<ILoginUseCase, LoginUseCase>();
+builder.Services.AddScoped<IProfessorMapper, ProfessorMapper>();
 builder.Services.AddScoped<IDetailSubjectUseCase, DetailSubjectUseCase>();
 builder.Services.AddScoped<ICreateSubjectUseCase, CreateSubjectUseCase>();
-builder.Services.AddScoped<IProfessorMapper, ProfessorMapper>();
 builder.Services.AddScoped<IProfessorManagementUseCase, ProfessorManagementUseCase>();
-
-builder.Services.AddScoped<IVacancyRepository, VacancyRepository>();
 builder.Services.AddScoped<ICreateVacancyUseCase, CreateVacancyUseCase>();
-builder.Services.AddScoped<IAdministratorRepository, AdministratorRepository>();
 
 builder.Services.AddScoped<IManageVacancies, ManageVacancies>();
 

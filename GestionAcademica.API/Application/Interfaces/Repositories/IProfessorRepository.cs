@@ -7,6 +7,7 @@ namespace GestionAcademica.API.Application.Interfaces.Repositories
         List<Professor> GetAll();
         List<Professor> GetAllWithDetails();
         Professor GetById(int id);
+        Professor GetByUserId(int userId);
         void Update(Professor professor);
         void Delete(Professor professor);
         Professor Add(Professor professor);

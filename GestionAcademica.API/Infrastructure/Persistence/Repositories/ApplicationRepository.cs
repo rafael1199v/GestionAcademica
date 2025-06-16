@@ -3,7 +3,7 @@ using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace GestionAcademica.API.Infrastructure.Persistance.Repositories
+namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
 {
     public class ApplicationRepository : IApplicationRepository
     {

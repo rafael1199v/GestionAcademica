@@ -11,22 +11,39 @@ namespace GestionAcademica.API.Application.UseCases
     {
         private readonly IHashUtility _hashUtility;
         private readonly IUserRepository _userRepository;
-        public LoginUseCase(IUserRepository userRepository, IHashUtility hashUtility)
+        private readonly IAdministratorRepository _administratorRepository;
+        private readonly IApplicantRepository _applicantRepository;
+        private readonly IProfessorRepository _professorRepository;
+        private readonly IHrRepository _hrRepository;
+        public LoginUseCase(IUserRepository userRepository, IHashUtility hashUtility,
+            IAdministratorRepository administratorRepository, IApplicantRepository applicantRepository,
+            IProfessorRepository professorRepository, IHrRepository hrRepository)
         {
             _userRepository = userRepository;
             _hashUtility = hashUtility;
+            _administratorRepository = administratorRepository;
+            _applicantRepository = applicantRepository;
+            _professorRepository = professorRepository;
+            _hrRepository = hrRepository;
         }
 
-        public (string, string) Login(string email, string password)
+        public (string, string, string) Login(string email, string password)
         {
             User? user = _userRepository.GetByInstitutionalEmail(email)
             ?? _userRepository.GetByEmail(email)
             ?? throw new Exception("No se encontro el usuario");
-            
+
             if (_hashUtility.CreateHash(password) != user.Password)
                 throw new Exception("Contraseña incorrecta");
 
-            return (user.Id.ToString(), user.RoleId.ToString());
+            int userRoleId = GetSpecialId(user.Id, user.RoleId);
+
+            if (userRoleId == -1)
+            {
+                throw new Exception("Error obteniendo al usuario");
+            }
+
+            return (user.Id.ToString(), user.RoleId.ToString(), userRoleId.ToString());
         }
 
         public void SignUp(CreateUserDTO userDto)
@@ -68,6 +85,29 @@ namespace GestionAcademica.API.Application.UseCases
             };
 
             return result;
+        }
+        private int GetSpecialId(int userId, int roleId)
+        {
+            switch (roleId)
+            {
+                case 1: //Admin
+                    return _administratorRepository.GetByUserId(userId).Id;
+
+                case 2: //Professor
+                    return _professorRepository.GetByUserId(userId).Id;
+
+                case 3: //Student, en desuso
+                    return -1;
+
+                case 4: //Applicant
+                    return _applicantRepository.GetByUserId(userId).Id;
+
+                case 5: //Human Resources
+                    return _hrRepository.GetByUserId(userId).Id;
+
+                default: //??????????????
+                    return -1;
+            }
         }
     }
 }

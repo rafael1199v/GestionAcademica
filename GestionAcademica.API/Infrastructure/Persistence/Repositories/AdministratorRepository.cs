@@ -17,11 +17,10 @@ public class AdministratorRepository : IAdministratorRepository
     
     public Administrator GetByUserId(int userId)
     {
-        var administrator = _context.Administrators.Include(admin => admin.User).FirstOrDefault(x => x.UserId == userId);
-
-        if (administrator == null)
-            throw new Exception("El administrador no fue encontrado");
-
+        var administrator = _context.Administrators
+        .Include(admin => admin.User)
+        .FirstOrDefault(x => x.UserId == userId)
+        ?? throw new Exception("El administrador no fue encontrado");
         return administrator;
     }
 }

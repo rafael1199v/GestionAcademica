@@ -21,7 +21,7 @@ namespace GestionAcademica.API.Presentation.Controllers
             try
             {
                 var userCred = _loginUseCase.Login(request.Email, request.Password);
-                return Ok(new { userId = userCred.Item1, roleId = userCred.Item2 });
+                return Ok(new { userId = userCred.Item1, roleId = userCred.Item2, userRoleId = userCred.Item3 });
             }
             catch (Exception ex)
             {

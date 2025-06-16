@@ -9,25 +9,24 @@ function Applications() {
   const seeApplicationDetails = (id) => {
     navigate(`/applicant/applications/${id}`);
   }
-// Obtener las postulaciones de la base de datos según el id del postulante (no el id de usuario)
   const [applications, setApplications] = React.useState([]);
 
-  useEffect(() => {
-    const fetchApplications = async () => {
-      try {
-        const response = await fetch('/api/applications');  //TODO: Mandar de argumento el id de aplicante
-        if (!response.ok) {
-          throw new Error('Error fetching applications');
-        }
-        const data = await response.json();
-        setApplications(data);
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchApplications = async () => {
+  //     try {
+  //       const response = await fetch('/api/applications');  //TODO: Mandar de argumento el id de aplicante
+  //       if (!response.ok) {
+  //         throw new Error('Error fetching applications');
+  //       }
+  //       const data = await response.json();
+  //       setApplications(data);
+  //     } catch (error) {
+  //       console.error('Error:', error);
+  //     }
+  //   };
 
-    fetchApplications();
-  }, []);
+  //   fetchApplications();
+  // }, []);
 
   return (
     <>

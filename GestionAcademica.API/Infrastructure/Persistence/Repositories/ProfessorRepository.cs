@@ -37,11 +37,8 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
         {
             Professor? professor = _context.Professors
                 .Include(_professor => _professor.User)
-                .FirstOrDefault(_professor => _professor.Id == id);
-
-            if (professor == null)
-                throw new Exception("Profesor no encontrado");
-
+                .FirstOrDefault(_professor => _professor.Id == id)
+                ?? throw new Exception("Profesor no encontrado");
             return professor;
         }
 
@@ -81,6 +78,15 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
                 Id = professor.Id,
                 UserId = professor.UserId
             };
+        }
+
+        public Professor GetByUserId(int userId)
+        {
+            Professor? professor = _context.Professors
+                .Include(_professor => _professor.User)
+                .FirstOrDefault(_professor => _professor.UserId == userId)
+                ?? throw new Exception("Profesor no encontrado");
+            return professor;
         }
     }
 }
