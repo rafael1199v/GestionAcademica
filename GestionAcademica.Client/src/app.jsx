@@ -18,6 +18,7 @@ import ApplicationDetail from "./features/applications/application-detail";
 import ApplicationDetailsHr from "./features/applications/application-details-hr";
 import Register from "./features/login-handling/register";
 import ApplicationsHrTable from "./features/applications/applications-hr-table";
+import VacancyForm from "./features/vacancies/vacancy-form";
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
                 <Route path="/professor-details/:id" element={<ProfessorDetails />} />
                 <Route path="/subjects" element={<Subjects />} />
                 <Route path="/subject-details/:id" element={<SubjectDetails />} />
+                <Route path="/vacancies/create" element={<VacancyForm />} />
               </Route>
             </Route>
 

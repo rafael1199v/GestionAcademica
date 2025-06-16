@@ -56,5 +56,12 @@ namespace GestionAcademica.API.Infrastructure.Persistance.Repositories
             _context.Entry(existingSubject).State = EntityState.Modified;
             _context.SaveChanges();
         }
+
+        public List<Subject> GetWithCareers()
+        {
+            return _context.Subjects
+                .Include(s => s.Careers)
+                .ToList();
+        }
     }
 }

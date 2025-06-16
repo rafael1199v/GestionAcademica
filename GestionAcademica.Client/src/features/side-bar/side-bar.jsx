@@ -103,15 +103,15 @@ export function SideBar() {
           />
           </>)}
           {role != "/hr" && (
-          <SideBarItem
-            text="Vacantes"
-            isSelected={selectedItem === SIDE_BAR_ITEM.REPORTS}
-            onClick={() => {
-              setSelectedItem(SIDE_BAR_ITEM.REPORTS);
-            }}
-            icon={<ClipboardDocumentCheckIcon className="w-4 h-4" />}
-            navigateTo={role == "" ? "/vacancies" : role+"/vacancies"}
-          />
+            <SideBarItem
+              text="Vacantes"
+              isSelected={selectedItem === SIDE_BAR_ITEM.REPORTS}
+              onClick={() => {
+                setSelectedItem(SIDE_BAR_ITEM.REPORTS);
+              }}
+              icon={<ClipboardDocumentCheckIcon className="w-4 h-4" />}
+              navigateTo={role == "" ? "/vacancies" : role + "/vacancies"}
+            />
           )}
           <SideBarItem
             text="Cerrar sesion"

@@ -1,3 +1,5 @@
+using GestionAcademica.API.Application.DTOs.Career;
+
 namespace GestionAcademica.API.Domain.Entities;
 
 public class CareerEntity
@@ -7,4 +9,6 @@ public class CareerEntity
     public string Name { get; set; } = null!;
 
     public int? AdministratorId { get; set; }
+    
+    public List<CareerDTO>? Careers { get; set; }
 }

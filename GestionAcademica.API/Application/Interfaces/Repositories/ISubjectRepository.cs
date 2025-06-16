@@ -9,5 +9,6 @@ namespace GestionAcademica.API.Application.Interfaces.Repositories
         void Create(Subject subject);
         void Delete(Subject subject);
         void Update(Subject subject);
+        List<Subject> GetWithCareers();
     }
 }

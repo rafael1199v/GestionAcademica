@@ -46,6 +46,9 @@ builder.Services.AddScoped<ICreateSubjectUseCase, CreateSubjectUseCase>();
 builder.Services.AddScoped<IProfessorMapper, ProfessorMapper>();
 builder.Services.AddScoped<IProfessorManagementUseCase, ProfessorManagementUseCase>();
 
+builder.Services.AddScoped<IVacancyRepository, VacancyRepository>();
+builder.Services.AddScoped<ICreateVacancyUseCase, CreateVacancyUseCase>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
