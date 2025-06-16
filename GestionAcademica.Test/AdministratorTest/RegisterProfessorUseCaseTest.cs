@@ -7,7 +7,7 @@ using GestionAcademica.API.Application.Mappers;
 using GestionAcademica.API.Application.UseCases;
 using GestionAcademica.API.Domain.Enums;
 using GestionAcademica.API.Domain.Exceptions;
-using GestionAcademica.API.Infrastructure.Persistance.Models;
+using GestionAcademica.API.Infrastructure.Persistence.Models;
 
 namespace GestionAcademica.Test.AdministratorTest;
 

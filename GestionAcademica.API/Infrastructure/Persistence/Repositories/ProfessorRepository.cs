@@ -1,11 +1,11 @@
 ﻿using System.Linq.Expressions;
 using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Domain.Entities;
-using GestionAcademica.API.Infrastructure.Persistance.Context;
-using GestionAcademica.API.Infrastructure.Persistance.Models;
+using GestionAcademica.API.Infrastructure.Persistence.Context;
+using GestionAcademica.API.Infrastructure.Persistence.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace GestionAcademica.API.Infrastructure.Persistance.Repositories
+namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
 {
     public class ProfessorRepository : IProfessorRepository
     {

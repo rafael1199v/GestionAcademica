@@ -1,4 +1,7 @@
-﻿namespace GestionAcademica.API.Infrastructure.Persistance.Models;
+﻿using System;
+using System.Collections.Generic;
+
+namespace GestionAcademica.API.Infrastructure.Persistence.Models;
 
 public partial class Professor
 {
@@ -9,6 +12,4 @@ public partial class Professor
     public virtual ICollection<Subject> Subjects { get; set; } = new List<Subject>();
 
     public virtual User User { get; set; } = null!;
-
-    public virtual ICollection<File> Files { get; set; } = new List<File>();
 }

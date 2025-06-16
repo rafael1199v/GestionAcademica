@@ -1,7 +1,7 @@
 using GestionAcademica.API.Application.DTOs;
 using GestionAcademica.API.Application.DTOs.Career;
 using GestionAcademica.API.Application.DTOs.Subject;
-using GestionAcademica.API.Infrastructure.Persistance.Models;
+using GestionAcademica.API.Infrastructure.Persistence.Models;
 
 namespace GestionAcademica.API.Application.Mappers;
 

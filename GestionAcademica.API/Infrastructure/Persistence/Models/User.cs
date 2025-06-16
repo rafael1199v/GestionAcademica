@@ -1,4 +1,7 @@
-﻿namespace GestionAcademica.API.Infrastructure.Persistance.Models;
+﻿using System;
+using System.Collections.Generic;
+
+namespace GestionAcademica.API.Infrastructure.Persistence.Models;
 
 public partial class User
 {
@@ -33,6 +36,4 @@ public partial class User
     public virtual ICollection<Professor> Professors { get; set; } = new List<Professor>();
 
     public virtual Role Role { get; set; } = null!;
-
-    public virtual ICollection<Student> Students { get; set; } = new List<Student>();
 }

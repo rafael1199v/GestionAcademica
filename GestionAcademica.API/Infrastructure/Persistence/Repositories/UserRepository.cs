@@ -1,10 +1,9 @@
 using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Domain.Entities;
-using GestionAcademica.API.Infrastructure.Persistance.Context;
-using GestionAcademica.API.Infrastructure.Persistance.Models;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
+using GestionAcademica.API.Infrastructure.Persistence.Context;
+using GestionAcademica.API.Infrastructure.Persistence.Models;
 
-namespace GestionAcademica.API.Infrastructure.Persistance.Repositories;
+namespace GestionAcademica.API.Infrastructure.Persistence.Repositories;
 
 public class UserRepository : IUserRepository
 {

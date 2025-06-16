@@ -1,4 +1,4 @@
-using GestionAcademica.API.Infrastructure.Persistance.Models;
+using GestionAcademica.API.Infrastructure.Persistence.Models;
 
 namespace GestionAcademica.API.Application.Interfaces.Repositories;
 

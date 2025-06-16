@@ -4,7 +4,7 @@ using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Application.Interfaces.UseCases;
 using GestionAcademica.API.Domain.Entities;
 using GestionAcademica.API.Domain.Enums;
-using GestionAcademica.API.Infrastructure.Persistance.Models;
+using GestionAcademica.API.Infrastructure.Persistence.Models;
 
 namespace GestionAcademica.API.Application.UseCases;
 

@@ -1,4 +1,7 @@
-﻿namespace GestionAcademica.API.Infrastructure.Persistance.Models;
+﻿using System;
+using System.Collections.Generic;
+
+namespace GestionAcademica.API.Infrastructure.Persistence.Models;
 
 public partial class File
 {
@@ -13,6 +16,4 @@ public partial class File
     public string FilePath { get; set; } = null!;
 
     public virtual ICollection<Application> Applications { get; set; } = new List<Application>();
-
-    public virtual ICollection<Professor> Professors { get; set; } = new List<Professor>();
 }
