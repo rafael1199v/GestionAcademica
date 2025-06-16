@@ -3,35 +3,13 @@ import React, { useState, useEffect } from "react";
 import { getProfessorById } from "../../services/AdministratorService";
 import { useAuthContext } from "../../hooks/UseAuthContext";
 import { ROLES } from "../../config/role-const";
+import { getRoleLink } from "../../services/AuthService";
 
 function ProfessorDetails() {
   const navigate = useNavigate();
   const { id } = useParams();
   const { userSession } = useAuthContext();
-  const getRole = () => {
-    switch (parseInt(userSession.roleId)) {
-      case ROLES.ADMIN:
-        return "";
-        break;
-      case ROLES.PROFESSOR:
-        return "/professor";
-        break;
-      case ROLES.STUDENT:
-        return "/student";
-        break;
-      case ROLES.APPLICANT:
-        return "/applicant";
-        break;
-      case ROLES.HR:
-        return "/hr";
-        break;
-
-      default:
-        return "error";
-        break;
-    }
-  };
-  const role = getRole();
+  const role = getRoleLink(parseInt(userSession.roleId));
 
   const [professor, setProfessor] = useState({
     Id: id,

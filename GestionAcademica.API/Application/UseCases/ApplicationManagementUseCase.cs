@@ -1,54 +1,63 @@
+using GestionAcademica.API.Application.DTOs;
 using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Application.Interfaces.UseCases;
 using GestionAcademica.API.Infrastructure.Persistence.Models;
-using ApplicationModel = GestionAcademica.API.Infrastructure.Persistence.Models.Application;
+using GestionAcademica.API.Application.Interfaces.Mappers;
 
 namespace GestionAcademica.API.Application.UseCases
 {
     public class ApplicationManagementUseCase : IApplicationManagementUseCase
     {
         private readonly IApplicationRepository _applicationRepository;
-        public ApplicationManagementUseCase(IApplicationRepository applicationRepository)
+        private readonly IApplicationMapper _applicationMapper;
+        public ApplicationManagementUseCase(IApplicationRepository applicationRepository, IApplicationMapper applicationMapper)
         {
             _applicationRepository = applicationRepository;
+            _applicationMapper = applicationMapper;
         }
 
-        public void CreateApplication(ApplicationModel application)
+        public void CreateApplication(ApplicationDTO application)
         {
-            _applicationRepository.Create(application);
+            _applicationRepository.Create(_applicationMapper.DtoToApp(application));
         }
 
-        public ApplicationModel GetApplicationById(int id)
+        public ApplicationDTO GetApplicationById(int id)
         {
-            return _applicationRepository.GetById(id);
+            return _applicationMapper.AppToDto(_applicationRepository.GetById(id));
         }
 
-        public List<ApplicationModel> GetApplicationsByApplicantId(int applicantId)
+        public List<ApplicationDTO> GetApplicationsByApplicantId(int applicantId)
         {
-            return _applicationRepository.GetByApplicant(applicantId);
+            return _applicationRepository.GetByApplicant(applicantId).ToList()
+                .Select(_applicationMapper.AppToDto).ToList();
         }
 
-        public List<ApplicationModel> GetApplicationsByOwnerId(int adminId)
+        public List<ApplicationDTO> GetApplicationsByOwnerId(int adminId)
         {
-            return _applicationRepository.GetByOwner(adminId);
+            return _applicationRepository.GetByOwner(adminId).ToList()
+                .Select(_applicationMapper.AppToDto).ToList();
         }
 
-        public List<ApplicationModel> GetApplicationsByStatusId(int statusId)
+        public List<ApplicationDTO> GetApplicationsByStatusId(int statusId)
         {
-            return _applicationRepository.GetByStatus(statusId);
+            return _applicationRepository.GetByStatus(statusId).ToList()
+                .Select(_applicationMapper.AppToDto).ToList();
         }
 
-        public List<ApplicationModel> GetApplicationsByVacancyId(int vacancyId)
+        public List<ApplicationDTO> GetApplicationsByVacancyId(int vacancyId)
         {
-            return _applicationRepository.GetByVacancy(vacancyId);
+            return _applicationRepository.GetByVacancy(vacancyId).ToList()
+                .Select(_applicationMapper.AppToDto).ToList();
         }
 
-        public void UpdateApplication(ApplicationModel application)
+        public void UpdateApplication(ApplicationDTO application)
         {
-            try {
-                _applicationRepository.Update(application);
+            try
+            {
+                _applicationRepository.Update(_applicationMapper.DtoToApp(application));
             }
-            catch (Exception ex){
+            catch (Exception ex)
+            {
                 throw new Exception("Error al actualizar la solicitud: " + ex.Message);
             }
         }

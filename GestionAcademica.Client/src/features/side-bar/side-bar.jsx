@@ -12,6 +12,7 @@ import {
   ClipboardDocumentCheckIcon,
   InboxArrowDownIcon,
 } from "@heroicons/react/16/solid";
+import { getRoleLink } from "../../services/AuthService";
 
 export function SideBar() {
   const [selectedItem, setSelectedItem] = useState(SIDE_BAR_ITEM.HOME);
@@ -31,30 +32,7 @@ export function SideBar() {
     }
   };
 
-  const getRole = () => {
-    switch (parseInt(userSession.roleId)) {
-      case ROLES.ADMIN:
-        return "";
-        break;
-      case ROLES.PROFESSOR:
-        return "/professor";
-        break;
-      case ROLES.STUDENT:
-        return "/student";
-        break;
-      case ROLES.APPLICANT:
-        return "/applicant";
-        break;
-      case ROLES.HR:
-        return "/hr";
-        break;
-
-      default:
-        return "error";
-        break;
-    }
-  };
-  const role = getRole();
+  const role = getRoleLink(parseInt(userSession.roleId));
 
   return (
     <div className="w-64 h-screen flex-col justify-between border-e border-gray-100 bg-white">

@@ -49,7 +49,8 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
             if (adminId <= 0)
                 throw new ArgumentException("ID inválido", nameof(adminId));
             return _context.Applications
-                .Where(a => a.Vacancy.AdminId == adminId)
+                .Where(a => a.Vacancy.AdminId == adminId && a.StatusId == 2)
+                // TODO: Incluir una alternativa que muestre todas las postulaciones sin importar el estado
                 .Include(a => a.Vacancy)
                 .ToList();
         }
