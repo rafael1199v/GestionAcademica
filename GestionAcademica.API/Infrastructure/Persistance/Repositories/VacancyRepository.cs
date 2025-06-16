@@ -1,6 +1,7 @@
 using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Infrastructure.Persistance.Context;
 using GestionAcademica.API.Infrastructure.Persistance.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace GestionAcademica.API.Infrastructure.Persistance.Repositories;
 
@@ -17,5 +18,17 @@ public class VacancyRepository : IVacancyRepository
     {
         _context.Vacancies.Add(vacancy);
         _context.SaveChanges();
+    }
+
+    public List<Vacancy> GetByCreator(int adminId)
+    {
+        var vacancies = _context.Vacancies.Where(vacancy => vacancy.AdminId == adminId)
+            .Include(vacancy => vacancy.Career)
+            .Include(vacancy => vacancy.Subject)
+            .Include(vacancy => vacancy.Applications)
+            .ThenInclude(application => application.Status)
+            .ToList();
+ 
+        return vacancies;
     }
 }

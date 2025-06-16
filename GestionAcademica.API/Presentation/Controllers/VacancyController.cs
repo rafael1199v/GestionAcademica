@@ -10,10 +10,12 @@ namespace GestionAcademica.API.Presentation.Controllers;
 public class VacancyController : ControllerBase
 {
     private readonly ICreateVacancyUseCase _createVacancyUseCase;
+    private readonly IManageVacancies _manageVacancies;
 
-    public VacancyController(ICreateVacancyUseCase createVacancyUseCase)
+    public VacancyController(ICreateVacancyUseCase createVacancyUseCase, IManageVacancies manageVacancies)
     {
         _createVacancyUseCase = createVacancyUseCase;
+        _manageVacancies = manageVacancies;
     }
 
 
@@ -39,6 +41,20 @@ public class VacancyController : ControllerBase
         try
         {
             return Ok(_createVacancyUseCase.GetSubjectsWithCareers());
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpGet]
+    [Route("{userId}")]
+    public IActionResult GetVacancies(int userId)
+    {
+        try
+        {
+            return Ok(_manageVacancies.GetVacancies(userId));
         }
         catch (Exception ex)
         {

@@ -27,6 +27,17 @@ class VacancyService {
             throw new Error(error.response.data);
         }
     }
+
+
+    async getVacancies(userId) {
+        try {
+            const response = await this.http.get(`/Vacancy/${userId}`);
+            return response.data;
+        }
+        catch(error) {
+            throw new Error(error.response.data);
+        }
+    }
 }
 
 
