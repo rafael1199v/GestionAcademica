@@ -6,4 +6,6 @@ public interface IVacancyRepository
 {
     void Add(Vacancy vacancy);
     List<Vacancy> GetByCreator(int adminId);
+    Vacancy GetById(int vacancyId);
+    void Update(Vacancy vacancy);
 }

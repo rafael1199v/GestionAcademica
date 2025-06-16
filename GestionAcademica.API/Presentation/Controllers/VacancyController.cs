@@ -61,4 +61,18 @@ public class VacancyController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
+
+    [HttpPut]
+    public IActionResult UpdateVacancy([FromBody] UpdateVacancyDTO updateVacancyDto)
+    {
+        try
+        {
+            _manageVacancies.UpdateVacancy(updateVacancyDto);
+            return Ok("Vacante actualizada correctamente");
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
 }

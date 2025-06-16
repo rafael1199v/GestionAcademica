@@ -2,6 +2,7 @@ using GestionAcademica.API.Application.DTOs.Vacancy;
 using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Application.Interfaces.UseCases;
 using GestionAcademica.API.Application.Mappers;
+using GestionAcademica.API.Domain.Entities;
 using GestionAcademica.API.Infrastructure.Persistence.Models;
 
 namespace GestionAcademica.API.Application.UseCases;
@@ -28,7 +29,20 @@ public class ManageVacancies : IManageVacancies
 
     public void UpdateVacancy(UpdateVacancyDTO vacancyDto)
     {
-        throw new NotImplementedException();
+        if (!DateTime.TryParse(vacancyDto.EndTime, out DateTime endTime) || !DateTime.TryParse(vacancyDto.StartTime, out DateTime startTime))
+            throw new ArgumentException("La fecha es invalida");
+        
+        var vacancy = _vacancyRepository.GetById(vacancyDto.Id);
+        VacancyEntity entity = VacancyEntity.CreateVacancy(vacancyDto.Name, vacancyDto.Description, startTime, endTime, vacancyDto.SubjectId, vacancyDto.CareerId, vacancy.AdminId);
+        
+        vacancy.Name = entity.Name;
+        vacancy.Description = entity.Description;
+        vacancy.StartTime = entity.StartTime;
+        vacancy.EndTime = entity.EndTime;
+        vacancy.SubjectId = entity.SubjectId;
+        vacancy.CareerId = entity.CareerId;
+        
+        _vacancyRepository.Update(vacancy);
     }
 
     public void DeleteVacancy(int vacancyId)

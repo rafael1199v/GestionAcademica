@@ -31,4 +31,26 @@ public class VacancyRepository : IVacancyRepository
  
         return vacancies;
     }
+
+    public Vacancy GetById(int vacancyId)
+    {
+        var vacancy = _context.Vacancies
+            .Include(vacancy => vacancy.Admin)
+            .Include(vacancy => vacancy.Career)
+            .Include(vacancy => vacancy.Subject)
+            .Include(vacancy => vacancy.Applications)
+            .ThenInclude(application => application.Status)
+            .FirstOrDefault(vacancy => vacancy.Id == vacancyId);
+
+        if(vacancy == null)
+            throw new Exception("La vacante no fue encontrada");
+        
+        return vacancy;
+    }
+
+    public void Update(Vacancy vacancy)
+    {
+        _context.Vacancies.Update(vacancy);
+        _context.SaveChanges();
+    }
 }
