@@ -48,6 +48,7 @@ builder.Services.AddScoped<IProfessorManagementUseCase, ProfessorManagementUseCa
 
 builder.Services.AddScoped<IVacancyRepository, VacancyRepository>();
 builder.Services.AddScoped<ICreateVacancyUseCase, CreateVacancyUseCase>();
+builder.Services.AddScoped<IAdministratorRepository, AdministratorRepository>();
 
 var app = builder.Build();
 

@@ -8,5 +8,5 @@ public class CreateVacancyDTO
     public string? EndTime { get; set; }
     public int SubjectId { get; set; }
     public int CareerId { get; set; }
-    public int AdminId { get; set; }
+    public int UserId { get; set; }
 }

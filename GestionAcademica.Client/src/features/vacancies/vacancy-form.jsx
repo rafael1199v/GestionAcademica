@@ -16,7 +16,7 @@ function VacancyForm() {
     endTime: "",
     subjectId: "",
     careerId: "",
-    adminId: localStorage.getItem('userId')
+    userId: localStorage.getItem('userId')
   });
 
   const getSubjectsWithCareers = async () => {

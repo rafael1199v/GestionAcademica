@@ -36,6 +36,15 @@ public class VacancyEntity
         if (endTime < DateTime.Now)
             throw new DomainException("La fecha de finalizacion no debe estar en el pasado");
 
+        if (subjectId <= 0)
+            throw new DomainException("La vacante debe tener una materia asignada");
+        
+        if(careerId <= 0)
+            throw new DomainException("La vacante debe tener una carrera asignada");
+        
+        if(adminId <= 0)
+            throw new DomainException("La vacante debe tener un usuario creador");
+
         return new VacancyEntity
         {
             Name = name,
