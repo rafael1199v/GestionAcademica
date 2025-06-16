@@ -23,4 +23,19 @@ public class VacancyMapper
             Closed = (vacancy.Applications.Any(application => application.Status.Id == (int)StatusEnum.ACCEPTED) || vacancy.EndTime <= DateTime.Now)
         };
     }
+
+
+    public static UpdateVacancyDTO MapVacancyToUpdateVacancyDto(Vacancy vacancy)
+    {
+        return new UpdateVacancyDTO
+        {
+            Id = vacancy.Id,
+            Name = vacancy.Name,
+            Description = vacancy.Description,
+            StartTime = vacancy.StartTime.ToString("yyyy-MM-dd HH:mm:ss"),
+            EndTime = vacancy.EndTime.ToString("yyyy-MM-dd HH:mm:ss"),
+            CareerId = vacancy.CareerId,
+            SubjectId = vacancy.SubjectId
+        };
+    }
 }

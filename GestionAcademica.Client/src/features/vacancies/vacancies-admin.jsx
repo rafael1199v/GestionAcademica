@@ -76,12 +76,15 @@ function VacanciesAdmin() {
                 </Link>
 
                 <Link
-                  to={`/`}
+                  to={`/vacancies/update/${vacancy.id}`}
                   className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                 >
                   Editar
                 </Link>
-                <a className='text-red-500 cursor-pointer hover:underline'>
+                <a className='text-red-500 cursor-pointer hover:underline' onClick={async () => {
+                  await vacancyService.deleteVacancy(vacancy.id);
+                  await getVacancies();
+                }}>
                   Eliminar
                 </a>
               </td>

@@ -47,11 +47,18 @@ public class ManageVacancies : IManageVacancies
 
     public void DeleteVacancy(int vacancyId)
     {
-        throw new NotImplementedException();
+        _vacancyRepository.Delete(vacancyId);
     }
 
     public DetailVacancyDTO GetVacancy(int vacancyId)
     {
         throw new NotImplementedException();
+    }
+
+    public UpdateVacancyDTO GetVacancyToUpdate(int vacancyId)
+    {
+        var vacancy = _vacancyRepository.GetById(vacancyId);
+
+        return VacancyMapper.MapVacancyToUpdateVacancyDto(vacancy);
     }
 }

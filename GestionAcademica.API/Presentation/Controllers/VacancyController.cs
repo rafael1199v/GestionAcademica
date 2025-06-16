@@ -75,4 +75,34 @@ public class VacancyController : ControllerBase
             return BadRequest(e.Message);
         }
     }
+
+    [HttpGet]
+    [Route("update/{vacancyId}")]
+    public IActionResult GetVacancyToUpdate(int vacancyId)
+    {
+        try
+        {
+            return Ok(_manageVacancies.GetVacancyToUpdate(vacancyId));
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+
+    [HttpDelete]
+    [Route("{vacancyId}")]
+    public IActionResult DeleteVacancy(int vacancyId)
+    {
+        try
+        {
+            _manageVacancies.DeleteVacancy(vacancyId);
+            return Ok("Vacante eliminada correctamente");
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
 }

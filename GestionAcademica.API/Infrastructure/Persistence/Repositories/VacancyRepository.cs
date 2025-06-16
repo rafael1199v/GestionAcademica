@@ -53,4 +53,11 @@ public class VacancyRepository : IVacancyRepository
         _context.Vacancies.Update(vacancy);
         _context.SaveChanges();
     }
+
+    public void Delete(int vacancyId)
+    {
+        var vacancy = this.GetById(vacancyId);
+        _context.Vacancies.Remove(vacancy);
+        _context.SaveChanges();
+    }
 }

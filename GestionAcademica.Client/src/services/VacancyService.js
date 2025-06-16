@@ -38,6 +38,34 @@ class VacancyService {
             throw new Error(error.response.data);
         }
     }
+
+    async getVacancyToUpdate(vacancyId) {
+        try {
+            const response = await this.http.get(`/Vacancy/update/${vacancyId}`);
+            return response.data;
+        }
+        catch(error) {
+            throw new Error(error.response.data);
+        }
+    }
+
+    async updateVacancy(vacancy) {
+        try {
+            await this.http.put(`/Vacancy`, vacancy);
+        }
+        catch(error) {
+            throw new Error(error.response.data);
+        }
+    }
+
+    async deleteVacancy(vacancyId){
+        try {
+            await this.http.delete(`/Vacancy/${vacancyId}`);
+        }
+        catch(error) {
+            throw new Error(error.response.data);
+        }
+    }
 }
 
 

@@ -19,6 +19,7 @@ import ApplicationDetailsHr from "./features/applications/application-details-hr
 import Register from "./features/login-handling/register";
 import ApplicationsHrTable from "./features/applications/applications-hr-table";
 import VacancyForm from "./features/vacancies/vacancy-form";
+import VacancyUpdateForm from "./features/vacancies/vacancie-update-form";
 
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
                 <Route path="/subjects" element={<Subjects />} />
                 <Route path="/subject-details/:id" element={<SubjectDetails />} />
                 <Route path="/vacancies/create" element={<VacancyForm />} />
+                <Route path="/vacancies/update/:id" element={<VacancyUpdateForm />} />
               </Route>
             </Route>
 
