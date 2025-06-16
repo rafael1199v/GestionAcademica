@@ -130,7 +130,7 @@ public partial class GestionAcademicaContext : DbContext
                     });
         });
 
-        modelBuilder.Entity<File>(entity =>
+        modelBuilder.Entity<Models.File>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__files__3213E83F6316DBC4");
 

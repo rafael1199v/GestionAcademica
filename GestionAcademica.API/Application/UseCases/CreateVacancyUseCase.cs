@@ -52,8 +52,4 @@ public class CreateVacancyUseCase : ICreateVacancyUseCase
         return _subjectRepository.GetWithCareers().Select(subject => SubjectMapper.MapToSubjectWithCareersDTO(subject)).ToList();
     }
     
-    
-
-
-
 }
