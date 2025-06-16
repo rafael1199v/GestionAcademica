@@ -1,6 +1,7 @@
-﻿using GestionAcademica.API.Infrastructure.Persistance.Models;
+﻿using System;
+using System.Collections.Generic;
+using GestionAcademica.API.Infrastructure.Persistance.Models;
 using Microsoft.EntityFrameworkCore;
-using File = GestionAcademica.API.Infrastructure.Persistance.Models.File;
 
 namespace GestionAcademica.API.Infrastructure.Persistance.Context;
 
@@ -25,7 +26,7 @@ public partial class GestionAcademicaContext : DbContext
 
     public virtual DbSet<Classroom> Classrooms { get; set; }
 
-    public virtual DbSet<File> Files { get; set; }
+    public virtual DbSet<Models.File> Files { get; set; }
 
     public virtual DbSet<Hr> Hrs { get; set; }
 
@@ -50,7 +51,7 @@ public partial class GestionAcademicaContext : DbContext
     {
         modelBuilder.Entity<Administrator>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__administ__3213E83F9FDE2434");
+            entity.HasKey(e => e.Id).HasName("PK__administ__3213E83F04597CF5");
 
             entity.ToTable("administrators");
 
@@ -60,12 +61,12 @@ public partial class GestionAcademicaContext : DbContext
             entity.HasOne(d => d.User).WithMany(p => p.Administrators)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__administr__user___5C02A283");
+                .HasConstraintName("FK__administr__user___595B4002");
         });
 
         modelBuilder.Entity<Applicant>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__applican__3213E83FF0CD7B57");
+            entity.HasKey(e => e.Id).HasName("PK__applican__3213E83FB802D1B4");
 
             entity.ToTable("applicants");
 
@@ -75,12 +76,12 @@ public partial class GestionAcademicaContext : DbContext
             entity.HasOne(d => d.User).WithMany(p => p.Applicants)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__applicant__user___61BB7BD9");
+                .HasConstraintName("FK__applicant__user___5F141958");
         });
 
         modelBuilder.Entity<Models.Application>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__applicat__3213E83FB55EBCCB");
+            entity.HasKey(e => e.Id).HasName("PK__applicat__3213E83FDA4F8F34");
 
             entity.ToTable("applications");
 
@@ -92,22 +93,22 @@ public partial class GestionAcademicaContext : DbContext
             entity.HasOne(d => d.Applicant).WithMany(p => p.Applications)
                 .HasForeignKey(d => d.ApplicantId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__applicati__appli__7993056A");
+                .HasConstraintName("FK__applicati__appli__76EBA2E9");
 
             entity.HasOne(d => d.Status).WithMany(p => p.Applications)
                 .HasForeignKey(d => d.StatusId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__applicati__statu__7A8729A3");
+                .HasConstraintName("FK__applicati__statu__77DFC722");
 
             entity.HasOne(d => d.Vacancy).WithMany(p => p.Applications)
                 .HasForeignKey(d => d.VacancyId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__applicati__vacan__789EE131");
+                .HasConstraintName("FK__applicati__vacan__75F77EB0");
         });
 
         modelBuilder.Entity<Career>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__careers__3213E83FCB67003E");
+            entity.HasKey(e => e.Id).HasName("PK__careers__3213E83FB3C2BFC7");
 
             entity.ToTable("careers");
 
@@ -120,7 +121,7 @@ public partial class GestionAcademicaContext : DbContext
 
             entity.HasOne(d => d.Administrator).WithMany(p => p.Careers)
                 .HasForeignKey(d => d.AdministratorId)
-                .HasConstraintName("FK__careers__adminis__6497E884");
+                .HasConstraintName("FK__careers__adminis__61F08603");
 
             entity.HasMany(d => d.Subjects).WithMany(p => p.Careers)
                 .UsingEntity<Dictionary<string, object>>(
@@ -128,14 +129,14 @@ public partial class GestionAcademicaContext : DbContext
                     r => r.HasOne<Subject>().WithMany()
                         .HasForeignKey("SubjectId")
                         .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__careers_s__subje__6B44E613"),
+                        .HasConstraintName("FK__careers_s__subje__689D8392"),
                     l => l.HasOne<Career>().WithMany()
                         .HasForeignKey("CareerId")
                         .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__careers_s__caree__6A50C1DA"),
+                        .HasConstraintName("FK__careers_s__caree__67A95F59"),
                     j =>
                     {
-                        j.HasKey("CareerId", "SubjectId").HasName("PK__careers___BE15FA6FCEA31F89");
+                        j.HasKey("CareerId", "SubjectId").HasName("PK__careers___BE15FA6F104E4F86");
                         j.ToTable("careers_subjects");
                         j.IndexerProperty<int>("CareerId").HasColumnName("career_id");
                         j.IndexerProperty<int>("SubjectId").HasColumnName("subject_id");
@@ -144,7 +145,7 @@ public partial class GestionAcademicaContext : DbContext
 
         modelBuilder.Entity<Classroom>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__classroo__3213E83FB4F8A5CE");
+            entity.HasKey(e => e.Id).HasName("PK__classroo__3213E83FEF2CBE77");
 
             entity.ToTable("classrooms");
 
@@ -155,9 +156,9 @@ public partial class GestionAcademicaContext : DbContext
                 .HasColumnName("code");
         });
 
-        modelBuilder.Entity<File>(entity =>
+        modelBuilder.Entity<Models.File>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__files__3213E83FD6C913A8");
+            entity.HasKey(e => e.Id).HasName("PK__files__3213E83F2D27B29E");
 
             entity.ToTable("files");
 
@@ -185,13 +186,13 @@ public partial class GestionAcademicaContext : DbContext
                     r => r.HasOne<Models.Application>().WithMany()
                         .HasForeignKey("ApplicationId")
                         .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__applicati__appli__7E57BA87"),
-                    l => l.HasOne<File>().WithMany()
+                        .HasConstraintName("FK__applicati__appli__7BB05806"),
+                    l => l.HasOne<Models.File>().WithMany()
                         .HasForeignKey("FileId")
-                        .HasConstraintName("FK__applicati__file___7D63964E"),
+                        .HasConstraintName("FK__applicati__file___7ABC33CD"),
                     j =>
                     {
-                        j.HasKey("FileId", "ApplicationId").HasName("PK__applicat__346439099914EB0A");
+                        j.HasKey("FileId", "ApplicationId").HasName("PK__applicat__34643909C086ECB2");
                         j.ToTable("applications_files");
                         j.IndexerProperty<int>("FileId").HasColumnName("file_id");
                         j.IndexerProperty<int>("ApplicationId").HasColumnName("application_id");
@@ -200,7 +201,7 @@ public partial class GestionAcademicaContext : DbContext
 
         modelBuilder.Entity<Hr>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__hr__3213E83F46D15308");
+            entity.HasKey(e => e.Id).HasName("PK__hr__3213E83F0A684849");
 
             entity.ToTable("hr");
 
@@ -210,12 +211,12 @@ public partial class GestionAcademicaContext : DbContext
             entity.HasOne(d => d.User).WithMany(p => p.Hrs)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__hr__user_id__5EDF0F2E");
+                .HasConstraintName("FK__hr__user_id__5C37ACAD");
         });
 
         modelBuilder.Entity<Professor>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__professo__3213E83F6564C0FD");
+            entity.HasKey(e => e.Id).HasName("PK__professo__3213E83FDA1DF9E0");
 
             entity.ToTable("professors");
 
@@ -225,22 +226,22 @@ public partial class GestionAcademicaContext : DbContext
             entity.HasOne(d => d.User).WithMany(p => p.Professors)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__professor__user___5649C92D");
+                .HasConstraintName("FK__professor__user___53A266AC");
 
             entity.HasMany(d => d.Files).WithMany(p => p.Professors)
                 .UsingEntity<Dictionary<string, object>>(
                     "ProfessorsFile",
-                    r => r.HasOne<File>().WithMany()
+                    r => r.HasOne<Models.File>().WithMany()
                         .HasForeignKey("FileId")
                         .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__professor__file___6F1576F7"),
+                        .HasConstraintName("FK__professor__file___6C6E1476"),
                     l => l.HasOne<Professor>().WithMany()
                         .HasForeignKey("ProfessorId")
                         .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__professor__profe__6E2152BE"),
+                        .HasConstraintName("FK__professor__profe__6B79F03D"),
                     j =>
                     {
-                        j.HasKey("ProfessorId", "FileId").HasName("PK__professo__0DE121EDAD1CEBFC");
+                        j.HasKey("ProfessorId", "FileId").HasName("PK__professo__0DE121ED24C8FF6B");
                         j.ToTable("professors_files");
                         j.IndexerProperty<int>("ProfessorId").HasColumnName("professor_id");
                         j.IndexerProperty<int>("FileId").HasColumnName("file_id");
@@ -249,7 +250,7 @@ public partial class GestionAcademicaContext : DbContext
 
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__roles__3213E83FADFD5055");
+            entity.HasKey(e => e.Id).HasName("PK__roles__3213E83F77AB2C80");
 
             entity.ToTable("roles");
 
@@ -262,7 +263,7 @@ public partial class GestionAcademicaContext : DbContext
 
         modelBuilder.Entity<Status>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__statuses__3213E83F24BD74F5");
+            entity.HasKey(e => e.Id).HasName("PK__statuses__3213E83FEF22231A");
 
             entity.ToTable("statuses");
 
@@ -275,7 +276,7 @@ public partial class GestionAcademicaContext : DbContext
 
         modelBuilder.Entity<Student>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__students__3213E83F729EB1C1");
+            entity.HasKey(e => e.Id).HasName("PK__students__3213E83F8E91EBA1");
 
             entity.ToTable("students");
 
@@ -285,12 +286,12 @@ public partial class GestionAcademicaContext : DbContext
             entity.HasOne(d => d.User).WithMany(p => p.Students)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__students__user_i__592635D8");
+                .HasConstraintName("FK__students__user_i__567ED357");
         });
 
         modelBuilder.Entity<Subject>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__subjects__3213E83F2C21C074");
+            entity.HasKey(e => e.Id).HasName("PK__subjects__3213E83FF0B22CFC");
 
             entity.ToTable("subjects");
 
@@ -312,12 +313,12 @@ public partial class GestionAcademicaContext : DbContext
 
             entity.HasOne(d => d.Professor).WithMany(p => p.Subjects)
                 .HasForeignKey(d => d.ProfessorId)
-                .HasConstraintName("FK__subjects__profes__6774552F");
+                .HasConstraintName("FK__subjects__profes__64CCF2AE");
         });
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__users__3213E83FC5877646");
+            entity.HasKey(e => e.Id).HasName("PK__users__3213E83F6AB2B2D3");
 
             entity.ToTable("users");
 
@@ -361,12 +362,12 @@ public partial class GestionAcademicaContext : DbContext
             entity.HasOne(d => d.Role).WithMany(p => p.Users)
                 .HasForeignKey(d => d.RoleId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__users__role_id__536D5C82");
+                .HasConstraintName("FK__users__role_id__50C5FA01");
         });
 
         modelBuilder.Entity<Vacancy>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__vacancie__3213E83FAD9DA766");
+            entity.HasKey(e => e.Id).HasName("PK__vacancie__3213E83FE0434B2C");
 
             entity.ToTable("vacancies");
 
@@ -392,17 +393,17 @@ public partial class GestionAcademicaContext : DbContext
             entity.HasOne(d => d.Admin).WithMany(p => p.Vacancies)
                 .HasForeignKey(d => d.AdminId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__vacancies__admin__75C27486");
+                .HasConstraintName("FK__vacancies__admin__731B1205");
 
             entity.HasOne(d => d.Career).WithMany(p => p.Vacancies)
                 .HasForeignKey(d => d.CareerId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__vacancies__caree__74CE504D");
+                .HasConstraintName("FK__vacancies__caree__7226EDCC");
 
             entity.HasOne(d => d.Subject).WithMany(p => p.Vacancies)
                 .HasForeignKey(d => d.SubjectId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__vacancies__subje__73DA2C14");
+                .HasConstraintName("FK__vacancies__subje__7132C993");
         });
 
         OnModelCreatingPartial(modelBuilder);
