@@ -1,6 +1,4 @@
-using GestionAcademica.API.Infrastructure.Persistance.Models;
-
-using ApplicationModel = GestionAcademica.API.Infrastructure.Persistance.Models.Application;
+using ApplicationModel = GestionAcademica.API.Infrastructure.Persistence.Models.Application;
 // Con esto puedes suprimir líneas largas por la declaración de un objeto Application
 
 namespace GestionAcademica.API.Application.Interfaces.Repositories;

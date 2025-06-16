@@ -1,7 +1,7 @@
 using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Application.Interfaces.UseCases;
-using GestionAcademica.API.Infrastructure.Persistance.Models;
-using ApplicationModel = GestionAcademica.API.Infrastructure.Persistance.Models.Application;
+using GestionAcademica.API.Infrastructure.Persistence.Models;
+using ApplicationModel = GestionAcademica.API.Infrastructure.Persistence.Models.Application;
 
 namespace GestionAcademica.API.Application.UseCases
 {

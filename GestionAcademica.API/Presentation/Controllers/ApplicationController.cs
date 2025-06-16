@@ -1,7 +1,7 @@
 using GestionAcademica.API.Application.DTOs;
 using GestionAcademica.API.Application.Interfaces.UseCases;
 using Microsoft.AspNetCore.Mvc;
-using ApplicationModel = GestionAcademica.API.Infrastructure.Persistance.Models.Application;
+using ApplicationModel = GestionAcademica.API.Infrastructure.Persistence.Models.Application;
 namespace GestionAcademica.API.Presentation.Controllers
 {
     [Route("api/[controller]")]
