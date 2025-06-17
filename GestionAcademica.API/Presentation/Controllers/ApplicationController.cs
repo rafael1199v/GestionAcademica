@@ -1,7 +1,6 @@
 using GestionAcademica.API.Application.DTOs;
 using GestionAcademica.API.Application.Interfaces.UseCases;
 using Microsoft.AspNetCore.Mvc;
-using ApplicationModel = GestionAcademica.API.Infrastructure.Persistence.Models.Application;
 namespace GestionAcademica.API.Presentation.Controllers
 {
     [Route("api/[controller]")]
@@ -15,7 +14,7 @@ namespace GestionAcademica.API.Presentation.Controllers
         }
         [HttpPost]
         [Route("application")]
-        public IActionResult CreateApplication([FromBody] ApplicationModel application)
+        public IActionResult CreateApplication([FromBody] ApplicationDTO application)
         {
             try
             {
@@ -29,7 +28,7 @@ namespace GestionAcademica.API.Presentation.Controllers
         }
         [HttpPut]
         [Route("application")]
-        public IActionResult UpdateApplication([FromBody] ApplicationModel application)
+        public IActionResult UpdateApplication([FromBody] ApplicationDTO application)
         {
             try
             {

@@ -10,21 +10,28 @@ public class ApplicationMapper : IApplicationMapper
 {
     public ApplicationDTO AppToDto(Infrastructure.Persistence.Models.Application app)
     {
-        return new ApplicationDTO
+        try
         {
-            VacancyName = app.Vacancy.Name,
-            VacancyDesc = app.Vacancy.Description,
-            Status = app.Status.Name,
-            ApplicantName = app.Applicant.User.Name + " " + app.Applicant.User.LastName,
-            OwnerName = app.Vacancy.Admin.User.Name + " " + app.Vacancy.Admin.User.LastName,
-            FileQtty = app.Files.Count,
-            // Files = app.Files,
-            Id = app.Id,
-            VacancyId = app.VacancyId,
-            StatusId = app.StatusId,
-            ApplicantId = app.ApplicantId,
-            OwnerId = app.Vacancy.AdminId
-        };
+            return new ApplicationDTO
+            {
+                VacancyName = app.Vacancy.Name,
+                VacancyDesc = app.Vacancy.Description,
+                Status = app.Status.Name,
+                ApplicantName = app.Applicant.User.Name + " " + app.Applicant.User.LastName,
+                OwnerName = app.Vacancy.Admin.User.Name + " " + app.Vacancy.Admin.User.LastName,
+                FileQtty = /*app.Files.Count,*/0,
+                // Files = app.Files,
+                Id = app.Id,
+                VacancyId = app.VacancyId,
+                StatusId = app.StatusId,
+                ApplicantId = app.ApplicantId,
+                OwnerId = app.Vacancy.AdminId
+            };
+        }
+        catch
+        {
+            throw new ApplicationException("Error al mapear la solicitud a DTO. Verifique los datos de entrada.");
+        }
     }
 
     public Infrastructure.Persistence.Models.Application DtoToApp(ApplicationDTO dto)
@@ -55,7 +62,7 @@ public class ApplicationMapper : IApplicationMapper
                 Id = dto.StatusId,
                 Name = dto.Status
             },
-            Files = new List<Infrastructure.Persistence.Models.File>() // Assuming files are handled separately
+            Files = [] // Assuming files are handled separately
         };
     }
 }

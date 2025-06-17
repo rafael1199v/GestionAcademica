@@ -41,16 +41,20 @@ builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
 builder.Services.AddScoped<IAdministratorRepository, AdministratorRepository>();
 builder.Services.AddScoped<IHrRepository, HrRepository>();
 builder.Services.AddScoped<IApplicantRepository, ApplicantRepository>();
+builder.Services.AddScoped<IApplicationRepository, ApplicationRepository>();
 builder.Services.AddScoped<IVacancyRepository, VacancyRepository>();
 
 builder.Services.AddScoped<IHashUtility, HashUtility>();
 
-builder.Services.AddScoped<ILoginUseCase, LoginUseCase>();
 builder.Services.AddScoped<IProfessorMapper, ProfessorMapper>();
+builder.Services.AddScoped<IApplicationMapper, ApplicationMapper>();
+
+builder.Services.AddScoped<ILoginUseCase, LoginUseCase>();
 builder.Services.AddScoped<IDetailSubjectUseCase, DetailSubjectUseCase>();
 builder.Services.AddScoped<ICreateSubjectUseCase, CreateSubjectUseCase>();
 builder.Services.AddScoped<IProfessorManagementUseCase, ProfessorManagementUseCase>();
 builder.Services.AddScoped<ICreateVacancyUseCase, CreateVacancyUseCase>();
+builder.Services.AddScoped<IApplicationManagementUseCase, ApplicationManagementUseCase>();
 
 builder.Services.AddScoped<IManageVacancies, ManageVacancies>();
 

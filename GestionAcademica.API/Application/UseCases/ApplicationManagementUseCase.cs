@@ -29,13 +29,23 @@ namespace GestionAcademica.API.Application.UseCases
         public List<ApplicationDTO> GetApplicationsByApplicantId(int applicantId)
         {
             return _applicationRepository.GetByApplicant(applicantId).ToList()
-                .Select(_applicationMapper.AppToDto).ToList();
+                .Select(a=>_applicationMapper.AppToDto(a)).ToList();
         }
 
         public List<ApplicationDTO> GetApplicationsByOwnerId(int adminId)
         {
             return _applicationRepository.GetByOwner(adminId).ToList()
-                .Select(_applicationMapper.AppToDto).ToList();
+                .Select(a => _applicationMapper.AppToDto(a)).ToList();
+            // List<ApplicationModel> list = _applicationRepository.GetByOwner(adminId);
+            // System.Console.WriteLine("Cantidad obtenida:" + list.Count);
+            // List<ApplicationDTO> result = new List<ApplicationDTO>();
+
+            // foreach (var item in list)
+            // {
+            //     result.Add(_applicationMapper.AppToDto(item));
+            // }
+
+            // return result;
         }
 
         public List<ApplicationDTO> GetApplicationsByStatusId(int statusId)

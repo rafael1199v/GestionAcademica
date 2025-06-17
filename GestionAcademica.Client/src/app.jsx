@@ -12,7 +12,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { useAuthContext } from "./hooks/UseAuthContext";
 import { ROLES } from "./config/role-const";
 import VacanciesList from "./features/vacancies/vacancy-list";
-import Applications from "./features/applications/applications"; //Why does it give an error on lowercase???
+import Applications from "./features/applications/applications";
 import SubjectDetails from "./features/subjects/subject-details";
 import ApplicationDetail from "./features/applications/application-detail";
 import ApplicationDetailsHr from "./features/applications/application-details-hr";
@@ -36,6 +36,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/professors" element={<Professors />} />
                 <Route path="/vacancies" element={<VacanciesAdmin />} />
+                <Route path="/applications" element={<Applications/>}/>
                 <Route path="/create-professor" element={<ProfessorRegisterForm />} />
                 <Route path="/update-professor/:id" element={<ProfessorUpdateForm />} />
                 <Route path="/professor-details/:id" element={<ProfessorDetails />} />
@@ -62,7 +63,7 @@ function App() {
                 <Route path="/hr" element={ <Home /> }/>
                 <Route path="/hr/professors" element={<Professors />} />
                 <Route path="/hr/professor-details/:id" element={<ProfessorDetails />} />
-                <Route path="/hr/applications" element={ <ApplicationsHrTable /> }/>
+                <Route path="/hr/applications" element={ <Applications /> }/>
                 <Route path="/hr/applications/:id" element={ <ApplicationDetailsHr /> }/>
               </Route>
             </Route>

@@ -29,6 +29,9 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
             return _context.Applications
                 .Where(a => a.ApplicantId == applicantId)
                 .Include(a => a.Vacancy)
+                .Include(b => b.Status)
+                .Include(c => c.Applicant.User)
+                .Include(d => d.Vacancy.Admin.User)
                 .ToList();
         }
 
@@ -39,6 +42,9 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
 
             var application = _context.Applications
                 .Include(a => a.Vacancy)
+                .Include(b => b.Status)
+                .Include(c => c.Applicant.User)
+                .Include(d => d.Vacancy.Admin.User)
                 .FirstOrDefault(a => a.Id == id)
                 ?? throw new Exception("Solicitud no encontrada");
             return application;
@@ -49,9 +55,12 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
             if (adminId <= 0)
                 throw new ArgumentException("ID inválido", nameof(adminId));
             return _context.Applications
-                .Where(a => a.Vacancy.AdminId == adminId && a.StatusId == 2)
+                .Where(a => a.Vacancy.AdminId == adminId /*&& a.StatusId == 2*/)
                 // TODO: Incluir una alternativa que muestre todas las postulaciones sin importar el estado
                 .Include(a => a.Vacancy)
+                .Include(b => b.Status)
+                .Include(c => c.Applicant.User)
+                .Include(d => d.Vacancy.Admin.User)
                 .ToList();
         }
 
@@ -60,6 +69,9 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
             return _context.Applications
                 .Where(a => a.StatusId == statusId)
                 .Include(a => a.Vacancy)
+                .Include(b => b.Status)
+                .Include(c => c.Applicant.User)
+                .Include(d => d.Vacancy.Admin.User)
                 .ToList();
         }
 
@@ -68,6 +80,9 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
             return _context.Applications
                 .Where(a => a.VacancyId == vacancyId)
                 .Include(a => a.Vacancy)
+                .Include(b => b.Status)
+                .Include(c => c.Applicant.User)
+                .Include(d => d.Vacancy.Admin.User)
                 .ToList();
         }
 

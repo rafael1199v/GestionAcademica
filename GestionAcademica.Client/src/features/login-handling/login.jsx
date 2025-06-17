@@ -28,7 +28,6 @@ const LoginForm = () => {
         navigate("/hr");
       else
         navigate("/");
-
         
     } catch (err) {
       console.log(err);

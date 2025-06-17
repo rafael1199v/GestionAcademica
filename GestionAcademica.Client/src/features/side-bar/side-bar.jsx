@@ -59,7 +59,7 @@ export function SideBar() {
             icon={<UsersIcon className="w-4 h-4" />}
             navigateTo={role+"/professors"}
           />
-          {role == "" ? (<> {/* admin */}
+          {role == "" && (<> {/* admin */}
           <SideBarItem
             text="Materias"
             isSelected={selectedItem === SIDE_BAR_ITEM.SUBJECTS}
@@ -69,7 +69,8 @@ export function SideBar() {
             icon={<AcademicCapIcon className="w-4 h-4" />}
             navigateTo="/subjects"
           />
-          </>) : (<>
+          </>)}
+          {(role != "/student") && (<>
           <SideBarItem
             text="Postulaciones"
             isSelected={selectedItem === SIDE_BAR_ITEM.APPLICATIONS}

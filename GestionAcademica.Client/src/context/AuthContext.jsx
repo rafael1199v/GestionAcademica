@@ -6,9 +6,10 @@ export const AuthContextProvider = ({ children }) => {
     const [userSession, setUsersession] = useState(() => {
         const userId = localStorage.getItem('userId');
         const roleId = localStorage.getItem('roleId');
+        const userRoleId = localStorage.getItem('userRoleId');
 
-        if(userId && roleId)
-            return { userId, roleId }
+        if(userId && roleId && userRoleId)
+            return { userId, roleId, userRoleId }
 
         return null;
     });
