@@ -1,5 +1,6 @@
 using ApplicationModel = GestionAcademica.API.Infrastructure.Persistence.Models.Application;
 using GestionAcademica.API.Application.DTOs;
+using GestionAcademica.API.Application.DTOs.Application;
 using GestionAcademica.API.Infrastructure.Persistence.Models;
 
 namespace GestionAcademica.API.Application.Interfaces.Mappers;

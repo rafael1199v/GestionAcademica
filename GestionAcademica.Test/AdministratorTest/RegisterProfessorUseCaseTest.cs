@@ -1,5 +1,6 @@
 using FakeItEasy;
 using GestionAcademica.API.Application.DTOs;
+using GestionAcademica.API.Application.DTOs.Professor;
 using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Application.Interfaces.UseCases;
 using GestionAcademica.API.Application.Interfaces.Utilities;

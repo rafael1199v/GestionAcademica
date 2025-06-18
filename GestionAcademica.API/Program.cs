@@ -54,7 +54,8 @@ builder.Services.AddScoped<IDetailSubjectUseCase, DetailSubjectUseCase>();
 builder.Services.AddScoped<ICreateSubjectUseCase, CreateSubjectUseCase>();
 builder.Services.AddScoped<IProfessorManagementUseCase, ProfessorManagementUseCase>();
 builder.Services.AddScoped<ICreateVacancyUseCase, CreateVacancyUseCase>();
-builder.Services.AddScoped<IApplicationManagementUseCase, ApplicationManagementUseCase>();
+
+//builder.Services.AddScoped<IApplicationManagementUseCase, ApplicationManagementUseCase>();
 
 builder.Services.AddScoped<IManageVacancies, ManageVacancies>();
 

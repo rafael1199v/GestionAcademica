@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace GestionAcademica.API.Application.DTOs
+﻿namespace GestionAcademica.API.Application.DTOs.Professor
 {
     public class CreateProfessorDTO
     {

@@ -1,4 +1,4 @@
-﻿namespace GestionAcademica.API.Application.DTOs
+﻿namespace GestionAcademica.API.Application.DTOs.Professor
 {
     public class ProfessorDetailsDTO
     {

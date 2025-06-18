@@ -1,4 +1,5 @@
 using GestionAcademica.API.Application.DTOs;
+using GestionAcademica.API.Application.DTOs.Professor;
 using GestionAcademica.API.Infrastructure.Persistence.Models;
 
 namespace GestionAcademica.API.Application.Interfaces.Mappers;
