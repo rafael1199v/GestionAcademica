@@ -18,7 +18,7 @@ export const createApplicant = async (applicant) => {
 };
 
 export const getRoleLink = ( roleId ) => {
-  switch (roleId) {
+  switch (parseInt(roleId)) {
     case ROLES.ADMIN:
       return "";
       break;
@@ -36,7 +36,7 @@ export const getRoleLink = ( roleId ) => {
       break;
 
     default:
-      console.log(`Error, id de rol inválido: ${roleId}\nSi es un número válido, revisa la conversión a int`)
+      console.log(`Error, id de rol inválido: ${roleId}`);
       return "error";
       break;
   }

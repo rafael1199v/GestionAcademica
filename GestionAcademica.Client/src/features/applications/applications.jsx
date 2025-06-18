@@ -15,7 +15,7 @@ function Applications() {
   const navigate = useNavigate();
   const { userSession } = useAuthContext();
   const [applications, setApplications] = React.useState([]);
-  const role = getRoleLink(parseInt(userSession.roleId));
+  const role = getRoleLink(userSession.roleId);
 
   const seeApplicationDetails = (id) => {
     navigate(`${role}/applications/${id}`);

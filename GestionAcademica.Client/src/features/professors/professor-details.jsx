@@ -9,7 +9,7 @@ function ProfessorDetails() {
   const navigate = useNavigate();
   const { id } = useParams();
   const { userSession } = useAuthContext();
-  const role = getRoleLink(parseInt(userSession.roleId));
+  const role = getRoleLink(userSession.roleId);
 
   const [professor, setProfessor] = useState({
     Id: id,

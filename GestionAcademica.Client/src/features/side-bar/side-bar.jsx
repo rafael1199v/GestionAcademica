@@ -32,7 +32,7 @@ export function SideBar() {
     }
   };
 
-  const role = getRoleLink(parseInt(userSession.roleId));
+  const role = getRoleLink(userSession.roleId);
 
   return (
     <div className="w-64 h-screen flex-col justify-between border-e border-gray-100 bg-white">

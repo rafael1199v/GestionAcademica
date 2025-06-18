@@ -20,7 +20,7 @@ export const getApplicationsByAdmin = async (adminId) => {
 export const getApplicationsByStatus = async (statusId) => {
     /* 
     Estados disponibles:
-    1: "En revision" (en espera de aprobación por RH)
+    1: "En Revision" (en espera de aprobación por RH)
     2: "Entrevista" (en espera de revisión por el administrador)
     3: "Aceptado" 
     4: "Rechazado" (no importa quién lo haya rechazado)
