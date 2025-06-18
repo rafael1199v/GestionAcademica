@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import {
   getSubjectById,
@@ -7,7 +7,6 @@ import {
 } from "../../services/AdministratorService";
 
 function SubjectDetails() {
-  const navigate = useNavigate();
   const { id } = useParams();
   const [professors, setProfessors] = useState([]);
   const [subjectForm, setSubjectForm] = useState({

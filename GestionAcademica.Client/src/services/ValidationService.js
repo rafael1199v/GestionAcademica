@@ -1,4 +1,4 @@
-export const ValidateProfessorRegisterForm = (professorForm) => {
+export async function ValidateProfessorRegisterForm (professorForm) {
     const errors = {};
     const phoneRegex = /^\d{8}$/;
 
@@ -48,7 +48,7 @@ export const ValidateProfessorRegisterForm = (professorForm) => {
 }
 
 
-export const ValidateProfessorUpdateForm = (professorForm) => {
+export async function ValidateProfessorUpdateForm (professorForm) {
     const errors = {};
     const phoneRegex = /^\d{8}$/;
 
@@ -86,7 +86,7 @@ export const ValidateProfessorUpdateForm = (professorForm) => {
     return errors;
 }
 
-export const ValidateNewUserRegisterForm = (userForm) => {
+export async function ValidateNewUserRegisterForm (userForm) {
     const errors = {};
     const phoneRegex = /^\d{8}$/;
 

@@ -59,7 +59,7 @@ export function SideBar() {
             icon={<UsersIcon className="w-4 h-4" />}
             navigateTo={role+"/professors"}
           />
-          {role == "" && (<> {/* admin */}
+          {userSession.userId == ROLES.ADMIN && (
           <SideBarItem
             text="Materias"
             isSelected={selectedItem === SIDE_BAR_ITEM.SUBJECTS}
@@ -68,9 +68,8 @@ export function SideBar() {
             }}
             icon={<AcademicCapIcon className="w-4 h-4" />}
             navigateTo="/subjects"
-          />
-          </>)}
-          {(role != "/student") && (<>
+          />)}
+          {userSession.roleId != ROLES.STUDENT && (
           <SideBarItem
             text="Postulaciones"
             isSelected={selectedItem === SIDE_BAR_ITEM.APPLICATIONS}
@@ -79,9 +78,8 @@ export function SideBar() {
             }}
             icon={<InboxArrowDownIcon className="w-4 h-4" />}
             navigateTo={role+"/applications"}
-          />
-          </>)}
-          {role != "/hr" && (
+          />)}
+          {userSession.roleId != ROLES.HR && (
             <SideBarItem
               text="Vacantes"
               isSelected={selectedItem === SIDE_BAR_ITEM.REPORTS}

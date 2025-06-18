@@ -2,7 +2,7 @@ import { createContext, useState } from "react"
 
 export const AuthContext = createContext(undefined);
 
-export const AuthContextProvider = ({ children }) => {
+export function AuthContextProvider({ children }){
     const [userSession, setUsersession] = useState(() => {
         const userId = localStorage.getItem('userId');
         const roleId = localStorage.getItem('roleId');

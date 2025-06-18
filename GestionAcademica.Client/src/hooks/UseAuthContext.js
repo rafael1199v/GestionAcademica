@@ -1,11 +1,11 @@
 import { useContext } from "react"
 import { AuthContext } from "../context/AuthContext"
 
-export const useAuthContext = () => {
-    const user = useContext(AuthContext);
+export function useAuthContext () {
+    const context = useContext(AuthContext);
 
-    if(user === undefined)
+    if(context === undefined)
         throw new Error("Se necesita usar el proveedor del contexto");
 
-    return user;
+    return context;
 }

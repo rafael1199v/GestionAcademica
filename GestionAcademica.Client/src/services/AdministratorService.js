@@ -1,7 +1,7 @@
 import { axiosInstance } from "./AxiosInstance";
 import { ROLES } from "../config/role-const";
 
-export const getAllProfessors = async () => {
+export async function getAllProfessors(){
     try {
         const response = await axiosInstance.get('/Administrator/professor');
         return response.data;
@@ -12,35 +12,35 @@ export const getAllProfessors = async () => {
     }
 }
 
-export const createProfessor = async (professor) => {
+export async function createProfessor(professor){
     const response = await axiosInstance.post('/Administrator/professor', professor);
     return response.data;
 }
 
-export const getProfessorById = async (id) => {
+export async function getProfessorById(id){
     const response = await axiosInstance.get(`/Administrator/professor/${id}`);
 
     return response.data;
 }
 
-export const updateProfessor = async (professor) => {
+export async function updateProfessor(professor){
     professor.roleId = ROLES.PROFESSOR;
     const response = await axiosInstance.put('/Administrator/professor', professor);
     return response.data;
 }
 
-export const getSubjectById = async (id) => {
+export async function getSubjectById(id){
     const response = await axiosInstance.get(`/Administrator/subject/${id}`);
 
     return response.data;
 }
 
-export const updateSubject = async (subject) => {
+export async function updateSubject (subject) {
     const response = await axiosInstance.put('/Administrator/subject', subject);
     return response.data;
 }
 
-export const getAllSubjects = async () => {
+export async function getAllSubjects () {
     try {
         const response = await axiosInstance.get('/Administrator/subject');
         return response.data;

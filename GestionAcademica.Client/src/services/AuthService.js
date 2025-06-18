@@ -7,17 +7,17 @@ export const AuthService = {
   },
 };
 
-export const login = async (credentials) => {
+export async function login(credentials){
   const response = await axiosInstance.post("/Auth/login", credentials);
   return response.data;
 };
 
-export const createApplicant = async (applicant) => {
+export async function createApplicant (applicant) {
   const response = await axiosInstance.post("/Auth/register", applicant);
   return response.data;
 };
 
-export const getRoleLink = ( roleId ) => {
+export function getRoleLink ( roleId ) {
   switch (parseInt(roleId)) {
     case ROLES.ADMIN:
       return "";

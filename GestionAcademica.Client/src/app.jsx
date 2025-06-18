@@ -12,12 +12,16 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { useAuthContext } from "./hooks/UseAuthContext";
 import { ROLES } from "./config/role-const";
 import VacanciesList from "./features/vacancies/vacancy-list";
-import Applications from "./features/applications/applications";
 import SubjectDetails from "./features/subjects/subject-details";
-import ApplicationDetails from "./features/applications/application-detail";
 import Register from "./features/login-handling/register";
 import VacancyForm from "./features/vacancies/vacancy-form";
 import VacancyUpdateForm from "./features/vacancies/vacancie-update-form";
+import ApplicationsAdmin from "./features/applications/applications-admin";
+import ApplicationDetailAdmin from "./features/applications/application-detail-admin";
+import ApplicationsApplicant from "./features/applications/applications-applicant";
+import ApplicationDetailApplicant from "./features/applications/application-detail-applicant";
+import ApplicationsHr from "./features/applications/applications-hr";
+import ApplicationDetailHr from "./features/applications/application-detail-hr";
 
 function App() {
 
@@ -33,8 +37,8 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/professors" element={<Professors />} />
                 <Route path="/vacancies" element={<VacanciesAdmin />} />
-                <Route path="/applications" element={<Applications/>}/>
-                <Route path="/applications/:id" element={<ApplicationDetails />}/>
+                <Route path="/applications" element={<ApplicationsAdmin/>}/>
+                <Route path="/applications/:id" element={<ApplicationDetailAdmin />}/>
                 <Route path="/create-professor" element={<ProfessorRegisterForm />} />
                 <Route path="/update-professor/:id" element={<ProfessorUpdateForm />} />
                 <Route path="/professor-details/:id" element={<ProfessorDetails />} />
@@ -51,8 +55,8 @@ function App() {
                 <Route path="/applicant/professors" element={<Professors />} />
                 <Route path="/applicant/professor-details/:id" element={<ProfessorDetails />} />
                 <Route path="/applicant/vacancies" element={<VacanciesList />} />
-                <Route path="/applicant/applications" element={ <Applications />} />
-                <Route path="/applicant/applications/:id" element={ <ApplicationDetails />}/>
+                <Route path="/applicant/applications" element={ <ApplicationsApplicant />} />
+                <Route path="/applicant/applications/:id" element={ <ApplicationDetailApplicant />}/>
               </Route>
             </Route>
               
@@ -61,8 +65,8 @@ function App() {
                 <Route path="/hr" element={ <Home /> }/>
                 <Route path="/hr/professors" element={<Professors />} />
                 <Route path="/hr/professor-details/:id" element={<ProfessorDetails />} />
-                <Route path="/hr/applications" element={ <Applications /> }/>
-                <Route path="/hr/applications/:id" element={ <ApplicationDetails /> }/>
+                <Route path="/hr/applications" element={ <ApplicationsHr /> }/>
+                <Route path="/hr/applications/:id" element={ <ApplicationDetailHr /> }/>
               </Route>
             </Route>
           </Routes>

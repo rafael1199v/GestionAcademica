@@ -1,46 +1,41 @@
 import { axiosInstance } from "./AxiosInstance";
-import { ROLES } from "../config/role-const";
 
-export const createApplication = async (application) => {
+export async function createApplication(application){
   const response = await axiosInstance.post('/Application/application', application);
   return response.data;
 }
 
-export const updateApplication = async (application) => {
+export async function updateApplication (application){
   const response = await axiosInstance.put(`/Application/application`, application);
   return response.data;
 }
 
-export const getApplicationsByAdmin = async (adminId) => {
-  // Recuerda que adminId no es lo mismo a userId
+export async function updateAppStatus(request){
+  const response = await axiosInstance.put(`/Application/application/status`, request);
+  return response.data;
+}
+
+export async function getApplicationsByAdmin(adminId){
   const response = await axiosInstance.get(`/Application/application/owner/${adminId}`);
   return response.data;
 }
 
-export const getApplicationsByStatus = async (statusId) => {
-    /* 
-    Estados disponibles:
-    1: "En Revision" (en espera de aprobación por RH)
-    2: "Entrevista" (en espera de revisión por el administrador)
-    3: "Aceptado" 
-    4: "Rechazado" (no importa quién lo haya rechazado)
-    5: "Finalizado" (sin uso)
-    */
+export async function getApplicationsByStatus(statusId){
   const response = await axiosInstance.get(`/Application/application/status/${statusId}`);
   return response.data;
 }
 
-export const getApplicationsByApplicant = async (applicantId) => {
+export async function getApplicationsByApplicant(applicantId){
   const response = await axiosInstance.get(`/Application/application/applicant/${applicantId}`);
   return response.data;
 }
 
-export const getApplicationsByVacancy = async (vacancyId) => {
+export async function getApplicationsByVacancy(vacancyId){
   const response = await axiosInstance.get(`/Application/application/vacancy/${vacancyId}`);
   return response.data;
 }
 
-export const getApplicationById = async (applicationId) => {
+export async function getApplicationById(applicationId){
   const response = await axiosInstance.get(`/Application/application/${applicationId}`);
   return response.data;
 }
