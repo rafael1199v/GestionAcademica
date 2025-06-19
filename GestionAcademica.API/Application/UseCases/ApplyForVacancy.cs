@@ -40,9 +40,8 @@ public class ApplyForVacancy : IApplyForVacancy
             throw new ArgumentException("Se pueden subir maximo 6 archivos para una postulacion"); 
         
         ApplicationEntity applicationEntity = ApplicationEntity.CreateApplication(dto.VacancyId, dto.ApplicantId, dto.StatusId);
-        Infrastructure.Persistence.Models.Application applicationModel = ApplicationMapper.MapApplicationEntitytoApplicationModel(applicationEntity);
-        
-        int applicationId = _applicationRepository.Add(applicationModel);
+      
+        int applicationId = _applicationRepository.Add(applicationEntity);
         
         _uploadFilesUseCase.Uploadfiles(dto.Files, applicationId);
     }

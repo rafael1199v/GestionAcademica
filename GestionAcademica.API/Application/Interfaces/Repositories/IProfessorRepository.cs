@@ -1,15 +1,14 @@
-﻿using GestionAcademica.API.Infrastructure.Persistence.Models;
+﻿using GestionAcademica.API.Domain.Entities;
+using GestionAcademica.API.Infrastructure.Persistence.Models;
 
 namespace GestionAcademica.API.Application.Interfaces.Repositories
 {
     public interface IProfessorRepository
     {
-        List<Professor> GetAll();
-        List<Professor> GetAllWithDetails();
-        Professor GetById(int id);
+        List<ProfessorEntity> GetAllWithDetails();
+        ProfessorEntity GetById(int id);
         int GetIdByUserId(int userId);
-        void Update(Professor professor);
-        void Delete(Professor professor);
-        Professor Add(Professor professor);
+        void Update(ProfessorEntity professor);
+        ProfessorEntity Add(ProfessorEntity professor);
     }
 }

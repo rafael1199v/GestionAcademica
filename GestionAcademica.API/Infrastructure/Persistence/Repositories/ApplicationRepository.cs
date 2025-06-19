@@ -1,5 +1,6 @@
 using ApplicationModel = GestionAcademica.API.Infrastructure.Persistence.Models.Application;
 using GestionAcademica.API.Application.Interfaces.Repositories;
+using GestionAcademica.API.Domain.Entities;
 using GestionAcademica.API.Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -100,12 +101,25 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
         //     _context.SaveChanges();
         // }
 
-        public int Add(ApplicationModel application)
+        public int Add(ApplicationEntity application)
         {
-            _context.Applications.Add(application);
+            var applicationModel = ToModel(application);
+            
+            _context.Applications.Add(applicationModel);
             _context.SaveChanges();
             
-            return application.Id;
+            return applicationModel.Id;
+        }
+
+        private ApplicationModel ToModel(ApplicationEntity application)
+        {
+            return new ApplicationModel
+            {
+                Id = application.Id,
+                ApplicantId = application.ApplicantId,
+                StatusId = application.StatusId,
+                VacancyId = application.VacancyId,
+            };
         }
     }
 }

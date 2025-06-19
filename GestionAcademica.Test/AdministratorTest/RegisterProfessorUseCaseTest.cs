@@ -5,6 +5,7 @@ using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Application.Interfaces.UseCases;
 using GestionAcademica.API.Application.Interfaces.Utilities;
 using GestionAcademica.API.Application.UseCases;
+using GestionAcademica.API.Domain.Entities;
 using GestionAcademica.API.Domain.Enums;
 using GestionAcademica.API.Domain.Exceptions;
 using GestionAcademica.API.Infrastructure.Mappers;
@@ -25,7 +26,7 @@ public class RegisterProfessorUseCaseTest
         _professorRepository = A.Fake<IProfessorRepository>();
         _userRepository = A.Fake<IUserRepository>();
         _hashUtility = A.Fake<IHashUtility>();
-        _professorManagementUseCase = new ProfessorManagementUseCase(_professorRepository, _userRepository, new ProfessorMapper(_hashUtility));
+        _professorManagementUseCase = new ProfessorManagementUseCase(_professorRepository, _userRepository, new ProfessorMapper(_hashUtility), _hashUtility);
     }
     
     [Fact]
@@ -57,12 +58,12 @@ public class RegisterProfessorUseCaseTest
             RolId = (int) RoleEnum.Professor,
         };
 
-        A.CallTo(() => _professorRepository.Add(A<Professor>._))
-            .Returns(new Professor
+        A.CallTo(() => _professorRepository.Add(A<ProfessorEntity>._))
+            .Returns(new ProfessorEntity
             {
                 Id = 1,
                 UserId = 1,
-                User = new User
+                User = new UserEntity
                 {
                     Id = 1,
                     Name = professor.Name,
@@ -114,7 +115,7 @@ public class RegisterProfessorUseCaseTest
         };
         
         A.CallTo(() => _userRepository.GetByInstitutionalEmail(A<string>._))
-            .Returns(new User());
+            .Returns(new UserEntity());
         
         string expected = "El correo institucional ya esta en uso";
         

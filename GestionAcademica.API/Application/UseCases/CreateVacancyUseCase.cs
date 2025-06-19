@@ -28,9 +28,9 @@ public class CreateVacancyUseCase : ICreateVacancyUseCase
             throw new ArgumentException("La fecha es invalida");
 
 
-        var administrator = _administratorRepository.GetByUserId(createVacancyDto.UserId);
+        var administratorId = _administratorRepository.GetIdByUserId(createVacancyDto.UserId);
         
-        VacancyEntity entity = VacancyEntity.CreateVacancy(createVacancyDto.Name, createVacancyDto.Description, startTime, endTime, createVacancyDto.SubjectId, createVacancyDto.CareerId,  administrator.Id);
+        VacancyEntity entity = VacancyEntity.CreateVacancy(createVacancyDto.Name, createVacancyDto.Description, startTime, endTime, createVacancyDto.SubjectId, createVacancyDto.CareerId,  administratorId);
         
         Vacancy model = new Vacancy
         {

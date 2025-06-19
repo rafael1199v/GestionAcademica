@@ -1,6 +1,7 @@
 using GestionAcademica.API.Application.DTOs;
 using GestionAcademica.API.Application.DTOs.Professor;
 using GestionAcademica.API.Application.Interfaces.Utilities;
+using GestionAcademica.API.Domain.Entities;
 using GestionAcademica.API.Domain.Enums;
 using GestionAcademica.API.Infrastructure.Persistence.Models;
 
@@ -16,7 +17,7 @@ public class ProfessorMapper : IProfessorMapper
         _hashUtility = hashUtility;
     }
     
-    public ResponseProfessorDTO ProfessorToResponseProfessor(Professor professor)
+    public ResponseProfessorDTO ProfessorToResponseProfessor(ProfessorEntity professor)
     {
         ResponseProfessorDTO responseProfessorDto = new ResponseProfessorDTO
         {
@@ -57,7 +58,7 @@ public class ProfessorMapper : IProfessorMapper
         return professor;
     }
 
-    public ProfessorDetailsDTO ProfessorToProfessorDetailsDto(Professor professor)
+    public ProfessorDetailsDTO ProfessorEntityToProfessorDetailsDto(ProfessorEntity professor)
     {
         ProfessorDetailsDTO professorDetailsDto = new ProfessorDetailsDTO
         {

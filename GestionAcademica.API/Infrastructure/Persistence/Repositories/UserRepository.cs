@@ -15,24 +15,37 @@ public class UserRepository : IUserRepository
         _context = context;
     }
 
-    public User GetById(int id)
+    public UserEntity GetById(int id)
     {
         User? user = _context.Users.FirstOrDefault(x => x.Id == id);
 
         if (user == null)
             throw new Exception("No se encontro el usuario");
-
-        return user;
+        
+        return ToEntity(user);
     }
 
-    public User? GetByInstitutionalEmail(string institutionalEmail)
+    public UserEntity? GetByInstitutionalEmail(string institutionalEmail)
     {
-        return _context.Users.FirstOrDefault(user => user.InstitutionalEmail == institutionalEmail);
+        User? userModel = _context.Users.FirstOrDefault(user => user.InstitutionalEmail == institutionalEmail);
+
+        if (userModel is null)
+            return null;
+        
+        return ToEntity(userModel);
     }
-    public User? GetByEmail(string Email)
+    public UserEntity? GetByEmail(string Email)
     {
-        return _context.Users.FirstOrDefault(user => user.PersonalEmail == Email);
+        User? userModel = _context.Users.FirstOrDefault(user => user.PersonalEmail == Email);
+
+        if (userModel is null)
+            return null;
+        
+        return ToEntity(userModel);
     }
+    
+    
+    //TODO: Mover esto al repositorio de aplicantes
     public Applicant Add(Applicant user)
     {
         _context.Applicants.Add(user);
@@ -44,6 +57,24 @@ public class UserRepository : IUserRepository
     private User ToModel(UserEntity user)
     {
         return new User
+        {
+            Id = user.Id,
+            Name = user.Name,
+            LastName = user.LastName,
+            Address = user.Address,
+            PersonalEmail = user.PersonalEmail,
+            InstitutionalEmail = user.InstitutionalEmail,
+            Password = user.Password,
+            PhoneNumber = user.PhoneNumber,
+            BirthDate = user.BirthDate,
+            Status = user.Status,
+            RoleId = user.RoleId
+        };
+    }
+
+    private UserEntity ToEntity(User user)
+    {
+        return new UserEntity
         {
             Id = user.Id,
             Name = user.Name,

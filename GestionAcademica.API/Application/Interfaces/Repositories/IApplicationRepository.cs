@@ -1,3 +1,4 @@
+using GestionAcademica.API.Domain.Entities;
 using ApplicationModel = GestionAcademica.API.Infrastructure.Persistence.Models.Application;
 // Con esto puedes suprimir líneas largas por la declaración de un objeto Application
 
@@ -12,5 +13,5 @@ public interface IApplicationRepository
     // List<ApplicationModel> GetByOwner(int adminId);
     // List<ApplicationModel> GetByStatus(int statusId);
     // void Update(ApplicationModel application);
-    int Add(ApplicationModel application);
+    int Add(ApplicationEntity application);
 }
