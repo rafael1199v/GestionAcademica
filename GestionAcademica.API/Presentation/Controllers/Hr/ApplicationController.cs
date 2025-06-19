@@ -1,3 +1,4 @@
+using GestionAcademica.API.Application.Interfaces.UseCases;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GestionAcademica.API.Presentation.Controllers.Hr;
@@ -6,12 +7,22 @@ namespace GestionAcademica.API.Presentation.Controllers.Hr;
 [Route("api/hr/[controller]")]
 public class ApplicationController : ControllerBase
 {
+    
+    
+    private readonly IReviewNewApplicationsUseCase _reviewNewApplicationsUseCase;
+
+    public ApplicationController(IReviewNewApplicationsUseCase reviewNewApplicationsUseCase)
+    {
+        _reviewNewApplicationsUseCase = reviewNewApplicationsUseCase;
+    }
+    
+    
     [HttpGet]
-    public IActionResult GetApplications()
+    public IActionResult GetNewApplications()
     {
         try
         {
-            return Ok();
+            return Ok(_reviewNewApplicationsUseCase.GetNewApplications());
         }
         catch (Exception ex)
         {
@@ -26,7 +37,7 @@ public class ApplicationController : ControllerBase
     {
         try
         {
-            return Ok();
+            return Ok(_reviewNewApplicationsUseCase.GetDetailNewApplication(applicationId));
         }
         catch (Exception ex)
         {
@@ -40,7 +51,8 @@ public class ApplicationController : ControllerBase
     {
         try
         {
-            return Ok();
+            _reviewNewApplicationsUseCase.RejectApplication(applicationId);
+            return Ok("Postulacion rechazada correctamente");
         }
         catch (Exception ex)
         {
@@ -54,7 +66,8 @@ public class ApplicationController : ControllerBase
     {
         try
         {
-            return Ok();
+            _reviewNewApplicationsUseCase.AdvanceApplicationToInterview(applicationId);
+            return Ok("Postulacion actualizada correctamente. Ahora se encuentra en la fase de entrevista");
         }
         catch (Exception ex)
         {

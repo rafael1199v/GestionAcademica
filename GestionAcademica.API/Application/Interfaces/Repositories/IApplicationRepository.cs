@@ -17,4 +17,7 @@ public interface IApplicationRepository
     int Add(ApplicationEntity application);
     List<ApplicationDTO> GetApplicationsForApplicant(int applicantId); 
     ApplicationDetailDTO GetApplicationDetails(int applicationId);
+    List<ApplicationDTO> GetApplicationsForHr();
+    void RejectApplication(int applicationId);
+    void AdvanceToInterview(int applicationId);
 }

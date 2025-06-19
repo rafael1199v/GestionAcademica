@@ -3,6 +3,7 @@ using GestionAcademica.API.Application.DTOs.File;
 using ApplicationModel = GestionAcademica.API.Infrastructure.Persistence.Models.Application;
 using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Domain.Entities;
+using GestionAcademica.API.Domain.Enums;
 using GestionAcademica.API.Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -162,6 +163,50 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
                 throw new Exception("La postulacion no se encontro el sistema");
             
             return application;
+        }
+
+        public List<ApplicationDTO> GetApplicationsForHr()
+        {
+            var applications = _context.Applications.Where(application => application.Status.Id == (int)StatusEnum.UNDER_REVIEW 
+            && application.Vacancy.StartTime <= DateTime.Now && DateTime.Now < application.Vacancy.EndTime)
+                .Select(application => new ApplicationDTO
+                {
+                    Id = application.Id,
+                    VacancyId = application.VacancyId,
+                    ApplicantId = application.ApplicantId,
+                    StatusId = application.Status.Id,
+                    VacancyName = application.Vacancy.Name,
+                    VacancyDescription = application.Vacancy.Description,
+                    VacancyCareerName = application.Vacancy.Career.Name,
+                    ApplicantName = application.Applicant.User.Name + " " + application.Applicant.User.LastName,
+                    AdministratorName = application.Vacancy.Admin.User.Name + " " + application.Vacancy.Admin.User.LastName,
+                }).ToList();
+            
+            return applications;
+        }
+
+        public void RejectApplication(int applicationId)
+        {
+            var applicationModel = _context.Applications.FirstOrDefault(application => application.Id == applicationId);
+            
+            if(applicationModel is null)
+                throw new Exception("No se encontro el sistema");
+            
+            applicationModel.StatusId = (int)StatusEnum.REJECTED;
+            
+            _context.SaveChanges();
+        }
+
+        public void AdvanceToInterview(int applicationId)
+        {
+            var applicationModel = _context.Applications.FirstOrDefault(application => application.Id == applicationId);
+            
+            if(applicationModel is null)
+                throw new Exception("No se encontro el sistema");
+            
+            applicationModel.StatusId = (int)StatusEnum.INTERVIEW;
+            
+            _context.SaveChanges();
         }
 
         private ApplicationModel ToModel(ApplicationEntity application)

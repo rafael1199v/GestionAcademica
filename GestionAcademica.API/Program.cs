@@ -6,6 +6,7 @@ using GestionAcademica.API.Application.Interfaces.Utilities;
 using GestionAcademica.API.Application.UseCases;
 using GestionAcademica.API.Application.UseCases.AdministratorUseCases;
 using GestionAcademica.API.Application.UseCases.ApplicantUseCases;
+using GestionAcademica.API.Application.UseCases.HrUseCases;
 using GestionAcademica.API.Application.Utilities;
 using GestionAcademica.API.Infrastructure.Mappers;
 using GestionAcademica.API.Infrastructure.Persistence.Context;
@@ -58,6 +59,7 @@ builder.Services.AddScoped<ICreateVacancyUseCase, CreateVacancyUseCase>();
 builder.Services.AddScoped<IApplyForVacancy, ApplyForVacancy>();
 builder.Services.AddScoped<IUploadFilesUseCase, UploadFilesUseCase>();
 builder.Services.AddScoped<IViewOwnApplications, ViewOwnApplications>();
+builder.Services.AddScoped<IReviewNewApplicationsUseCase, ReviewNewApplicationsUseCase>();
 
 //builder.Services.AddScoped<IApplicationManagementUseCase, ApplicationManagementUseCase>();
 
