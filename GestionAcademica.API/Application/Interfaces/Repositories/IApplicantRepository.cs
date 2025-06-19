@@ -5,6 +5,6 @@ namespace GestionAcademica.API.Application.Interfaces.Repositories
     public interface IApplicantRepository
     {
         Applicant GetById(int id);
-        Applicant GetByUserId(int userId);
+        int GetIdByUserId(int userId);
     }
 }

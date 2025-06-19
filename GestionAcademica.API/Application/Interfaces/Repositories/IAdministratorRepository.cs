@@ -4,5 +4,5 @@ namespace GestionAcademica.API.Application.Interfaces.Repositories;
 
 public interface IAdministratorRepository
 {
-    Administrator GetByUserId(int userId);
+    int GetIdByUserId(int userId);
 }

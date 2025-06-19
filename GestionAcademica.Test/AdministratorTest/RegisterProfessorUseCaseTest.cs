@@ -4,10 +4,10 @@ using GestionAcademica.API.Application.DTOs.Professor;
 using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Application.Interfaces.UseCases;
 using GestionAcademica.API.Application.Interfaces.Utilities;
-using GestionAcademica.API.Application.Mappers;
 using GestionAcademica.API.Application.UseCases;
 using GestionAcademica.API.Domain.Enums;
 using GestionAcademica.API.Domain.Exceptions;
+using GestionAcademica.API.Infrastructure.Mappers;
 using GestionAcademica.API.Infrastructure.Persistence.Models;
 
 namespace GestionAcademica.Test.AdministratorTest;

@@ -20,10 +20,10 @@ public class ApplicantRepository : IApplicantRepository
             ?? throw new Exception("El solicitante no fue encontrado");
         return applicant;
     }
-    public Applicant GetByUserId(int userId)
+    public int GetIdByUserId(int userId)
     {
         var applicant = _context.Applicants.Include(applicant => applicant.User).FirstOrDefault(x => x.UserId == userId)
             ?? throw new Exception("El solicitante no fue encontrado");
-        return applicant;
+        return applicant.Id;
     }
 }

@@ -80,13 +80,14 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
             };
         }
 
-        public Professor GetByUserId(int userId)
+        public int GetIdByUserId(int userId)
         {
             Professor? professor = _context.Professors
                 .Include(_professor => _professor.User)
                 .FirstOrDefault(_professor => _professor.UserId == userId)
                 ?? throw new Exception("Profesor no encontrado");
-            return professor;
+            
+            return professor.Id;
         }
     }
 }

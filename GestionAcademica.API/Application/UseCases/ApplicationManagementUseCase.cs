@@ -3,7 +3,6 @@ using GestionAcademica.API.Application.DTOs.Application;
 using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Application.Interfaces.UseCases;
 using GestionAcademica.API.Infrastructure.Persistence.Models;
-using GestionAcademica.API.Application.Interfaces.Mappers;
 
 namespace GestionAcademica.API.Application.UseCases
 {

@@ -1,8 +1,7 @@
-using GestionAcademica.API.Application.DTOs;
 using GestionAcademica.API.Application.DTOs.Professor;
 using GestionAcademica.API.Infrastructure.Persistence.Models;
 
-namespace GestionAcademica.API.Application.Interfaces.Mappers;
+namespace GestionAcademica.API.Infrastructure.Mappers;
 
 public interface IProfessorMapper
 {

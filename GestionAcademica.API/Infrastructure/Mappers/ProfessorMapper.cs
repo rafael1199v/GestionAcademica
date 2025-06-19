@@ -1,11 +1,10 @@
 using GestionAcademica.API.Application.DTOs;
 using GestionAcademica.API.Application.DTOs.Professor;
-using GestionAcademica.API.Application.Interfaces.Mappers;
 using GestionAcademica.API.Application.Interfaces.Utilities;
 using GestionAcademica.API.Domain.Enums;
 using GestionAcademica.API.Infrastructure.Persistence.Models;
 
-namespace GestionAcademica.API.Application.Mappers;
+namespace GestionAcademica.API.Infrastructure.Mappers;
 
 public class ProfessorMapper : IProfessorMapper
 {

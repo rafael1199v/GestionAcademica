@@ -9,4 +9,5 @@ public interface IVacancyRepository
     Vacancy GetById(int vacancyId);
     void Update(Vacancy vacancy);
     void Delete(int vacancyId);
+    List<Vacancy> GetForApplicants();
 }

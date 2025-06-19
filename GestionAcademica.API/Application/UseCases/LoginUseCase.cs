@@ -91,19 +91,19 @@ namespace GestionAcademica.API.Application.UseCases
             switch (roleId)
             {
                 case 1: //Admin
-                    return _administratorRepository.GetByUserId(userId).Id;
+                    return _administratorRepository.GetIdByUserId(userId);
 
                 case 2: //Professor
-                    return _professorRepository.GetByUserId(userId).Id;
+                    return _professorRepository.GetIdByUserId(userId);
 
                 case 3: //Student, en desuso
                     return -1;
 
                 case 4: //Applicant
-                    return _applicantRepository.GetByUserId(userId).Id;
+                    return _applicantRepository.GetIdByUserId(userId);
 
                 case 5: //Human Resources
-                    return _hrRepository.GetByUserId(userId).Id;
+                    return _hrRepository.GetIdByUserId(userId);
 
                 default: //??????????????
                     return -1;

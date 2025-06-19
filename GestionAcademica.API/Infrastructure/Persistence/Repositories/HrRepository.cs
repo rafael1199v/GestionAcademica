@@ -21,10 +21,10 @@ public class HrRepository : IHrRepository
         return hr;
     }
 
-    public Hr GetByUserId(int userId)
+    public int GetIdByUserId(int userId)
     {
         var hr = _context.Hrs.Include(hr => hr.User).FirstOrDefault(x => x.UserId == userId)
         ?? throw new Exception("El HR no fue encontrado");
-        return hr;
+        return hr.Id;
     }
 }

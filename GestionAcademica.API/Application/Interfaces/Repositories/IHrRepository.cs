@@ -5,6 +5,6 @@ namespace GestionAcademica.API.Application.Interfaces.Repositories
     public interface IHrRepository
     {
         Hr GetById(int id);
-        Hr GetByUserId(int userId);
+        int GetIdByUserId(int userId);
     }
 }
