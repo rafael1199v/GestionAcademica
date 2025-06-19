@@ -5,6 +5,7 @@ using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Application.Interfaces.UseCases;
 using GestionAcademica.API.Application.Interfaces.Utilities;
 using GestionAcademica.API.Application.UseCases;
+using GestionAcademica.API.Application.UseCases.AdministratorUseCases;
 using GestionAcademica.API.Domain.Entities;
 using GestionAcademica.API.Domain.Enums;
 using GestionAcademica.API.Domain.Exceptions;
