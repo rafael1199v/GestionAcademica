@@ -4,9 +4,8 @@ using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Application.Interfaces.UseCases;
 using GestionAcademica.API.Domain.Entities;
 using GestionAcademica.API.Infrastructure.Mappers;
-using Microsoft.JSInterop.Infrastructure;
 
-namespace GestionAcademica.API.Application.UseCases;
+namespace GestionAcademica.API.Application.UseCases.ApplicantUseCases;
 
 public class ApplyForVacancy : IApplyForVacancy
 {

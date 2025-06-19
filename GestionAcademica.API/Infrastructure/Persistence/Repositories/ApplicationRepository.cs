@@ -1,3 +1,5 @@
+using GestionAcademica.API.Application.DTOs.Application;
+using GestionAcademica.API.Application.DTOs.File;
 using ApplicationModel = GestionAcademica.API.Infrastructure.Persistence.Models.Application;
 using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Domain.Entities;
@@ -109,6 +111,57 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
             _context.SaveChanges();
             
             return applicationModel.Id;
+        }
+
+        public List<ApplicationDTO> GetApplicationsForApplicant(int applicantId)
+        {
+            var applications =  _context.Applications.Where(application => application.ApplicantId == applicantId)
+                .Select(application => new ApplicationDTO
+                {
+                    Id = application.Id,
+                    VacancyId = application.VacancyId,
+                    ApplicantId = application.ApplicantId,
+                    StatusId = application.Status.Id,
+                    VacancyName = application.Vacancy.Name,
+                    VacancyDescription = application.Vacancy.Description,
+                    VacancyCareerName = application.Vacancy.Career.Name,
+                    ApplicantName = application.Applicant.User.Name + " " + application.Applicant.User.LastName,
+                    AdministratorName = application.Vacancy.Admin.User.Name + " " + application.Vacancy.Admin.User.LastName,
+                }).ToList();
+
+            return applications;
+        }
+
+        public ApplicationDetailDTO GetApplicationDetails(int applicationId)
+        {
+            var application = _context.Applications.Where(application => application.Id == applicationId)
+                .Select(_application => new ApplicationDetailDTO
+                {
+                    Id = _application.Id,
+                    VacancyId = _application.VacancyId,
+                    ApplicantId = _application.ApplicantId,
+                    StatusId = _application.Status.Id,
+                    VacancyName = _application.Vacancy.Name,
+                    VacancyDescription = _application.Vacancy.Description,
+                    VacancyCareerName = _application.Vacancy.Career.Name,
+                    ApplicantName = _application.Applicant.User.Name + " " + _application.Applicant.User.LastName,
+                    AdministratorName = _application.Vacancy.Admin.User.Name + " " +
+                                        _application.Vacancy.Admin.User.LastName,
+                    Files = _application.Files.Select(file => new FileDTO
+                    {
+                        Id = file.Id,
+                        Name = file.Filename,
+                        Description = file.FileDescription,
+                        Extension = file.FileExtension
+                    }).ToList()
+                })
+                .FirstOrDefault();
+            
+            
+            if(application is null)
+                throw new Exception("La postulacion no se encontro el sistema");
+            
+            return application;
         }
 
         private ApplicationModel ToModel(ApplicationEntity application)

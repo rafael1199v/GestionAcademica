@@ -2,7 +2,7 @@ using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Application.Interfaces.UseCases;
 using GestionAcademica.API.Domain.Entities;
 
-namespace GestionAcademica.API.Application.UseCases;
+namespace GestionAcademica.API.Application.UseCases.ApplicantUseCases;
 
 public class UploadFilesUseCase : IUploadFilesUseCase
 {
@@ -35,7 +35,7 @@ public class UploadFilesUseCase : IUploadFilesUseCase
                 file.File.CopyTo(stream);
             }
             
-            _fileRepository.Add(file);
+            _fileRepository.AddWithApplication(file, applicationId);
         }
         
         _fileRepository.SaveChanges();
