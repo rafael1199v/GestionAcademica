@@ -1,4 +1,5 @@
 using GestionAcademica.API.Application.Interfaces.Repositories;
+using GestionAcademica.API.Domain.Enums;
 using GestionAcademica.API.Infrastructure.Persistence.Context;
 using GestionAcademica.API.Infrastructure.Persistence.Models;
 using Microsoft.EntityFrameworkCore;
@@ -59,5 +60,17 @@ public class VacancyRepository : IVacancyRepository
         var vacancy = this.GetById(vacancyId);
         _context.Vacancies.Remove(vacancy);
         _context.SaveChanges();
+    }
+
+    public List<Vacancy> GetForApplicants()
+    {
+        var vacancies = _context.Vacancies
+            .Where(vacancy => !vacancy.Applications.Any(application => application.Status.Id == (int)StatusEnum.ACCEPTED) && (vacancy.EndTime > DateTime.Now && vacancy.StartTime <= DateTime.Now))
+            .Include(vacancy => vacancy.Career)
+            .Include(vacancy => vacancy.Subject)
+            .Include(vacancy => vacancy.Admin)
+            .ToList();
+        
+        return vacancies;
     }
 }

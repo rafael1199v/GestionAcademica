@@ -1,9 +1,11 @@
 using GestionAcademica.API.Application.DTOs;
-using GestionAcademica.API.Application.Interfaces.Mappers;
+using GestionAcademica.API.Application.DTOs.Professor;
 using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Application.Interfaces.UseCases;
+using GestionAcademica.API.Application.Interfaces.Utilities;
 using GestionAcademica.API.Domain.Entities;
 using GestionAcademica.API.Domain.Enums;
+using GestionAcademica.API.Infrastructure.Mappers;
 using GestionAcademica.API.Infrastructure.Persistence.Models;
 
 namespace GestionAcademica.API.Application.UseCases;
@@ -13,12 +15,14 @@ public class ProfessorManagementUseCase : IProfessorManagementUseCase
     private readonly IProfessorRepository _professorRepository;
     private readonly IUserRepository _userRepository;
     private readonly IProfessorMapper _professorMapper;
+    private readonly IHashUtility _hashUtility;
     
-    public ProfessorManagementUseCase(IProfessorRepository professorRepository, IUserRepository userRepository, IProfessorMapper professorMapper)
+    public ProfessorManagementUseCase(IProfessorRepository professorRepository, IUserRepository userRepository, IProfessorMapper professorMapper, IHashUtility hashUtility)
     {
         _professorRepository = professorRepository;
         _userRepository = userRepository;
         _professorMapper = professorMapper;
+        _hashUtility = hashUtility;
     }
 
     public ResponseProfessorDTO RegisterProfessor(CreateProfessorDTO createProfessorDto)
@@ -34,36 +38,39 @@ public class ProfessorManagementUseCase : IProfessorManagementUseCase
             createProfessorDto.Address, 
             createProfessorDto.PersonalEmail, 
             createProfessorDto.InstitutionalEmail, 
-            createProfessorDto.Password, 
+            _hashUtility.CreateHash(createProfessorDto.Password), 
             createProfessorDto.PhoneNumber, 
             birthDate,
             "Habilitado", 
             (int)RoleEnum.Professor
         );
+
+        ProfessorEntity professorEntity = new ProfessorEntity
+        {
+            User = userEntity,
+        };
         
-        Professor professorModel = _professorMapper.CreateProfessorDtoToProfessor(createProfessorDto);
+        professorEntity.User.Name = userEntity.Name;
+        professorEntity.User.LastName = userEntity.LastName;
+        professorEntity.User.Address = userEntity.Address;
+        professorEntity.User.PersonalEmail = userEntity.PersonalEmail;
+        professorEntity.User.InstitutionalEmail = userEntity.InstitutionalEmail;
+        professorEntity.User.Password = userEntity.Password;
+        professorEntity.User.PhoneNumber = userEntity.PhoneNumber;
+        professorEntity.User.BirthDate = userEntity.BirthDate;
+        professorEntity.User.Status = userEntity.Status;
+        professorEntity.User.RoleId = userEntity.RoleId;
         
-        professorModel.User.Name = userEntity.Name;
-        professorModel.User.LastName = userEntity.LastName;
-        professorModel.User.Address = userEntity.Address;
-        professorModel.User.PersonalEmail = userEntity.PersonalEmail;
-        professorModel.User.InstitutionalEmail = userEntity.InstitutionalEmail;
-        professorModel.User.Password = userEntity.Password;
-        professorModel.User.PhoneNumber = userEntity.PhoneNumber;
-        professorModel.User.BirthDate = userEntity.BirthDate;
-        professorModel.User.Status = userEntity.Status;
-        professorModel.User.RoleId = userEntity.RoleId;
+        professorEntity = _professorRepository.Add(professorEntity);
         
-        professorModel = _professorRepository.Add(professorModel);
-        
-        ResponseProfessorDTO responseProfessorDto = _professorMapper.ProfessorToResponseProfessor(professorModel);
+        ResponseProfessorDTO responseProfessorDto = _professorMapper.ProfessorToResponseProfessor(professorEntity);
 
         return responseProfessorDto;
     }
 
     public void UpdateProfessor(UpdateProfessorDTO updateProfessorDto)
     {
-        Professor? professor = _professorRepository.GetById(updateProfessorDto.Id);
+        ProfessorEntity professor = _professorRepository.GetById(updateProfessorDto.Id);
         
         if(professor == null)
             throw new Exception("Professor no existe");
@@ -85,26 +92,20 @@ public class ProfessorManagementUseCase : IProfessorManagementUseCase
             professor.User.Status,
             professor.User.RoleId
         );
-        
-        professor.User.Name = userEntity.Name;
-        professor.User.LastName = userEntity.LastName;
-        professor.User.Address = userEntity.Address;
-        professor.User.PersonalEmail = userEntity.PersonalEmail;
-        professor.User.InstitutionalEmail = userEntity.InstitutionalEmail;
-        professor.User.PhoneNumber = userEntity.PhoneNumber;
-        professor.User.BirthDate = userEntity.BirthDate;
+
+        professor.User = userEntity;
         
         _professorRepository.Update(professor);
     }
 
     public List<ProfessorDetailsDTO> ObtainAllProfessors()
     {
-        List<Professor> list = _professorRepository.GetAllWithDetails();
+        List<ProfessorEntity> list = _professorRepository.GetAllWithDetails();
         List<ProfessorDetailsDTO> result = new List<ProfessorDetailsDTO>();
 
         foreach (var item in list)
         {
-            result.Add(_professorMapper.ProfessorToProfessorDetailsDto(item));
+            result.Add(_professorMapper.ProfessorEntityToProfessorDetailsDto(item));
         }
 
         return result;
@@ -112,13 +113,13 @@ public class ProfessorManagementUseCase : IProfessorManagementUseCase
 
     public ResponseProfessorDTO GetProfessorInformation(int id)
     {
-        Professor professor = _professorRepository.GetById(id);
+        ProfessorEntity professor = _professorRepository.GetById(id);
         return _professorMapper.ProfessorToResponseProfessor(professor);
     }
     
     private void ValidateEmails(string institutionalEmail, string personalEmail)
     {
-        User? user = _userRepository.GetByInstitutionalEmail(institutionalEmail);
+        UserEntity? user = _userRepository.GetByInstitutionalEmail(institutionalEmail);
 
         if (user != null)
             throw new ArgumentException("El correo institucional ya esta en uso");
@@ -137,7 +138,7 @@ public class ProfessorManagementUseCase : IProfessorManagementUseCase
 
     private void ValidateUpdateEmails(int userId, string institutionalEmail, string personalEmail)
     {
-        User? user = _userRepository.GetByInstitutionalEmail(institutionalEmail);
+        UserEntity? user = _userRepository.GetByInstitutionalEmail(institutionalEmail);
 
         if (user != null && user.Id != userId)
             throw new ArgumentException("El correo institucional ya esta en uso");

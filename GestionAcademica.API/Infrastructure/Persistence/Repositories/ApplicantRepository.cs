@@ -14,16 +14,16 @@ public class ApplicantRepository : IApplicantRepository
         _context = context;
     }
 
-    public Applicant GetById(int id)
-    {
-        var applicant = _context.Applicants.Include(applicant => applicant.User).FirstOrDefault(x => x.Id == id)
-            ?? throw new Exception("El solicitante no fue encontrado");
-        return applicant;
-    }
-    public Applicant GetByUserId(int userId)
+    // public Applicant GetById(int id)
+    // {
+    //     var applicant = _context.Applicants.Include(applicant => applicant.User).FirstOrDefault(x => x.Id == id)
+    //         ?? throw new Exception("El solicitante no fue encontrado");
+    //     return applicant;
+    // }
+    public int GetIdByUserId(int userId)
     {
         var applicant = _context.Applicants.Include(applicant => applicant.User).FirstOrDefault(x => x.UserId == userId)
             ?? throw new Exception("El solicitante no fue encontrado");
-        return applicant;
+        return applicant.Id;
     }
 }

@@ -2,7 +2,7 @@ using GestionAcademica.API.Application.DTOs.Vacancy;
 using GestionAcademica.API.Domain.Enums;
 using GestionAcademica.API.Infrastructure.Persistence.Models;
 
-namespace GestionAcademica.API.Application.Mappers;
+namespace GestionAcademica.API.Infrastructure.Mappers;
 
 public class VacancyMapper
 {

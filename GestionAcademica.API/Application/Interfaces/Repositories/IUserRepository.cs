@@ -1,11 +1,12 @@
+using GestionAcademica.API.Domain.Entities;
 using GestionAcademica.API.Infrastructure.Persistence.Models;
 
 namespace GestionAcademica.API.Application.Interfaces.Repositories;
 
 public interface IUserRepository
 {
-    User GetById(int id);
-    User? GetByInstitutionalEmail(string institutionalEmail);
-    public User? GetByEmail(string Email);
+    UserEntity GetById(int id);
+    UserEntity? GetByInstitutionalEmail(string institutionalEmail);
+    public UserEntity? GetByEmail(string Email);
     Applicant Add(Applicant user);
 }

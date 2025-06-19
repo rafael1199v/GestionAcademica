@@ -1,8 +1,8 @@
 using GestionAcademica.API.Application.DTOs.Vacancy;
 using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Application.Interfaces.UseCases;
-using GestionAcademica.API.Application.Mappers;
 using GestionAcademica.API.Domain.Entities;
+using GestionAcademica.API.Infrastructure.Mappers;
 using GestionAcademica.API.Infrastructure.Persistence.Models;
 
 namespace GestionAcademica.API.Application.UseCases;
@@ -20,8 +20,8 @@ public class ManageVacancies : IManageVacancies
     
     public List<VacancyDTO> GetVacancies(int userId)
     {
-        var administrator =  _administratorRepository.GetByUserId(userId);
-        List<Vacancy> vacancies = _vacancyRepository.GetByCreator(administrator.Id);
+        var administratorId =  _administratorRepository.GetIdByUserId(userId);
+        List<Vacancy> vacancies = _vacancyRepository.GetByCreator(administratorId);
         List<VacancyDTO> vacanciesDTO = vacancies.Select(vacancy => VacancyMapper.MapVacancyModelToVacancyDto(vacancy)).ToList();
         
         return  vacanciesDTO;

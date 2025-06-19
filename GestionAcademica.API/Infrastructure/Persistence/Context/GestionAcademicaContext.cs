@@ -2,20 +2,30 @@
 using System.Collections.Generic;
 using GestionAcademica.API.Infrastructure.Persistence.Models;
 using Microsoft.EntityFrameworkCore;
+using File = GestionAcademica.API.Infrastructure.Persistence.Models.File;
 
 namespace GestionAcademica.API.Infrastructure.Persistence.Context;
 
-public partial class GestionAcademicaContext(DbContextOptions<GestionAcademicaContext> options) : DbContext(options)
+public partial class GestionAcademicaContext : DbContext
 {
+    public GestionAcademicaContext()
+    {
+    }
+
+    public GestionAcademicaContext(DbContextOptions<GestionAcademicaContext> options)
+        : base(options)
+    {
+    }
+
     public virtual DbSet<Administrator> Administrators { get; set; }
 
     public virtual DbSet<Applicant> Applicants { get; set; }
 
-    public virtual DbSet<Infrastructure.Persistence.Models.Application> Applications { get; set; }
+    public virtual DbSet<Models.Application> Applications { get; set; }
 
     public virtual DbSet<Career> Careers { get; set; }
 
-    public virtual DbSet<Infrastructure.Persistence.Models.File> Files { get; set; }
+    public virtual DbSet<File> Files { get; set; }
 
     public virtual DbSet<Hr> Hrs { get; set; }
 
@@ -32,13 +42,14 @@ public partial class GestionAcademicaContext(DbContextOptions<GestionAcademicaCo
     public virtual DbSet<Vacancy> Vacancies { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Name=ConnectionStrings:DefaultConnection");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=LAPTOP-LBCR930N\\SQLEXPRESS; Database=GestionAcademica; Trusted_Connection=True; TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Administrator>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__administ__3213E83F7459D599");
+            entity.HasKey(e => e.Id).HasName("PK__administ__3213E83F98B8C23D");
 
             entity.ToTable("administrators");
 
@@ -47,12 +58,12 @@ public partial class GestionAcademicaContext(DbContextOptions<GestionAcademicaCo
 
             entity.HasOne(d => d.User).WithMany(p => p.Administrators)
                 .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__administr__user___39AD8A7F");
+                .HasConstraintName("FK__administr__user___3D491139");
         });
 
         modelBuilder.Entity<Applicant>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__applican__3213E83FC5DBBC83");
+            entity.HasKey(e => e.Id).HasName("PK__applican__3213E83F11C8AC0E");
 
             entity.ToTable("applicants");
 
@@ -61,12 +72,12 @@ public partial class GestionAcademicaContext(DbContextOptions<GestionAcademicaCo
 
             entity.HasOne(d => d.User).WithMany(p => p.Applicants)
                 .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__applicant__user___3F6663D5");
+                .HasConstraintName("FK__applicant__user___4301EA8F");
         });
 
-        modelBuilder.Entity<Infrastructure.Persistence.Models.Application>(entity =>
+        modelBuilder.Entity<Models.Application>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__applicat__3213E83FB42112DD");
+            entity.HasKey(e => e.Id).HasName("PK__applicat__3213E83F2E48DB4C");
 
             entity.ToTable("applications");
 
@@ -78,21 +89,21 @@ public partial class GestionAcademicaContext(DbContextOptions<GestionAcademicaCo
             entity.HasOne(d => d.Applicant).WithMany(p => p.Applications)
                 .HasForeignKey(d => d.ApplicantId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__applicati__appli__536D5C82");
+                .HasConstraintName("FK__applicati__appli__5708E33C");
 
             entity.HasOne(d => d.Status).WithMany(p => p.Applications)
                 .HasForeignKey(d => d.StatusId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__applicati__statu__546180BB");
+                .HasConstraintName("FK__applicati__statu__57FD0775");
 
             entity.HasOne(d => d.Vacancy).WithMany(p => p.Applications)
                 .HasForeignKey(d => d.VacancyId)
-                .HasConstraintName("FK__applicati__vacan__52793849");
+                .HasConstraintName("FK__applicati__vacan__5614BF03");
         });
 
         modelBuilder.Entity<Career>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__careers__3213E83F44795343");
+            entity.HasKey(e => e.Id).HasName("PK__careers__3213E83F2EEE37E3");
 
             entity.ToTable("careers");
 
@@ -105,7 +116,7 @@ public partial class GestionAcademicaContext(DbContextOptions<GestionAcademicaCo
 
             entity.HasOne(d => d.Administrator).WithMany(p => p.Careers)
                 .HasForeignKey(d => d.AdministratorId)
-                .HasConstraintName("FK__careers__adminis__4242D080");
+                .HasConstraintName("FK__careers__adminis__45DE573A");
 
             entity.HasMany(d => d.Subjects).WithMany(p => p.Careers)
                 .UsingEntity<Dictionary<string, object>>(
@@ -113,23 +124,23 @@ public partial class GestionAcademicaContext(DbContextOptions<GestionAcademicaCo
                     r => r.HasOne<Subject>().WithMany()
                         .HasForeignKey("SubjectId")
                         .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__careers_s__subje__48EFCE0F"),
+                        .HasConstraintName("FK__careers_s__subje__4C8B54C9"),
                     l => l.HasOne<Career>().WithMany()
                         .HasForeignKey("CareerId")
                         .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__careers_s__caree__47FBA9D6"),
+                        .HasConstraintName("FK__careers_s__caree__4B973090"),
                     j =>
                     {
-                        j.HasKey("CareerId", "SubjectId").HasName("PK__careers___BE15FA6F2AA38869");
+                        j.HasKey("CareerId", "SubjectId").HasName("PK__careers___BE15FA6F6AF5E7C4");
                         j.ToTable("careers_subjects");
                         j.IndexerProperty<int>("CareerId").HasColumnName("career_id");
                         j.IndexerProperty<int>("SubjectId").HasColumnName("subject_id");
                     });
         });
 
-        modelBuilder.Entity<Infrastructure.Persistence.Models.File>(entity =>
+        modelBuilder.Entity<File>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__files__3213E83F09CA491F");
+            entity.HasKey(e => e.Id).HasName("PK__files__3213E83F6316DBC4");
 
             entity.ToTable("files");
 
@@ -154,15 +165,15 @@ public partial class GestionAcademicaContext(DbContextOptions<GestionAcademicaCo
             entity.HasMany(d => d.Applications).WithMany(p => p.Files)
                 .UsingEntity<Dictionary<string, object>>(
                     "ApplicationsFile",
-                    r => r.HasOne<Infrastructure.Persistence.Models.Application>().WithMany()
+                    r => r.HasOne<Models.Application>().WithMany()
                         .HasForeignKey("ApplicationId")
-                        .HasConstraintName("FK__applicati__appli__5832119F"),
-                    l => l.HasOne<Infrastructure.Persistence.Models.File>().WithMany()
+                        .HasConstraintName("FK__applicati__appli__5BCD9859"),
+                    l => l.HasOne<File>().WithMany()
                         .HasForeignKey("FileId")
-                        .HasConstraintName("FK__applicati__file___573DED66"),
+                        .HasConstraintName("FK__applicati__file___5AD97420"),
                     j =>
                     {
-                        j.HasKey("FileId", "ApplicationId").HasName("PK__applicat__3464390929E801DC");
+                        j.HasKey("FileId", "ApplicationId").HasName("PK__applicat__34643909D1D7913F");
                         j.ToTable("applications_files");
                         j.IndexerProperty<int>("FileId").HasColumnName("file_id");
                         j.IndexerProperty<int>("ApplicationId").HasColumnName("application_id");
@@ -171,7 +182,7 @@ public partial class GestionAcademicaContext(DbContextOptions<GestionAcademicaCo
 
         modelBuilder.Entity<Hr>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__hr__3213E83F34C18CC9");
+            entity.HasKey(e => e.Id).HasName("PK__hr__3213E83FE6074F58");
 
             entity.ToTable("hr");
 
@@ -180,12 +191,12 @@ public partial class GestionAcademicaContext(DbContextOptions<GestionAcademicaCo
 
             entity.HasOne(d => d.User).WithMany(p => p.Hrs)
                 .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__hr__user_id__3C89F72A");
+                .HasConstraintName("FK__hr__user_id__40257DE4");
         });
 
         modelBuilder.Entity<Professor>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__professo__3213E83FA186E171");
+            entity.HasKey(e => e.Id).HasName("PK__professo__3213E83F71E917F8");
 
             entity.ToTable("professors");
 
@@ -194,12 +205,12 @@ public partial class GestionAcademicaContext(DbContextOptions<GestionAcademicaCo
 
             entity.HasOne(d => d.User).WithMany(p => p.Professors)
                 .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__professor__user___36D11DD4");
+                .HasConstraintName("FK__professor__user___3A6CA48E");
         });
 
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__roles__3213E83F4F2CADED");
+            entity.HasKey(e => e.Id).HasName("PK__roles__3213E83FD4E261D6");
 
             entity.ToTable("roles");
 
@@ -212,7 +223,7 @@ public partial class GestionAcademicaContext(DbContextOptions<GestionAcademicaCo
 
         modelBuilder.Entity<Status>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__statuses__3213E83FE83135A1");
+            entity.HasKey(e => e.Id).HasName("PK__statuses__3213E83FD7BFB477");
 
             entity.ToTable("statuses");
 
@@ -225,7 +236,7 @@ public partial class GestionAcademicaContext(DbContextOptions<GestionAcademicaCo
 
         modelBuilder.Entity<Subject>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__subjects__3213E83FED62AB21");
+            entity.HasKey(e => e.Id).HasName("PK__subjects__3213E83FD89A9AED");
 
             entity.ToTable("subjects");
 
@@ -247,16 +258,16 @@ public partial class GestionAcademicaContext(DbContextOptions<GestionAcademicaCo
 
             entity.HasOne(d => d.Professor).WithMany(p => p.Subjects)
                 .HasForeignKey(d => d.ProfessorId)
-                .HasConstraintName("FK__subjects__profes__451F3D2B");
+                .HasConstraintName("FK__subjects__profes__48BAC3E5");
         });
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__users__3213E83FC4E413A6");
+            entity.HasKey(e => e.Id).HasName("PK__users__3213E83FCD8D82B5");
 
             entity.ToTable("users");
 
-            entity.HasIndex(e => e.InstitutionalEmail, "UQ__users__C2B05498C828CEF1").IsUnique();
+            entity.HasIndex(e => e.InstitutionalEmail, "UQ__users__C2B05498FF151636").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Address)
@@ -298,12 +309,12 @@ public partial class GestionAcademicaContext(DbContextOptions<GestionAcademicaCo
             entity.HasOne(d => d.Role).WithMany(p => p.Users)
                 .HasForeignKey(d => d.RoleId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__users__role_id__33F4B129");
+                .HasConstraintName("FK__users__role_id__379037E3");
         });
 
         modelBuilder.Entity<Vacancy>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__vacancie__3213E83F48A61147");
+            entity.HasKey(e => e.Id).HasName("PK__vacancie__3213E83F54261F63");
 
             entity.ToTable("vacancies");
 
@@ -329,17 +340,17 @@ public partial class GestionAcademicaContext(DbContextOptions<GestionAcademicaCo
             entity.HasOne(d => d.Admin).WithMany(p => p.Vacancies)
                 .HasForeignKey(d => d.AdminId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__vacancies__admin__4F9CCB9E");
+                .HasConstraintName("FK__vacancies__admin__53385258");
 
             entity.HasOne(d => d.Career).WithMany(p => p.Vacancies)
                 .HasForeignKey(d => d.CareerId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__vacancies__caree__4EA8A765");
+                .HasConstraintName("FK__vacancies__caree__52442E1F");
 
             entity.HasOne(d => d.Subject).WithMany(p => p.Vacancies)
                 .HasForeignKey(d => d.SubjectId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__vacancies__subje__4DB4832C");
+                .HasConstraintName("FK__vacancies__subje__515009E6");
         });
 
         OnModelCreatingPartial(modelBuilder);

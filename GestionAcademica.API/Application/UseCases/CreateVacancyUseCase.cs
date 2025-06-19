@@ -3,8 +3,8 @@ using GestionAcademica.API.Application.DTOs.Subject;
 using GestionAcademica.API.Application.DTOs.Vacancy;
 using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Application.Interfaces.UseCases;
-using GestionAcademica.API.Application.Mappers;
 using GestionAcademica.API.Domain.Entities;
+using GestionAcademica.API.Infrastructure.Mappers;
 using GestionAcademica.API.Infrastructure.Persistence.Models;
 
 namespace GestionAcademica.API.Application.UseCases;
@@ -28,9 +28,9 @@ public class CreateVacancyUseCase : ICreateVacancyUseCase
             throw new ArgumentException("La fecha es invalida");
 
 
-        var administrator = _administratorRepository.GetByUserId(createVacancyDto.UserId);
+        var administratorId = _administratorRepository.GetIdByUserId(createVacancyDto.UserId);
         
-        VacancyEntity entity = VacancyEntity.CreateVacancy(createVacancyDto.Name, createVacancyDto.Description, startTime, endTime, createVacancyDto.SubjectId, createVacancyDto.CareerId,  administrator.Id);
+        VacancyEntity entity = VacancyEntity.CreateVacancy(createVacancyDto.Name, createVacancyDto.Description, startTime, endTime, createVacancyDto.SubjectId, createVacancyDto.CareerId,  administratorId);
         
         Vacancy model = new Vacancy
         {

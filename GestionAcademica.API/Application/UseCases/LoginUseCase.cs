@@ -2,6 +2,7 @@ using GestionAcademica.API.Application.DTOs;
 using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Application.Interfaces.UseCases;
 using GestionAcademica.API.Application.Interfaces.Utilities;
+using GestionAcademica.API.Domain.Entities;
 using GestionAcademica.API.Domain.Enums;
 using GestionAcademica.API.Infrastructure.Persistence.Models;
 
@@ -29,7 +30,7 @@ namespace GestionAcademica.API.Application.UseCases
 
         public (string, string, string) Login(string email, string password)
         {
-            User? user = _userRepository.GetByInstitutionalEmail(email)
+            UserEntity? user = _userRepository.GetByInstitutionalEmail(email)
             ?? _userRepository.GetByEmail(email)
             ?? throw new Exception("No se encontro el usuario");
 
@@ -54,7 +55,7 @@ namespace GestionAcademica.API.Application.UseCases
         }
         private void Validate(CreateUserDTO Dto)
         {
-            User? user = _userRepository.GetByEmail(Dto.Email);
+            UserEntity? user = _userRepository.GetByEmail(Dto.Email);
 
             if (user != null)
                 throw new ArgumentException("El correo institutional ya existe");
@@ -91,19 +92,19 @@ namespace GestionAcademica.API.Application.UseCases
             switch (roleId)
             {
                 case 1: //Admin
-                    return _administratorRepository.GetByUserId(userId).Id;
+                    return _administratorRepository.GetIdByUserId(userId);
 
                 case 2: //Professor
-                    return _professorRepository.GetByUserId(userId).Id;
+                    return _professorRepository.GetIdByUserId(userId);
 
                 case 3: //Student, en desuso
                     return -1;
 
                 case 4: //Applicant
-                    return _applicantRepository.GetByUserId(userId).Id;
+                    return _applicantRepository.GetIdByUserId(userId);
 
                 case 5: //Human Resources
-                    return _hrRepository.GetByUserId(userId).Id;
+                    return _hrRepository.GetIdByUserId(userId);
 
                 default: //??????????????
                     return -1;

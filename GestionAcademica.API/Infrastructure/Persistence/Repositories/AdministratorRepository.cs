@@ -15,12 +15,14 @@ public class AdministratorRepository : IAdministratorRepository
         _context = context;
     }
     
-    public Administrator GetByUserId(int userId)
+    public int GetIdByUserId(int userId)
     {
         var administrator = _context.Administrators
         .Include(admin => admin.User)
         .FirstOrDefault(x => x.UserId == userId)
         ?? throw new Exception("El administrador no fue encontrado");
-        return administrator;
+        
+        
+        return administrator.Id;
     }
 }

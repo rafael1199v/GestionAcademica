@@ -45,6 +45,8 @@ public class UserEntity
         Status = status;
         BirthDate = birthDate;
     }
+    
+    public UserEntity(){}
 
     private void ValidateInformation(string name, string lastName, string address, string personalEmail,
         string institutionalEmail, string password, string? phoneNumber, string status, DateOnly birthDate)

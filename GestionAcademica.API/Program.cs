@@ -1,12 +1,11 @@
 using System.Security.Claims;
 using GestionAcademica.API;
-using GestionAcademica.API.Application.Interfaces.Mappers;
 using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Application.Interfaces.UseCases;
 using GestionAcademica.API.Application.Interfaces.Utilities;
-using GestionAcademica.API.Application.Mappers;
 using GestionAcademica.API.Application.UseCases;
 using GestionAcademica.API.Application.Utilities;
+using GestionAcademica.API.Infrastructure.Mappers;
 using GestionAcademica.API.Infrastructure.Persistence.Context;
 using GestionAcademica.API.Infrastructure.Persistence.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -43,18 +42,21 @@ builder.Services.AddScoped<IHrRepository, HrRepository>();
 builder.Services.AddScoped<IApplicantRepository, ApplicantRepository>();
 builder.Services.AddScoped<IApplicationRepository, ApplicationRepository>();
 builder.Services.AddScoped<IVacancyRepository, VacancyRepository>();
+builder.Services.AddScoped<IFileRepository, FileRepository>();
 
 builder.Services.AddScoped<IHashUtility, HashUtility>();
 
 builder.Services.AddScoped<IProfessorMapper, ProfessorMapper>();
-builder.Services.AddScoped<IApplicationMapper, ApplicationMapper>();
 
 builder.Services.AddScoped<ILoginUseCase, LoginUseCase>();
 builder.Services.AddScoped<IDetailSubjectUseCase, DetailSubjectUseCase>();
 builder.Services.AddScoped<ICreateSubjectUseCase, CreateSubjectUseCase>();
 builder.Services.AddScoped<IProfessorManagementUseCase, ProfessorManagementUseCase>();
 builder.Services.AddScoped<ICreateVacancyUseCase, CreateVacancyUseCase>();
-builder.Services.AddScoped<IApplicationManagementUseCase, ApplicationManagementUseCase>();
+builder.Services.AddScoped<IApplyForVacancy, ApplyForVacancy>();
+builder.Services.AddScoped<IUploadFilesUseCase, UploadFilesUseCase>();
+
+//builder.Services.AddScoped<IApplicationManagementUseCase, ApplicationManagementUseCase>();
 
 builder.Services.AddScoped<IManageVacancies, ManageVacancies>();
 

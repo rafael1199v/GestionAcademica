@@ -2,24 +2,23 @@ using GestionAcademica.API.Application.DTOs.Vacancy;
 using GestionAcademica.API.Application.Interfaces.UseCases;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GestionAcademica.API.Presentation.Controllers;
+namespace GestionAcademica.API.Presentation.Controllers.Administrator;
 
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/administrator/[controller]")]
 public class VacancyController : ControllerBase
 {
     private readonly ICreateVacancyUseCase _createVacancyUseCase;
     private readonly IManageVacancies _manageVacancies;
+
 
     public VacancyController(ICreateVacancyUseCase createVacancyUseCase, IManageVacancies manageVacancies)
     {
         _createVacancyUseCase = createVacancyUseCase;
         _manageVacancies = manageVacancies;
     }
-
-
-
+    
     [HttpPost]
     public IActionResult CreateVacancy([FromBody] CreateVacancyDTO createVacancyDto)
     {
@@ -34,19 +33,7 @@ public class VacancyController : ControllerBase
         }
     }
 
-    [HttpGet]
-    [Route("subjects-with-careers")]
-    public IActionResult GetSubjectWithVacancies()
-    {
-        try
-        {
-            return Ok(_createVacancyUseCase.GetSubjectsWithCareers());
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
-    }
+    
 
     [HttpGet]
     [Route("{userId}")]
@@ -105,4 +92,20 @@ public class VacancyController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
+    
+    [HttpGet]
+    [Route("subjects-with-careers")]
+    public IActionResult GetSubjectWithVacancies()
+    {
+        try
+        {
+            return Ok(_createVacancyUseCase.GetSubjectsWithCareers());
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+        
 }
