@@ -12,3 +12,4 @@ package-lock.json
 GestionAcademica.sln.DotSettings.user
 GestionAcademica.Client/.env
 
+/GestionAcademica.API/uploads

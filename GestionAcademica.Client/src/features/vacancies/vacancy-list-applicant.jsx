@@ -10,10 +10,9 @@ function VacanciesListApplicant() {
   const [vacancies, setVacancies] = useState([]);
   const { userSession } = useAuthContext();
 
-  console.log(vacancies);
-
-  const modalClose = () => {
+  const modalClose = async () => {
     setModalOpen(false);
+    await getAvailableVacancies();
   }
 
   const openModal = () => {
@@ -23,7 +22,6 @@ function VacanciesListApplicant() {
   const getAvailableVacancies = async () => {
     try {
         const data = await vacancyService.getAvailableVacancies(userSession.userRoleId);
-        //console.log(data);
         setVacancies(data);
     }
     catch(error) {
@@ -35,37 +33,31 @@ function VacanciesListApplicant() {
     getAvailableVacancies();
   }, []);
 
-  
-
-  // TODO: Verificar el rol del usuario para permitir crear nuevas vacantes
-
   return (
     <>
       <div className="flex flex-col gap-4">
         <h1 className="text-4xl">Vacantes</h1>
         <p className="text-xl">
           En esta página pueden verse las materias con cupos libres para
-          postularse, hacer click en cualquiera debe redirigir a una página de
-          formulario de postulacion.
+          postularse. Para ver más detalles de una vacante y postular a ella, 
+          haga click en la tarjeta.
         </p>
         <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
 
           { vacancies.map(vacancy => (
             <ItemVacante
                 key={vacancy.id}
-                title={vacancy.name}
-                description={vacancy.description}
+                item={vacancy}
                 onClick={() => {
                     setSelectedVacancy(vacancy);
                     openModal();
                 }}
             />
           ))}
-          
         </ul>
       </div>
 
-      <ApplyModal isOpen={modalOpen} onClose={modalClose} title={selectedVacancy?.name}/>
+      <ApplyModal isOpen={modalOpen} onClose={modalClose} title={selectedVacancy?.name} id={selectedVacancy?.id} applicantId={userSession.userRoleId} />
     </>
   )
 }

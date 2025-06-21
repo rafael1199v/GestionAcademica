@@ -12,7 +12,6 @@ function VacanciesAdmin() {
       const data = await vacancyService.getVacancies(
         localStorage.getItem("userId")
       );
-      console.log(data);
       setVacancies(data);
     } catch (error) {
       console.error(error.message);

@@ -20,7 +20,7 @@ public class VacancyMapper
             AdminId = vacancy.AdminId,
             SubjectName = vacancy.Subject.Name,
             CareerName = vacancy.Career.Name,
-            Closed = (vacancy.Applications.Any(application => application.Status.Id == (int)StatusEnum.ACCEPTED) || vacancy.EndTime <= DateTime.Now)
+            Closed = vacancy.Applications.Any(application => application.Status.Id == (int)StatusEnum.ACCEPTED) || vacancy.EndTime <= DateTime.Now
         };
     }
 

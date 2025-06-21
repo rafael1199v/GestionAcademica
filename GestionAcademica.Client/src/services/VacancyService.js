@@ -87,6 +87,16 @@ class VacancyService {
             throw new Error(error.response.data);
         }
     }
+    async apply(application){
+        try {
+            const response = await this.http.post(`/applicant/Vacancy/apply`, application);
+            return response.data;
+        }
+        catch(error) {
+            console.error(error);
+            throw new Error(error.response.data);
+        }
+    }
 }
 
 

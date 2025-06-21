@@ -14,4 +14,4 @@ function SideBarItem({isSelected, text, onClick, icon, navigateTo="/"}) {
   )
 }
 
-export default SideBarItem
+export default SideBarItem;

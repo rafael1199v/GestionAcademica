@@ -94,7 +94,7 @@ function ApplicationDetailApplicant() {
             {application?.files.map((file) => (
               <li
                 key={file.id}
-                className="flex justify-between items-center bg-gray-100 px-4 py-2 rounded-lg"
+                className="flex justify-between items-center bg-gray-100 dark:bg-gray-900 px-4 py-2 rounded-lg"
               >
                 <span>
                   {file.name}

@@ -5,5 +5,6 @@ export const SIDE_BAR_ITEM = {
     SUBJECTS: 4,
     VACANCIES: 5,
     APPLICATIONS: 6,
-    SIGN_OUT: 99
+    SIGN_OUT: 99,
+    NONE: 0
 }

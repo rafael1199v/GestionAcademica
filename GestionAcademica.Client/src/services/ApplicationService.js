@@ -6,10 +6,10 @@ export async function createApplication(application){
   return response.data;
 }
 
-export async function updateApplication (application){
-  const response = await axiosInstance.put(`/Application/application`, application);
-  return response.data;
-}
+// export async function updateApplication (application){
+//   const response = await axiosInstance.put(`/Application/application`, application);
+//   return response.data;
+// }
 
 export async function updateAppStatus(request){
   const response = await axiosInstance.put(`/Application/application/status`, request);

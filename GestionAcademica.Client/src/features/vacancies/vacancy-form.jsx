@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
 import vacancyService from "../../services/VacancyService";
 import vacancyFormValidator from "../../services/ValidationForm/VacancyFormValidator";
+import { useAuthContext } from "../../hooks/UseAuthContext";
 
-function VacancyForm() {
- 
+function VacancyForm() { 
+  const userSession = useAuthContext();
   const [subjects, setSubjects] = useState([]);
   const [filteredCareers, setFilteredCareers] = useState([]);
   const [apiError, setApiError] = useState(null);
@@ -71,7 +72,7 @@ function VacancyForm() {
             endTime: "",
             subjectId: "",
             careerId: "",
-            adminId: localStorage.getItem('userId')
+            userId: localStorage.getItem('userId')
         })
     }
     catch(error) {
