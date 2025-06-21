@@ -61,6 +61,8 @@ builder.Services.AddScoped<IUploadFilesUseCase, UploadFilesUseCase>();
 builder.Services.AddScoped<IViewOwnApplications, ViewOwnApplications>();
 builder.Services.AddScoped<IReviewNewApplicationsUseCase, ReviewNewApplicationsUseCase>();
 builder.Services.AddScoped<IManageFileUseCase, ManageFileUseCase>();
+builder.Services.AddScoped<IReviewSubmittedApplicationsUseCase, ReviewSubmittedApplicationsUseCase>();
+builder.Services.AddScoped<IHireApplicantUseCase, HireApplicantUseCase>();
 
 //builder.Services.AddScoped<IApplicationManagementUseCase, ApplicationManagementUseCase>();
 

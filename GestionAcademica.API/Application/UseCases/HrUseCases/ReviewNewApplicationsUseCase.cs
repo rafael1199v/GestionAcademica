@@ -1,6 +1,7 @@
 using GestionAcademica.API.Application.DTOs.Application;
 using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Application.Interfaces.UseCases;
+using GestionAcademica.API.Domain.Enums;
 
 namespace GestionAcademica.API.Application.UseCases.HrUseCases;
 
@@ -26,11 +27,11 @@ public class ReviewNewApplicationsUseCase : IReviewNewApplicationsUseCase
 
     public void RejectApplication(int applicationId)
     {
-        _applicationRepository.RejectApplication(applicationId);
+        _applicationRepository.ChangeApplicationStatus(StatusEnum.REJECTED, applicationId);
     }
 
     public void AdvanceApplicationToInterview(int applicationId)
     {
-        _applicationRepository.AdvanceToInterview(applicationId);
+        _applicationRepository.ChangeApplicationStatus(StatusEnum.INTERVIEW, applicationId);
     }
 }
