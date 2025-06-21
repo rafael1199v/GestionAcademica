@@ -40,43 +40,55 @@ function ProfessorDetails() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center">
-    <div className="flex flex-col w-2xl items-center justify-self-center">
-      <h1 class="text-xl">Detalles del Docente</h1>
-      <p>Información detallada del docente seleccionado.</p>
-      <div class="mb-9"></div>
-      <div class="flex flex-col mb-4">
-        <div class="flex flex-row mb-2">
-          <label>Nombre Completo:</label>
-          <p>
-            {" "}
-            {professor.Name} {professor.LastName}
-          </p>
+    <div className="mx-auto p-4">
+      <div className="flex flex-col w-2xl items-center justify-self-center">
+        <h1 className="text-3xl font-bold mb-2">Detalles del Docente</h1>
+        <p className="mb-9">Información detallada del docente seleccionado.</p>
+        <div className="flex flex-col mb-4">
+          <div className="flex flex-row mb-2">
+            <p>
+              <strong className="font-bold">Nombre Completo: </strong>
+              {professor.Name} {professor.LastName}
+            </p>
+          </div>
+          <div className="flex flex-row mb-2">
+            <p>
+              <strong className="font-bold">Dirección: </strong>
+              {professor.Address}
+            </p>
+          </div>
+          <div className="flex flex-row mb-2">
+            <p>
+              <label className="font-bold">Email Personal: </label>
+              {professor.PersonalEmail}
+            </p>
+          </div>
+          <div className="flex flex-row mb-2">
+            <p>
+              <label className="font-bold">Email Institucional: </label>
+              {professor.InstitutionalEmail}
+            </p>
+          </div>
+          <div className="flex flex-row mb-2">
+            <p> 
+            <label className="font-bold">Teléfono: </label>
+              {professor.PhoneNumber}
+            </p>
+          </div>
+          <div className="flex flex-row mb-2">
+            <p>
+            <label className="font-bold">Fecha de Nacimiento: </label>
+              {professor.BirthDate}
+            </p>
+          </div>
+          <Link
+            to={`${role}/professors`}
+            className="w-full text-center mt-4 text-blue-600 hover:underline font-semibold"
+          >
+            Volver
+          </Link>
         </div>
-        <div class="flex flex-row mb-2">
-          <label>Dirección:</label>
-          <p> {professor.Address}</p>
-        </div>
-        <div class="flex flex-row mb-2">
-          <label>Email Personal:</label>
-          <p> {professor.PersonalEmail}</p>
-        </div>
-        <div class="flex flex-row mb-2">
-          <label>Email Institucional:</label>
-          <p> {professor.InstitutionalEmail}</p>
-        </div>
-        <div class="flex flex-row mb-2">
-          <label>Teléfono</label>
-          <p> {professor.PhoneNumber}</p>
-        </div>
-        <div class="flex flex-row mb-2">
-          <label>Fecha de Nacimiento:</label>
-          <p> {professor.BirthDate}</p>
-        </div>
-
-        <Button label="Volver" onClick={() => navigate(role+"/professors")}/>
       </div>
-    </div>
     </div>
   );
 }
