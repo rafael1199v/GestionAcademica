@@ -80,7 +80,7 @@ export function SideBar() {
             icon={<AcademicCapIcon className="w-4 h-4" />}
             navigateTo="/subjects"
           />)}
-          {userSession.roleId != ROLES.STUDENT && (
+          {userSession.roleId != ROLES.ADMIN && (
           <SideBarItem
             text="Postulaciones"
             isSelected={selectedItem === SIDE_BAR_ITEM.APPLICATIONS}

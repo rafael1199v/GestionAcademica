@@ -5,6 +5,9 @@ import {
   updateAppStatus,
 } from "../../services/ApplicationService";
 import { STATUS } from "../../config/status-const";
+import applicationService from "../../services/ApplicationService";
+import fileService from "../../services/FileService";
+
 
 function ApplicationDetailAdmin() {
   const { id } = useParams();
@@ -12,45 +15,32 @@ function ApplicationDetailAdmin() {
   const navigate = useNavigate();
 
   const fetchApplication = async () => {
-    let data = await getApplicationById(id);
-    data = {
-      ...data,
-      files: [
-        {
-          id: 1,
-          name: "Curriculum",
-          extension: ".docx",
-        },
-        {
-          id: 2,
-          name: "Certificacion AWS",
-          extension: ".pdf",
-        },
-      ],
-    };
-    // Replace with actual file handling ASAP
+    let data = await applicationService.getDetailInterviewApplication(id);
     setApplication(data);
   };
-
-  const handleAction = async (id, newStatus) => {
-    const request = {
-      id: id,
-      status: newStatus,
-    };
+  
+  const rejectApplication = async() => {
     try {
-      await updateAppStatus(request);
-      window.alert(
-        newStatus == STATUS.APPROVED
-          ? "Solicitud aprobada exitosamente"
-          : "Solicitud rechazada exitosamente"
-      );
-      navigate("/applications");
-    } catch (err) {
-      window.alert("Hubo un error con la solicitud...");
-      console.error(err.message);
+      await applicationService.rejectApplicationByAdmin(id);
+      alert("Postulacion rechazada correctamente");
     }
-  };
+    catch(error) {
+      alert("Hubo un error al rechazar la postulacion");
+    }
+  }
 
+  const hireApplicant = async() => {
+    try {
+      const newProfessor = await applicationService.hireApplicant(id);
+      alert("Postulante contratado");
+      navigate(`/create-professor`, { state: { newProfessor: newProfessor } });
+    }
+    catch(error) {
+      alert(error.message);
+    }
+  }
+
+ 
   useEffect(() => {
     fetchApplication();
   }, []);
@@ -73,10 +63,10 @@ function ApplicationDetailAdmin() {
           <strong>Solicitante:</strong> {application?.applicantName}
         </div>
         <div>
-          <strong>Administrador:</strong> {application?.ownerName}
+          <strong>Administrador:</strong> {application?.administratorName}
         </div>
         <div>
-          <strong>Materia: </strong> {application?.subjectName}
+          <strong>Materia: </strong> {application?.vacancyCareerName}
         </div>
       </div>
 
@@ -92,7 +82,9 @@ function ApplicationDetailAdmin() {
                 {file.name}
                 {file.extension}
               </span>
-              <button className="text-blue-600 hover:underline text-sm cursor-pointer">
+              <button className="text-blue-600 hover:underline text-sm cursor-pointer" onClick={() => {
+                fileService.downloadFile(file.id, file.name, file.extension)
+              }}>
                 Ver archivo
               </button>
             </li>
@@ -101,18 +93,22 @@ function ApplicationDetailAdmin() {
       </div>
       <div className="flex justify-end space-x-4 mt-6">
         <button
-          className="flex items-center gap-2 bg-green-500 text-white px-4 py-2 rounded-xl hover:bg-green-600 active:scale-95 shadow-md transition cursor-pointer"
+          className="flex items-center gap-2 bg-green-500 text-white px-4 py-2 rounded-xl hover:bg-green-600 active:scale-95 shadow-md transition cursor-pointer disabled:opacity-30"
           onClick={() => {
-            handleAction(application.id, STATUS.APPROVED);
+           hireApplicant();
           }}
+          disabled={application?.statusId == STATUS.REJECTED || application.statusId == STATUS.APPROVED}
         >
           Aceptar
         </button>
         <button
-          className="flex items-center gap-2 bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-600 active:scale-95 shadow-md transition cursor-pointer"
-          onClick={() => {
-            handleAction(application.id, STATUS.REJECTED);
+          className="flex items-center gap-2 bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-600 active:scale-95 shadow-md transition cursor-pointer disabled:opacity-30"
+          onClick={async () => {
+            await rejectApplication();
+            await fetchApplication();
           }}
+          disabled={application?.statusId == STATUS.REJECTED || application.statusId == STATUS.APPROVED}
+
         >
           Rechazar
         </button>

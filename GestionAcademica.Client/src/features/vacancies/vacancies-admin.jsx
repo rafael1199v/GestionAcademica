@@ -75,7 +75,7 @@ function VacanciesAdmin() {
               </td>
               <td className="px-6 py-3 flex justify-between gap-2">
                 <Link
-                  to={`/`}
+                  to={`/vacancies/${vacancy.id}`}
                   className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                 >
                   Postulaciones

@@ -123,6 +123,52 @@ class ApplicationService {
     }
   }
 
+
+  /* Administrator*/
+
+  async getSubmittedApplications(vacancyId){
+    try {
+      const response = await this.http.get(`/administrator/Application/vacancy/${vacancyId}`);
+      return response.data;
+    }
+    catch(error) {
+      console.error(error);
+      throw new Error(error.response.data);
+    }
+  }
+
+  async getDetailInterviewApplication(applicationId){
+    try {
+      const response = await this.http.get(`/administrator/Application/${applicationId}`);
+      return response.data;
+    }
+    catch(error) {
+      console.error(error);
+      throw new Error(error.response.data);
+    }
+  }
+
+  async rejectApplicationByAdmin(applicationId) {
+    try {
+      await this.http.patch(`/administrator/Application/reject/${applicationId}`);
+    }
+    catch(error){
+      console.error(error);
+      throw new Error(error.response.data);
+    }
+  }
+
+  async hireApplicant(applicationId) {
+    try {
+      const response = await this.http.patch(`/administrator/Application/hire/${applicationId}`);
+      return response.data;
+    }
+    catch(error) {
+      console.error(error);
+      throw new Error(error.response.data);
+    }
+  }
+
 }
 
 const applicationService = new ApplicationService();

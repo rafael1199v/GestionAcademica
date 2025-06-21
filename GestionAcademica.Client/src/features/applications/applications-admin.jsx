@@ -4,21 +4,23 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useAuthContext } from "../../hooks/UseAuthContext";
 import { getApplicationsByAdmin } from "../../services/ApplicationService";
+import { useParams } from "react-router-dom";
+import applicationService from "../../services/ApplicationService";
 
 function ApplicationsAdmin() {
   const navigate = useNavigate();
   const { userSession } = useAuthContext();
   const [applications, setApplications] = React.useState([]);
+  const { id } = useParams();
 
-  const seeApplicationDetails = (id) => {
-    navigate(`/applications/${id}`);
+  const seeApplicationDetails = (applicationId) => {
+    navigate(`/applications/${applicationId}`);
   };
 
   const fetchApplications = async () => {
     try {
-      const result = await getApplicationsByAdmin(userSession.userRoleId);
+      const result = await applicationService.getSubmittedApplications(id);
       setApplications(result);
-
     } catch (e) {
       window.Error(e);
     }

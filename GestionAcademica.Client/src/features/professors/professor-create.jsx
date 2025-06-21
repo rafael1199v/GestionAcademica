@@ -3,20 +3,25 @@ import Button from "../../components/button";
 import { Link, useNavigate } from "react-router-dom";
 import { ValidateProfessorRegisterForm } from "../../services/ValidationService";
 import { createProfessor } from "../../services/AdministratorService";
+import { useLocation } from "react-router-dom";
 
 function ProfessorRegisterForm() {
+  const { state } = useLocation();
+  const newProfessor = state?.newProfessor;
+  console.log(state);
+  
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const [professorForm, setProfessorForm] = useState({
-    Name: "",
-    LastName: "",
-    Address: "",
-    PersonalEmail: "",
+    Name: newProfessor?.user?.name || "",
+    LastName: newProfessor?.user?.lastName || "",
+    Address: newProfessor?.user?.address || "",
+    PersonalEmail: newProfessor?.user?.institutionalEmail || "",
     InstitutionalEmail: "",
     Password: "",
     ConfirmPassword: "",
-    PhoneNumber: "",
-    BirthDate: "",
+    PhoneNumber: newProfessor?.user?.phoneNumber || "",
+    BirthDate: newProfessor?.user?.birthDate || "",
   });
 
   const handleSubmit = async (e) => {

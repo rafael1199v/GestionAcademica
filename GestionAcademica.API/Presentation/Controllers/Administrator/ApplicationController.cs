@@ -61,4 +61,18 @@ public class ApplicationController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
+
+    [HttpGet]
+    [Route("{applicationId}")]
+    public IActionResult GetDetailInterviewApplication(int applicationId)
+    {
+        try
+        {
+            return Ok(_reviewSubmittedApplicationsUseCase.GetDetailInterviewApplication(applicationId));
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
 }

@@ -38,7 +38,8 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/professors" element={<Professors />} />
                 <Route path="/vacancies" element={<VacanciesAdmin />} />
-                <Route path="/applications" element={<ApplicationsAdmin/>}/>
+                <Route path="/vacancies/:id" element={<ApplicationsAdmin/>}/>
+                
                 <Route path="/applications/:id" element={<ApplicationDetailAdmin />}/>
                 <Route path="/create-professor" element={<ProfessorRegisterForm />} />
                 <Route path="/update-professor/:id" element={<ProfessorUpdateForm />} />
