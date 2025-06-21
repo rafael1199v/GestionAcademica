@@ -1,5 +1,7 @@
+using GestionAcademica.API.Application.DTOs.Vacancy;
 using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Domain.Enums;
+using GestionAcademica.API.Infrastructure.Mappers;
 using GestionAcademica.API.Infrastructure.Persistence.Context;
 using GestionAcademica.API.Infrastructure.Persistence.Models;
 using Microsoft.EntityFrameworkCore;
@@ -62,14 +64,17 @@ public class VacancyRepository : IVacancyRepository
         _context.SaveChanges();
     }
 
-    public List<Vacancy> GetForApplicants()
+    public List<VacancyDTO> GetForApplicants(int applicantId)
     {
         var vacancies = _context.Vacancies
-            .Where(vacancy => !vacancy.Applications.Any(application => application.Status.Id == (int)StatusEnum.ACCEPTED) && (vacancy.EndTime > DateTime.Now && vacancy.StartTime <= DateTime.Now))
+            .Where(vacancy => !vacancy.Applications.Any(application => application.Status.Id == (int)StatusEnum.ACCEPTED) && (vacancy.EndTime > DateTime.Now && vacancy.StartTime <= DateTime.Now)
+            && !vacancy.Applications.Any(application => application.ApplicantId == applicantId))
             .Include(vacancy => vacancy.Career)
             .Include(vacancy => vacancy.Subject)
             .Include(vacancy => vacancy.Admin)
+            .Select(vacancy => VacancyMapper.MapVacancyModelToVacancyDto(vacancy))
             .ToList();
+        
         
         return vacancies;
     }

@@ -1,9 +1,10 @@
 import React from "react";
-import ApplicationCard from "./components/application-card-admin";
+import ApplicationCardApplicant from "./components/application-card-applicant";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useAuthContext } from "../../hooks/UseAuthContext";
 import { getApplicationsByApplicant } from "../../services/ApplicationService";
+import applicationService from "../../services/ApplicationService";
 
 function ApplicationsApplicant() {
   const navigate = useNavigate();
@@ -11,12 +12,13 @@ function ApplicationsApplicant() {
   const [applications, setApplications] = React.useState([]);
 
   const seeApplicationDetails = (id) => {
-    navigate(`/applications/${id}`);
+    navigate(`/applicant/applications/${id}`);
   };
 
   const fetchApplications = async () => {
     try {
-      const result = await getApplicationsByApplicant(userSession.userRoleId);
+      const result = await applicationService.getOwnApplications(userSession.userRoleId);
+
       setApplications(result);
 
     } catch (e) {
@@ -36,7 +38,7 @@ function ApplicationsApplicant() {
       </p>
       <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {applications.map((application) => (
-          <ApplicationCard
+          <ApplicationCardApplicant
             key={application.id}
             item={application}
             onClick={() => seeApplicationDetails(application.id)}

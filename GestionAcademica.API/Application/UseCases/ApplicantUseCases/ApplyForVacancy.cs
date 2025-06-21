@@ -21,11 +21,9 @@ public class ApplyForVacancy : IApplyForVacancy
         _applicationRepository = applicationRepository;
     }
     
-    public List<VacancyDTO> GetAvailableVacancies()
+    public List<VacancyDTO> GetAvailableVacancies(int applicantId)
     {
-        var vacancies = _vacancyRepository.GetForApplicants()
-                                                .Select(vacancy => VacancyMapper.MapVacancyModelToVacancyDto(vacancy))
-                                                .ToList();
+        var vacancies = _vacancyRepository.GetForApplicants(applicantId);
 
         return vacancies;
     }

@@ -128,6 +128,7 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
                     VacancyCareerName = application.Vacancy.Career.Name,
                     ApplicantName = application.Applicant.User.Name + " " + application.Applicant.User.LastName,
                     AdministratorName = application.Vacancy.Admin.User.Name + " " + application.Vacancy.Admin.User.LastName,
+                    VacancySubjectName = application.Vacancy.Subject.Name
                 }).ToList();
 
             return applications;
@@ -180,6 +181,7 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
                     VacancyCareerName = application.Vacancy.Career.Name,
                     ApplicantName = application.Applicant.User.Name + " " + application.Applicant.User.LastName,
                     AdministratorName = application.Vacancy.Admin.User.Name + " " + application.Vacancy.Admin.User.LastName,
+                    VacancySubjectName = application.Vacancy.Subject.Name
                 }).ToList();
             
             return applications;

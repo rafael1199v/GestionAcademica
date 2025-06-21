@@ -1,4 +1,5 @@
 import React from "react";
+import applicationService from "../../../services/ApplicationService";
 
 function ApplicationCardAdmin({ item, onClick }) {
   return (
@@ -15,10 +16,13 @@ function ApplicationCardAdmin({ item, onClick }) {
         {"Postulante: " +
           item.applicantName +
           "\nMateria: " +
-          item.subjectName}
+          item.vacancySubjectName}
       </p>
-      <p className="text-sm text-gray-700 dark:text-gray-400">
-        Archivos enviados: {item.fileQtty}
+      {/* <p className="text-sm text-gray-700 dark:text-gray-400">
+        Archivos enviados: {item.}
+      </p> */}
+      <p>
+        Estado: { applicationService.getStatusName(item.statusId)}
       </p>
     </a>
   );

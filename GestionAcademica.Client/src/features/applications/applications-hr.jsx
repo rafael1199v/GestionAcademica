@@ -1,23 +1,23 @@
 import React from "react";
-import ApplicationCard from "./components/application-card-admin";
+import ApplicationCardHr from "./components/application-card-hr";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { getApplicationsByStatus } from "../../services/ApplicationService";
 import { STATUS } from "../../config/status-const";
+import applicationService from "../../services/ApplicationService";
 
 function ApplicationsHr() {
   const navigate = useNavigate();
   const [applications, setApplications] = React.useState([]);
 
   const seeApplicationDetails = (id) => {
-    navigate(`/applications/${id}`);
+    navigate(`/hr/applications/${id}`);
   };
 
   const fetchApplications = async () => {
     try {
-      const result = await getApplicationsByStatus(STATUS.UNVERIFIED);
+      const result = await applicationService.getNewApplications();
       setApplications(result);
-
     } catch (e) {
       window.Error(e);
     }
@@ -35,7 +35,7 @@ function ApplicationsHr() {
       </p>
       <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {applications.map((application) => (
-          <ApplicationCard
+          <ApplicationCardHr
             key={application.id}
             item={application}
             onClick={() => seeApplicationDetails(application.id)}

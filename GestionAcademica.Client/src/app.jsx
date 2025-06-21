@@ -22,6 +22,7 @@ import ApplicationsApplicant from "./features/applications/applications-applican
 import ApplicationDetailApplicant from "./features/applications/application-detail-applicant";
 import ApplicationsHr from "./features/applications/applications-hr";
 import ApplicationDetailHr from "./features/applications/application-detail-hr";
+import VacanciesListApplicant from "./features/vacancies/vacancy-list-applicant";
 
 function App() {
 
@@ -54,7 +55,7 @@ function App() {
                 <Route path="/applicant" element={<Home />} />
                 <Route path="/applicant/professors" element={<Professors />} />
                 <Route path="/applicant/professor-details/:id" element={<ProfessorDetails />} />
-                <Route path="/applicant/vacancies" element={<VacanciesList />} />
+                <Route path="/applicant/vacancies" element={<VacanciesListApplicant />} />
                 <Route path="/applicant/applications" element={ <ApplicationsApplicant />} />
                 <Route path="/applicant/applications/:id" element={ <ApplicationDetailApplicant />}/>
               </Route>

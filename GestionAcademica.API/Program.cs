@@ -60,6 +60,7 @@ builder.Services.AddScoped<IApplyForVacancy, ApplyForVacancy>();
 builder.Services.AddScoped<IUploadFilesUseCase, UploadFilesUseCase>();
 builder.Services.AddScoped<IViewOwnApplications, ViewOwnApplications>();
 builder.Services.AddScoped<IReviewNewApplicationsUseCase, ReviewNewApplicationsUseCase>();
+builder.Services.AddScoped<IManageFileUseCase, ManageFileUseCase>();
 
 //builder.Services.AddScoped<IApplicationManagementUseCase, ApplicationManagementUseCase>();
 

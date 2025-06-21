@@ -34,11 +34,12 @@ public class VacancyController : ControllerBase
 
 
     [HttpGet]
-    public IActionResult GetAvailableVacancies()
+    [Route("{applicantId}")]
+    public IActionResult GetAvailableVacancies(int applicantId)
     {
         try
         {
-            return Ok(_applyForVacancy.GetAvailableVacancies());
+            return Ok(_applyForVacancy.GetAvailableVacancies(applicantId));
         }
         catch (Exception ex)
         {

@@ -1,3 +1,4 @@
+using GestionAcademica.API.Application.DTOs.Vacancy;
 using GestionAcademica.API.Infrastructure.Persistence.Models;
 
 namespace GestionAcademica.API.Application.Interfaces.Repositories;
@@ -9,5 +10,5 @@ public interface IVacancyRepository
     Vacancy GetById(int vacancyId);
     void Update(Vacancy vacancy);
     void Delete(int vacancyId);
-    List<Vacancy> GetForApplicants();
+    List<VacancyDTO> GetForApplicants(int applicantId);
 }

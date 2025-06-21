@@ -11,5 +11,7 @@ namespace GestionAcademica.API.Application.DTOs.Application
         public string? VacancyCareerName { get; set; }
         public string? ApplicantName { get; set; }
         public string? AdministratorName { get; set; }
+        
+        public string? VacancySubjectName { get; set; }
     }
 }

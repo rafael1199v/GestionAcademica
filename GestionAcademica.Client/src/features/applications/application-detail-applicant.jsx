@@ -1,28 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getApplicationById } from "../../services/ApplicationService";
+import applicationService from "../../services/ApplicationService";
+import fileService from "../../services/FileService";
 
 function ApplicationDetailApplicant() {
   const { id } = useParams();
   const [application, setApplication] = useState(null);
 
   const fetchApplication = async () => {
-    let data = await getApplicationById(id);
-    data = {
-      ...data,
-      files: [
-        {
-          id: 1,
-          name: "Curriculum",
-          extension: ".docx",
-        },
-        {
-          id: 2,
-          name: "Certificacion AWS",
-          extension: ".pdf",
-        },
-      ],
-    };
+    const data = await applicationService.getApplicationDetailForApplicant(id);
     // Replace with actual file handling ASAP
     setApplication(data);
   };
@@ -61,6 +48,16 @@ function ApplicationDetailApplicant() {
     }
   };
 
+
+  const downloadFile = async(fileId, fileName, fileExtension) => {
+    try {
+      await fileService.downloadFile(fileId, fileName, fileExtension);
+    }
+    catch(error) {
+      alert("No se pudo descargar el archivo");
+    }
+  }
+
   if (!application) {
     return (
       <div className="flex justify-center items-center min-h-screen">
@@ -73,14 +70,14 @@ function ApplicationDetailApplicant() {
     <div className="max-w-4xl mx-auto px-4 py-8">
       <div className="bg-white shadow-md rounded-lg p-6 dark:bg-gray-800 dark:text-white">
         <h1 className="text-3xl font-bold mb-2">{application.vacancyName}</h1>
-        <h3 className="text-xl mb-2">Ofrecido por: {application.ownerName}</h3>
+        <h3 className="text-xl mb-2">Ofrecido por: {application.administratorName}</h3>
 
         <span
           className={`inline-block px-3 py-1 text-sm font-medium rounded-full ${getStatusColor(
             application.statusId
           )}`}
         >
-          Estado: {application.status}
+          Estado: {applicationService.getStatusName(application.statusId)}
         </span>
 
         <p className="mt-4 text-gray-700 dark:text-gray-300">
@@ -91,10 +88,30 @@ function ApplicationDetailApplicant() {
           {getMessage(application.statusId)}
         </p>
 
-        <div className="mt-6">
-          <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
-            Descargar Archivos
-          </button>
+        <div>
+          <h2 className="text-lg font-semibold mt-6 mb-2">Archivos</h2>
+          <ul className="space-y-2">
+            {application?.files.map((file) => (
+              <li
+                key={file.id}
+                className="flex justify-between items-center bg-gray-100 px-4 py-2 rounded-lg"
+              >
+                <span>
+                  {file.name}
+                  {file.extension}
+                </span>
+                <button className="text-blue-600 hover:underline text-sm cursor-pointer" onClick={() => {
+                  downloadFile(file.id, file.name, file.extension);
+                }}>
+                  Ver archivo
+                </button>
+              </li>
+            ))}
+
+            { application?.files.length === 0 && (
+              <p>El postulante no ha subido archivos</p>
+            )}
+          </ul>
         </div>
       </div>
     </div>

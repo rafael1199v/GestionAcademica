@@ -8,7 +8,6 @@ namespace GestionAcademica.API.Presentation.Controllers.Hr;
 public class ApplicationController : ControllerBase
 {
     
-    
     private readonly IReviewNewApplicationsUseCase _reviewNewApplicationsUseCase;
 
     public ApplicationController(IReviewNewApplicationsUseCase reviewNewApplicationsUseCase)

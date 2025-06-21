@@ -5,7 +5,7 @@ namespace GestionAcademica.API.Application.Interfaces.UseCases;
 
 public interface IApplyForVacancy
 {
-    List<VacancyDTO> GetAvailableVacancies();
+    List<VacancyDTO> GetAvailableVacancies(int applicantId);
     
     void Apply(CreateApplicationDTO dto);
 }

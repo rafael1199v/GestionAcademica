@@ -1,3 +1,4 @@
+import { STATUS } from "../config/status-const";
 import { axiosInstance } from "./AxiosInstance";
 
 export async function createApplication(application){
@@ -39,3 +40,90 @@ export async function getApplicationById(applicationId){
   const response = await axiosInstance.get(`/Application/application/${applicationId}`);
   return response.data;
 }
+
+
+class ApplicationService {
+
+  /*Hr*/
+  constructor() {
+    this.http = axiosInstance;
+  }
+
+  async getNewApplications() {
+    const response = await axiosInstance.get(`/hr/Application`);
+    return response.data;
+  }
+
+  async getApplicationDetailForHr(id) {
+    const response = await axiosInstance.get(`/hr/Application/${id}`);
+    return response.data;
+  }
+
+  async rejectApplication(id) {
+
+    try {
+      await axiosInstance.patch(`/hr/Application/reject/${id}`);
+    }
+    catch(error) {
+      throw new Error(error.response.data);
+    }
+    
+  }
+
+  async uploadApplicationToInterview(id) {
+    try {
+      await axiosInstance.patch(`/hr/Application/approve/${id}`);
+    }
+    catch(error) {
+      throw new Error(error.response.data);
+    }
+  }
+
+
+  /*Applicant*/
+
+  async getOwnApplications(applicantId) {
+    try {
+      const response = await axiosInstance.get(`/applicant/Application/${applicantId}`);
+      return response.data;
+    }
+    catch(error) {
+      throw new Error(error.response.data);
+    }
+  }
+
+
+  async getApplicationDetailForApplicant(applicationId) {
+    try {
+      const response = await axiosInstance.get(`/applicant/Application/detail/${applicationId}`);
+      return response.data;
+    }
+    catch(error) {
+      throw new Error(error.response.data);
+    }
+  }
+
+  getStatusName(statusId) {
+
+    switch(statusId){
+      case STATUS.UNVERIFIED:
+        return "En revision";
+
+      case STATUS.MEETING:
+        return "Entrevista";
+
+      case STATUS.APPROVED:
+        return "Aceptado";
+
+      case STATUS.FINISHED:
+        return "Finalizado";
+
+      case STATUS.REJECTED:
+        return "Rechazado";
+    }
+  }
+
+}
+
+const applicationService = new ApplicationService();
+export default applicationService;

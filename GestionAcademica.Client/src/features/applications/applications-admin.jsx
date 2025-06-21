@@ -1,5 +1,5 @@
 import React from "react";
-import ApplicationCard from "./components/application-card-admin";
+import ApplicationCardAdmin from "./components/application-card-admin";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useAuthContext } from "../../hooks/UseAuthContext";
@@ -36,7 +36,7 @@ function ApplicationsAdmin() {
       </p>
       <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {applications.map((application) => (
-          <ApplicationCard
+          <ApplicationCardAdmin
             key={application.id}
             item={application}
             onClick={() => seeApplicationDetails(application.id)}

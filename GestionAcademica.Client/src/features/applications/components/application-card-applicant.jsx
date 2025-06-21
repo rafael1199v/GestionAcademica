@@ -1,4 +1,5 @@
 import React from "react";
+import applicationService from "../../../services/ApplicationService";
 
 function ApplicationCardApplicant({ item, onClick }) {
   return (
@@ -10,12 +11,17 @@ function ApplicationCardApplicant({ item, onClick }) {
       <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
         {item.vacancyName}
       </h5>
+
       <p className="mb-2 font-normal text-gray-700 dark:text-gray-400">
-        {item.vacancyDesc}
+        {"Postulante: " +
+          item.applicantName +
+          "\nMateria: " +
+          item.vacancySubjectName}
       </p>
-      <p className="text-sm text-gray-700 dark:text-gray-400">
-        Estado: {item.status}
-      </p>
+      {/* <p className="text-sm text-gray-700 dark:text-gray-400">
+        Archivos enviados: {item.}
+      </p> */}
+      <p>Estado: {applicationService.getStatusName(item.statusId)}</p>
     </a>
   );
 }
