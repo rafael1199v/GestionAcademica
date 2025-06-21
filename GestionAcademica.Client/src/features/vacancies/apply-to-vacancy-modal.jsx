@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { STATUS } from '../../config/status-const';
 import vacancyService from '../../services/VacancyService';
 
-function ApplyModal({ isOpen, onClose, title, id, applicantId }) {
+function ApplyModal({ isOpen, onClose, item, applicantId }) {
   const [files, setFiles] = useState([]);
 
   const handleFileChange = (e) => {
@@ -49,18 +49,22 @@ function ApplyModal({ isOpen, onClose, title, id, applicantId }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(1,1,1,0.2)]">
       <div className="bg-white rounded-lg p-6 w-full max-w-2xl shadow-lg">
-        <h2 className="text-2xl font-bold mb-4">Postularse a: {title}</h2>
-        <p>Descripción de la vacante:</p>
-        <p>Materia y carrera</p>
-        <p>Ofrecido por el director:</p>
-        <p className='mb-15'>Fecha límite para postular:</p>
+        <h2 className="text-2xl font-bold mb-4 text-center">Formulario de postulación</h2>
+        <p className='mb-2'><strong>Vacante:</strong> {item.name}</p>
+        <strong>Descripción de la vacante:</strong>
+        <p className='mb-2'>{item.description}</p>
+        <div className="flex mb-2 justify-between">
+          <p><strong>Materia:</strong> {item.subjectName}</p>
+          <p><strong>Carrera:</strong> {item.careerName}</p>
+        </div>
+        <p className='mb-15'><strong>Fecha límite para postular:</strong> {item.endTime}</p>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block mb-2 font-medium">Sube tus archivos (PDF, DOC, etc.)</label>
+            <label className="block mb-2 font-medium">Sube tus archivos (.PDF, .DOCX, etc.)</label>
             <input
               type="file"
               multiple
-              accept=".pdf,.doc,.docx"
+              accept=".doc, .docx, .pdf, .txt, .rtf, .odt, .xls, .xlsx, .ppt, .pptx, .md"
               onChange={handleFileChange}
               className="block w-full text-sm text-gray-700 border border-gray-300 rounded-lg cursor-pointer focus:outline-none"
             />

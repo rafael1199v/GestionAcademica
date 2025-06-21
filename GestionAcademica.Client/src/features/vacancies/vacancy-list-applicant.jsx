@@ -57,7 +57,7 @@ function VacanciesListApplicant() {
         </ul>
       </div>
 
-      <ApplyModal isOpen={modalOpen} onClose={modalClose} title={selectedVacancy?.name} id={selectedVacancy?.id} applicantId={userSession.userRoleId} />
+      <ApplyModal isOpen={modalOpen} onClose={modalClose} item={selectedVacancy} applicantId={userSession.userRoleId} />
     </>
   )
 }

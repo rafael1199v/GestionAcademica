@@ -4,6 +4,7 @@ import SideBarItem from "./components/side-bar__item";
 import { SIDE_BAR_ITEM } from "../../config/side-bar__item-const";
 import { useAuthContext } from "../../hooks/UseAuthContext";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import {
   HomeIcon,
   ArrowLeftIcon,
@@ -16,6 +17,7 @@ import { getRoleLink } from "../../services/AuthService";
 
 export function SideBar() {
   const [selectedItem, setSelectedItem] = useState(SIDE_BAR_ITEM.HOME);
+  const location = useLocation();
   const navigate = useNavigate();
   const { setUsersession } = useAuthContext();
   const { userSession } = useAuthContext();
@@ -33,6 +35,15 @@ export function SideBar() {
   };
 
   const role = getRoleLink(userSession.roleId);
+
+  useEffect(()=>{
+    const path = location.pathname;
+    if (path.includes("/professors")) setSelectedItem(SIDE_BAR_ITEM.PROFESSORS);
+    else if (path.includes("/subjects")) setSelectedItem(SIDE_BAR_ITEM.SUBJECTS);
+    else if (path.includes("/applications")) setSelectedItem(SIDE_BAR_ITEM.APPLICATIONS);
+    else if (path.includes("/vacancies")) setSelectedItem(SIDE_BAR_ITEM.REPORTS);
+    else if (path === "/") setSelectedItem(SIDE_BAR_ITEM.HOME);
+  }, [location.pathname, userSession.roleId]);
 
   return (
     <div className="w-64 h-screen flex-col justify-between border-e border-gray-100 bg-white">
@@ -82,7 +93,7 @@ export function SideBar() {
           {userSession.roleId != ROLES.HR && (
             <SideBarItem
               text="Vacantes"
-              isSelected={selectedItem === SIDE_BAR_ITEM.REPORTS}
+              isSelected={selectedItem === SIDE_BAR_ITEM.REPORTS} //He intentado cambiar la constante de esta cosa y no funciona aaaaaa
               onClick={() => {
                 setSelectedItem(SIDE_BAR_ITEM.REPORTS);
               }}
