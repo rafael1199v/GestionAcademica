@@ -63,9 +63,19 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
 
         public void Update(ProfessorEntity professor)
         {
-            var professorModel = ToModel(professor);
+            var professorModel = _context.Professors.FirstOrDefault(_professor => _professor.Id == professor.Id);
             
-            _context.Professors.Update(professorModel);
+            if(professorModel is null)
+                throw new Exception("Profesor no encontrado");
+            
+            professorModel.User.Name = professor.User.Name;
+            professorModel.User.LastName = professor.User.LastName;
+            professorModel.User.PersonalEmail = professor.User.PersonalEmail;
+            professorModel.User.InstitutionalEmail = professor.User.InstitutionalEmail;
+            professorModel.User.Address = professor.User.Address;
+            professorModel.User.BirthDate = professor.User.BirthDate;
+            professorModel.User.PhoneNumber = professor.User.PhoneNumber;
+            
             _context.SaveChanges();
         }
         
