@@ -7,7 +7,7 @@ function ProfessorItem({ item }) {
   const { userSession } = useAuthContext();
     const role = getRoleLink(userSession.roleId);
   return (
-    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 items-center">
       <td className="px-6 py-4">{item.fullName}</td>
       <td className="px-6 py-4">{item.address}</td>
       <td className="px-6 py-4">{item.institutionalEmail}</td>
@@ -18,7 +18,7 @@ function ProfessorItem({ item }) {
           {item.status}
         </div>
       </td> */}
-      <td className="px-6 py-3 flex justify-between">
+      <td className="pr-6 pl-1 py-4 justify-between flex flex-row flex-wrap">
         {role == "" && ( //rol de admin, solo él tiene permiso de editar
         <Link
           to={`/update-professor/${item.id}`}

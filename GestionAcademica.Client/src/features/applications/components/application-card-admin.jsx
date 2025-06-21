@@ -18,10 +18,7 @@ function ApplicationCardAdmin({ item, onClick }) {
           "\nMateria: " +
           item.vacancySubjectName}
       </p>
-      {/* <p className="text-sm text-gray-700 dark:text-gray-400">
-        Archivos enviados: {item.}
-      </p> */}
-      <p>
+      <p className="font-normal text-gray-900 dark:text-gray-200">
         Estado: { applicationService.getStatusName(item.statusId)}
       </p>
     </a>

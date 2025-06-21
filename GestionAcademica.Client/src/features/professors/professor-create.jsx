@@ -8,7 +8,6 @@ import { useLocation } from "react-router-dom";
 function ProfessorRegisterForm() {
   const { state } = useLocation();
   const newProfessor = state?.newProfessor;
-  console.log(state);
   
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});

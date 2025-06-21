@@ -21,7 +21,7 @@ function ApplicationCardHr({ item, onClick }) {
       {/* <p className="text-sm text-gray-700 dark:text-gray-400">
         Archivos enviados: {item.}
       </p> */}
-      <p>Estado: {applicationService.getStatusName(item.statusId)}</p>
+      <p className="font-normal text-gray-700 dark:text-gray-400">Estado: {applicationService.getStatusName(item.statusId)}</p>
     </a>
   );
 }

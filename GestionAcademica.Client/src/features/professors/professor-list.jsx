@@ -29,12 +29,14 @@ function ProfessorTable() {
   };
   return (
     <div>
-      <h1>Docentes</h1>
-      <p>Esta es la página de docentes.</p>
+      <h1 className="text-3xl font-bold text-gray-800 mb-4 text-center w-full">Docentes</h1>
+      <p className="text-center block mb-2">Aquí puedes observar la lista de todos los docentes que están trabajando en la universidad actualmente, para más información, haga click en los detalles de cualquier docente. Un administrador también puede crear y actualizar los datos de un docente.</p>
       {userSession.roleId == ROLES.ADMIN && (
-        <Button label="Nuevo docente" onClick={handleNuevoDocente} />
+        <div className="w-full justify-center flex">
+          <Button label="Nuevo docente" onClick={handleNuevoDocente} />
+        </div>
       )}
-      <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 shadow-md">
+      <table className="mt-5 w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 shadow-md">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <th scope="col" className="px-6 py-3">

@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import vacancyService from "../../services/VacancyService";
 import { useEffect, useState } from "react";
+import Button from "../../components/button";
 
 function VacanciesAdmin() {
   const [vacancies, setVacancies] = useState([]);
@@ -24,17 +25,15 @@ function VacanciesAdmin() {
 
   return (
     <>
-      <h1 className="text-2xl">Vacantes</h1>
-
-      <button
-        type="button"
-        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+      <h1 className="text-center w-full text-3xl font-bold text-gray-800 mb-4">Vacantes</h1>
+      <p className="mb-4 text-center">Crea y administra vacantes a las cuales cualquier persona puede postular.</p>
+      <div className="w-full justify-center flex">
+      <Button
+      label="Crear vacante"
         onClick={() => navigate("/vacancies/create")}
-      >
-        Crear vacante
-      </button>
-
-      <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 shadow-md">
+      />
+      </div>
+      <table className="mt-3 w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 shadow-md">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <th scope="col" className="px-6 py-3">

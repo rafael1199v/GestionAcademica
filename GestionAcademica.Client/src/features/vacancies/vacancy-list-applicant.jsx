@@ -36,7 +36,7 @@ function VacanciesListApplicant() {
   return (
     <>
       <div className="flex flex-col gap-4">
-        <h1 className="text-4xl">Vacantes</h1>
+        <h1 className="text-3xl font-bold text-gray-800 mb-4">Vacantes</h1>
         <p className="text-xl">
           En esta página pueden verse las materias con cupos libres para
           postularse. Para ver más detalles de una vacante y postular a ella, 

@@ -4,6 +4,7 @@ import { getProfessorById } from "../../services/AdministratorService";
 import { useAuthContext } from "../../hooks/UseAuthContext";
 import { ROLES } from "../../config/role-const";
 import { getRoleLink } from "../../services/AuthService";
+import Button from "../../components/button";
 
 function ProfessorDetails() {
   const navigate = useNavigate();
@@ -39,7 +40,8 @@ function ProfessorDetails() {
   }, []);
 
   return (
-    <div>
+    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col w-2xl items-center justify-self-center">
       <h1 class="text-xl">Detalles del Docente</h1>
       <p>Información detallada del docente seleccionado.</p>
       <div class="mb-9"></div>
@@ -72,8 +74,9 @@ function ProfessorDetails() {
           <p> {professor.BirthDate}</p>
         </div>
 
-        <button onClick={() => navigate(role+"/professors")}>Volver</button>
+        <Button label="Volver" onClick={() => navigate(role+"/professors")}/>
       </div>
+    </div>
     </div>
   );
 }

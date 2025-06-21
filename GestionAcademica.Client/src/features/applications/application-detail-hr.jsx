@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   getApplicationById,
   updateAppStatus,
@@ -109,23 +109,30 @@ function ApplicationDetailHr() {
           )}
         </ul>
       </div>
-      <div className="flex justify-end space-x-4 mt-6">
-        <button
-          className="flex items-center gap-2 bg-green-500 text-white px-4 py-2 rounded-xl hover:bg-green-600 active:scale-95 shadow-md transition cursor-pointer"
-          onClick={() => {
-            uploadApplicationToInterview(id);
-          }}
-        >
-          Aceptar
-        </button>
-        <button
-          className="flex items-center gap-2 bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-600 active:scale-95 shadow-md transition cursor-pointer"
-          onClick={() => {
-            rejectApplication(id);
-          }}
-        >
-          Rechazar
-        </button>
+      <div className="flex justify-between">
+        <Link
+        className="space-x-4 mt-6 px-4 py-2 text-blue-600 hover:underline font-semibold"
+        to="/hr/applications">
+          Volver
+        </Link>
+        <div className="flex space-x-4 mt-6">
+          <button
+            className="flex items-center gap-2 bg-green-500 text-white px-4 py-2 rounded-xl hover:bg-green-600 active:scale-95 shadow-md transition cursor-pointer disabled:opacity-30 disabled:bg-green-500 disabled:cursor-not-allowed"
+            onClick={() => {
+              uploadApplicationToInterview(id);
+            }}
+          >
+            Aceptar
+          </button>
+          <button
+            className="flex items-center gap-2 bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-600 active:scale-95 shadow-md transition cursor-pointer disabled:opacity-30 disabled:hover:bg-red-500 disabled:cursor-not-allowed"
+            onClick={() => {
+              rejectApplication(id);
+            }}
+          >
+            Rechazar
+          </button>
+        </div>
       </div>
     </div>
   );

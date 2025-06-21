@@ -34,7 +34,7 @@ function ApplicationsAdmin() {
     <div className="flex flex-col gap-4">
       <h1 className="text-4xl">Postulaciones</h1>
       <p className="text-xl">
-        En esta página pueden verse las postulaciones entrantes con sus estados
+        Aquí puedes ver las postulaciones ya verificadas por Recursos Humanos para las vacantes de su carrera.
       </p>
       <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {applications.map((application) => (
