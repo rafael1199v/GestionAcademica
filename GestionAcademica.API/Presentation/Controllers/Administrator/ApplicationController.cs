@@ -1,3 +1,4 @@
+using GestionAcademica.API.Application.Interfaces.UseCases;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GestionAcademica.API.Presentation.Controllers.Administrator;
@@ -8,24 +9,56 @@ namespace GestionAcademica.API.Presentation.Controllers.Administrator;
 [Route("api/administrator/[controller]")]
 public class ApplicationController : ControllerBase
 {
+    
+    private readonly IReviewSubmittedApplicationsUseCase _reviewSubmittedApplicationsUseCase;
+    private readonly IHireApplicantUseCase _hireApplicantUseCase;
+
+    public ApplicationController(IReviewSubmittedApplicationsUseCase reviewSubmittedApplicationsUseCase, IHireApplicantUseCase hireApplicantUseCase)
+    {
+        _reviewSubmittedApplicationsUseCase = reviewSubmittedApplicationsUseCase;
+        _hireApplicantUseCase = hireApplicantUseCase;
+    }
+    
     [HttpGet]
     [Route("vacancy/{vacancyId}")]
     public IActionResult GetApplicationsByVacancy(int vacancyId)
     {
-        return Ok();
+        try
+        {
+            return Ok(_reviewSubmittedApplicationsUseCase.GetInterviewApplications(vacancyId));
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpPatch]
     [Route("reject/{applicationId}")]
     public IActionResult RejectApplication(int applicationId)
     {
-        return Ok();
+        try
+        {
+            _reviewSubmittedApplicationsUseCase.RejectInterviewApplicaiton(applicationId);
+            return Ok("Postulacion rechazada correctamente");
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpPatch]
     [Route("hire/{applicationId}")]
     public IActionResult HireApplicant(int applicationId)
     {
-        return Ok();
+        try
+        {
+            return Ok(_hireApplicantUseCase.HireApplicantByApplication(applicationId));
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 }

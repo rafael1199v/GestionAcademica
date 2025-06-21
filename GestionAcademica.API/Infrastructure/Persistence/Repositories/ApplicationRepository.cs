@@ -1,5 +1,8 @@
+using GestionAcademica.API.Application.DTOs.Applicant;
 using GestionAcademica.API.Application.DTOs.Application;
 using GestionAcademica.API.Application.DTOs.File;
+using GestionAcademica.API.Application.DTOs.User;
+using GestionAcademica.API.Application.DTOs.Vacancy;
 using ApplicationModel = GestionAcademica.API.Infrastructure.Persistence.Models.Application;
 using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Domain.Entities;
@@ -16,80 +19,7 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
         {
             _context = context;
         }
-        // public void Create(ApplicationModel application)
-        // {
-        //     if (application == null)
-        //         throw new ArgumentNullException(nameof(application), "La solicitud no puede ser nula.");
-        //
-        //     _context.Applications.Add(application);
-        //     _context.SaveChanges();
-        // }
-        //
-        // public List<ApplicationModel> GetByApplicant(int applicantId)
-        // {
-        //     if (applicantId <= 0)
-        //         throw new ArgumentException("ID inválido", nameof(applicantId));
-        //
-        //     return _context.Applications
-        //         .Where(a => a.ApplicantId == applicantId)
-        //         .Include(a => a.Vacancy)
-        //         .Include(b => b.Status)
-        //         .Include(c => c.Applicant.User)
-        //         .Include(d => d.Vacancy.Admin.User)
-        //         .ToList();
-        // }
-        //
-        // public ApplicationModel GetById(int id)
-        // {
-        //     if (id <= 0)
-        //         throw new ArgumentException("ID inválido", nameof(id));
-        //
-        //     var application = _context.Applications
-        //         .Include(a => a.Vacancy)
-        //         .Include(b => b.Status)
-        //         .Include(c => c.Applicant.User)
-        //         .Include(d => d.Vacancy.Admin.User)
-        //         .FirstOrDefault(a => a.Id == id)
-        //         ?? throw new Exception("Solicitud no encontrada");
-        //     return application;
-        // }
-        //
-        // public List<ApplicationModel> GetByOwner(int adminId)
-        // {
-        //     if (adminId <= 0)
-        //         throw new ArgumentException("ID inválido", nameof(adminId));
-        //     return _context.Applications
-        //         .Where(a => a.Vacancy.AdminId == adminId /*&& a.StatusId == 2*/)
-        //         // TODO: Incluir una alternativa que muestre todas las postulaciones sin importar el estado
-        //         .Include(a => a.Vacancy)
-        //         .Include(b => b.Status)
-        //         .Include(c => c.Applicant.User)
-        //         .Include(d => d.Vacancy.Admin.User)
-        //         .ToList();
-        // }
-        //
-        // public List<ApplicationModel> GetByStatus(int statusId)
-        // {
-        //     return _context.Applications
-        //         .Where(a => a.StatusId == statusId)
-        //         .Include(a => a.Vacancy)
-        //         .Include(b => b.Status)
-        //         .Include(c => c.Applicant.User)
-        //         .Include(d => d.Vacancy.Admin.User)
-        //         .ToList();
-        // }
-        //
-        // public List<ApplicationModel> GetByVacancy(int vacancyId)
-        // {
-        //     return _context.Applications
-        //         .Where(a => a.VacancyId == vacancyId)
-        //         .Include(a => a.Vacancy)
-        //         .Include(b => b.Status)
-        //         .Include(c => c.Applicant.User)
-        //         .Include(d => d.Vacancy.Admin.User)
-        //         .ToList();
-        // }
-        //
+
         // public void Update(ApplicationModel application)
         // {
         //     if (application == null || application.Id <= 0)
@@ -122,7 +52,7 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
                     Id = application.Id,
                     VacancyId = application.VacancyId,
                     ApplicantId = application.ApplicantId,
-                    StatusId = application.Status.Id,
+                    StatusId = application.StatusId,
                     VacancyName = application.Vacancy.Name,
                     VacancyDescription = application.Vacancy.Description,
                     VacancyCareerName = application.Vacancy.Career.Name,
@@ -142,7 +72,7 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
                     Id = _application.Id,
                     VacancyId = _application.VacancyId,
                     ApplicantId = _application.ApplicantId,
-                    StatusId = _application.Status.Id,
+                    StatusId = _application.StatusId,
                     VacancyName = _application.Vacancy.Name,
                     VacancyDescription = _application.Vacancy.Description,
                     VacancyCareerName = _application.Vacancy.Career.Name,
@@ -187,27 +117,86 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
             return applications;
         }
 
-        public void RejectApplication(int applicationId)
+        public List<ApplicationDTO> GetApplicationsForAdministrator(int vacancyId)
+        {
+            var applications = _context.Applications.Where(application => application.VacancyId == vacancyId)
+                .Select(application => new ApplicationDTO
+                {
+                    Id = application.Id,
+                    VacancyId = application.VacancyId,
+                    ApplicantId = application.ApplicantId,
+                    StatusId = application.Status.Id,
+                    VacancyName = application.Vacancy.Name,
+                    VacancyDescription = application.Vacancy.Description,
+                    VacancyCareerName = application.Vacancy.Career.Name,
+                    ApplicantName = application.Applicant.User.Name + " " + application.Applicant.User.LastName,
+                    AdministratorName = application.Applicant.User.Name + " " + application.Applicant.User.LastName,
+                    VacancySubjectName = application.Vacancy.Subject.Name
+                })
+                .ToList();
+
+            
+            return applications;
+        }
+
+        public void ChangeApplicationStatus(StatusEnum newStatus, int applicationId)
         {
             var applicationModel = _context.Applications.FirstOrDefault(application => application.Id == applicationId);
             
             if(applicationModel is null)
-                throw new Exception("No se encontro el sistema");
+                throw new Exception("No se encontro la postulacion");
             
-            applicationModel.StatusId = (int)StatusEnum.REJECTED;
-            
+            applicationModel.StatusId = (int)newStatus;
+
             _context.SaveChanges();
         }
 
-        public void AdvanceToInterview(int applicationId)
+        public ApplicantDTO GetApplicantByApplication(int applicationId)
         {
-            var applicationModel = _context.Applications.FirstOrDefault(application => application.Id == applicationId);
+            var applicant = _context.Applications.Where(application => application.Id == applicationId)
+                .Select(application => new ApplicantDTO
+                {
+                    Id = application.Applicant.Id,
+                    UserId = application.Applicant.User.Id,
+                    User = new UserDTO
+                    {
+                        Id =  application.Applicant.User.Id,
+                        Name = application.Applicant.User.Name,
+                        LastName = application.Applicant.User.LastName,
+                        Address = application.Applicant.User.Address,
+                        PersonalEmail = application.Applicant.User.PersonalEmail,
+                        InstitutionalEmail = application.Applicant.User.InstitutionalEmail,
+                        PhoneNumber = application.Applicant.User.PhoneNumber,
+                        BirthDate = application.Applicant.User.BirthDate.ToString("O"),
+                        Status = application.Applicant.User.Status,
+                        RoleId = application.Applicant.User.RoleId,
+                    }
+                }).FirstOrDefault();
+
+            if (applicant is null)
+                throw new Exception("El aplicante no pudo ser encontrado");
             
-            if(applicationModel is null)
-                throw new Exception("No se encontro el sistema");
-            
-            applicationModel.StatusId = (int)StatusEnum.INTERVIEW;
-            
+            return applicant;
+        }
+
+        public void FinishOtherApplications(int applicationAcceptedId)
+        {
+            var applicationAccepted = _context.Applications.FirstOrDefault(application => application.Id == applicationAcceptedId);
+
+            if (applicationAccepted is null)
+                throw new Exception("La postulacion aceptada no pudo ser encontrada");
+
+            var otherApplications = _context.Applications
+                .Where(application => application.VacancyId == applicationAccepted.VacancyId 
+                                      && application.Id != applicationAcceptedId 
+                                      && application.StatusId != (int)StatusEnum.REJECTED)
+                .ToList();
+
+            foreach (var application in otherApplications)
+            {
+                application.StatusId = (int)StatusEnum.CLOSED;
+            }
+
             _context.SaveChanges();
         }
 

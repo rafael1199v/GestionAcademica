@@ -1,5 +1,7 @@
+using GestionAcademica.API.Application.DTOs.Applicant;
 using GestionAcademica.API.Application.DTOs.Application;
 using GestionAcademica.API.Domain.Entities;
+using GestionAcademica.API.Domain.Enums;
 using ApplicationModel = GestionAcademica.API.Infrastructure.Persistence.Models.Application;
 // Con esto puedes suprimir líneas largas por la declaración de un objeto Application
 
@@ -18,6 +20,8 @@ public interface IApplicationRepository
     List<ApplicationDTO> GetApplicationsForApplicant(int applicantId); 
     ApplicationDetailDTO GetApplicationDetails(int applicationId);
     List<ApplicationDTO> GetApplicationsForHr();
-    void RejectApplication(int applicationId);
-    void AdvanceToInterview(int applicationId);
+    List<ApplicationDTO> GetApplicationsForAdministrator(int vacancyId);
+    void ChangeApplicationStatus(StatusEnum newStatus, int applicationId);
+    ApplicantDTO GetApplicantByApplication(int applicationId);
+    void FinishOtherApplications(int applicationAcceptedId);
 }
