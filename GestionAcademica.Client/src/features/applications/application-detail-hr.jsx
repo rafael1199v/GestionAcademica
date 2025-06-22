@@ -75,17 +75,38 @@ function ApplicationDetailHr() {
         Detalles de Solicitud
       </h1>
 
-      <div className="grid grid-cols-2 gap-4 text-gray-700">
+      <div className="grid grid-cols-2 gap-4 text-gray-700 pb-5">
         <div>
-          <strong>Solicitante:</strong> {application?.applicantName}
+          <strong>Vacante: </strong> {application?.vacancyName}
         </div>
         <div>
-          <strong>Administrador:</strong> {application?.administratorName}
+          <strong>Administrador: </strong> {application.administratorName}
+        </div>
+        <div>
+          <strong>Materia: </strong> {application?.vacancySubjectName}
+        </div>
+        <div>
+          <strong>Carrera: </strong> {application?.vacancyCareerName}
+        </div>
+      </div>
+      <strong className="block text-xl font-bold text-gray-800">Datos del solicitante:</strong>
+      <div className="grid grid-cols-2 gap-5 text-gray-700">
+        <div>
+          <strong>Nombre completo:</strong> {application?.user}
+        </div>
+        <div>
+          <strong>CI:</strong> {application?.user}
+        </div>
+        <div>
+          <strong>Correo:</strong> {application?.user}
+        </div>
+        <div>
+          <strong>Teléfono:</strong> {application?.user}
         </div>
       </div>
 
       <div>
-        <h2 className="text-lg font-semibold mt-6 mb-2">Archivos</h2>
+        <strong className="block text-gray-700 mb-3">Archivos:</strong>
         <ul className="space-y-2">
           {application?.files.map((file) => (
             <li

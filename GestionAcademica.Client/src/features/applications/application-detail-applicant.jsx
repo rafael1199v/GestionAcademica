@@ -71,6 +71,14 @@ function ApplicationDetailApplicant() {
       <div className="bg-white shadow-md rounded-lg p-6 dark:bg-gray-800 dark:text-white">
         <h1 className="text-3xl font-bold mb-2">{application.vacancyName}</h1>
         <h3 className="text-xl mb-2">Ofrecido por: {application.administratorName}</h3>
+        <div className="grid grid-cols-2 gap-4 pb-5">
+          <div>
+            <strong>Materia: </strong> {application?.vacancySubjectName}
+          </div>
+          <div>
+            <strong>Carrera: </strong> {application?.vacancyCareerName}
+          </div>
+        </div>
 
         <span
           className={`inline-block px-3 py-1 text-sm font-medium rounded-full ${getStatusColor(
@@ -89,7 +97,7 @@ function ApplicationDetailApplicant() {
         </p>
 
         <div>
-          <h2 className="text-lg font-semibold mt-6 mb-2">Archivos</h2>
+          <h2 className="text-lg font-semibold mt-6 mb-2">Archivos enviados:</h2>
           <ul className="space-y-2">
             {application?.files.map((file) => (
               <li
