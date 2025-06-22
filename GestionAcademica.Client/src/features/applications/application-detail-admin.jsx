@@ -59,6 +59,7 @@ function ApplicationDetailAdmin() {
       </h1>
 
       <div className="grid grid-cols-2 gap-4 text-gray-700">
+        <strong>Datos del solicitante:</strong>
         <div>
           <strong>Solicitante:</strong> {application?.applicantName}
         </div>
@@ -66,7 +67,10 @@ function ApplicationDetailAdmin() {
           <strong>Administrador:</strong> {application?.administratorName}
         </div>
         <div>
-          <strong>Materia: </strong> {application?.vacancyCareerName}
+          <strong>Materia: </strong> {application?.vacancySubjectName}
+        </div>
+        <div>
+          <strong>Carrera: </strong> {application?.vacancyCareerName}
         </div>
       </div>
 
@@ -103,7 +107,7 @@ function ApplicationDetailAdmin() {
             onClick={() => {
             hireApplicant();
             }}
-            disabled={application?.statusId == STATUS.REJECTED || application.statusId == STATUS.APPROVED}
+            disabled={application?.statusId == STATUS.REJECTED || application.statusId == STATUS.APPROVED || application.statusId == STATUS.FINISHED}
           >
             Aceptar
           </button>
@@ -113,7 +117,7 @@ function ApplicationDetailAdmin() {
               await rejectApplication();
               await fetchApplication();
             }}
-            disabled={application?.statusId == STATUS.REJECTED || application.statusId == STATUS.APPROVED}
+            disabled={application?.statusId == STATUS.REJECTED || application.statusId == STATUS.APPROVED || application.statusId == STATUS.FINISHED}
           >
             Rechazar
           </button>

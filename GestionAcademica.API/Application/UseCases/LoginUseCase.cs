@@ -31,7 +31,6 @@ namespace GestionAcademica.API.Application.UseCases
         public (string, string, string) Login(string email, string password)
         {
             UserEntity? user = _userRepository.GetByInstitutionalEmail(email)
-            ?? _userRepository.GetByEmail(email)
             ?? throw new Exception("No se encontro el usuario");
 
             if (_hashUtility.CreateHash(password) != user.Password)
@@ -55,10 +54,10 @@ namespace GestionAcademica.API.Application.UseCases
         }
         private void Validate(CreateUserDTO Dto)
         {
-            UserEntity? user = _userRepository.GetByEmail(Dto.Email);
+            UserEntity? user = _userRepository.GetByInstitutionalEmail(Dto.Email);
 
             if (user != null)
-                throw new ArgumentException("El correo institutional ya existe");
+                throw new ArgumentException("Este correo ya existe");
 
             if (!DateOnly.TryParse(Dto.BirthDate, out DateOnly date))
                 throw new ArgumentException("El formato de fecha es incorrecto");
@@ -78,7 +77,7 @@ namespace GestionAcademica.API.Application.UseCases
                     Password = _hashUtility.CreateHash(user.Password),
                     Address = user.Address,
                     PersonalEmail = user.Email,
-                    InstitutionalEmail = "",
+                    InstitutionalEmail = user.Email,
                     PhoneNumber = user.PhoneNumber,
                     BirthDate = DateOnly.Parse(user.BirthDate),
                     RoleId = (int)RoleEnum.Applicant

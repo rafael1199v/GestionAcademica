@@ -15,4 +15,6 @@ public class ApplicationDetailDTO
     public string? AdministratorName { get; set; }
     
     public List<FileDTO> Files { get; set; }
+
+    // TODO: Retornar el usuario solicitante
 }

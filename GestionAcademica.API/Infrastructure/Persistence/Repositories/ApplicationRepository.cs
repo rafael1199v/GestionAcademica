@@ -20,20 +20,6 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
             _context = context;
         }
 
-        // public void Update(ApplicationModel application)
-        // {
-        //     if (application == null || application.Id <= 0)
-        //         throw new ArgumentNullException(nameof(application), "Solicitud inválida.");
-        //
-        //     var existingApplication = _context.Applications
-        //         .FirstOrDefault(a => a.Id == application.Id)
-        //         ?? throw new Exception("Solicitud no encontrada");
-        //     existingApplication.StatusId = application.StatusId;
-        //
-        //     _context.Entry(existingApplication).State = EntityState.Modified;
-        //     _context.SaveChanges();
-        // }
-
         public int Add(ApplicationEntity application)
         {
             var applicationModel = ToModel(application);

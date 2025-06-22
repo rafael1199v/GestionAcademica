@@ -22,7 +22,7 @@ function ApplyModal({ isOpen, onClose, item, applicantId }) {
     }
 
     const formData = new FormData();
-    formData.append("VacancyId", id);
+    formData.append("VacancyId", item.id);
     formData.append("ApplicantId", applicantId);
     formData.append("StatusId", STATUS.UNVERIFIED);
 
@@ -32,7 +32,7 @@ function ApplyModal({ isOpen, onClose, item, applicantId }) {
 
     try {
       await vacancyService.apply(formData);
-      alert(`Postulado a "${title}" con archivos: ${files.map(f => f.name).join(', ')}`);
+      alert(`Postulado a "${item.name}" con archivos: ${files.map(f => f.name).join(', ')}`);
       handleClose();
     } catch (error) {
       alert("Error al postular: " + error.message);
@@ -47,8 +47,12 @@ function ApplyModal({ isOpen, onClose, item, applicantId }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(1,1,1,0.2)]">
-      <div className="bg-white rounded-lg p-6 w-full max-w-2xl shadow-lg">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(1,1,1,0.2)]"
+    onClick={handleClose}
+    >
+      <div className="bg-white rounded-lg p-6 w-full max-w-2xl shadow-lg"
+      onClick={(e) => e.stopPropagation()}
+      >
         <h2 className="text-2xl font-bold mb-4 text-center">Formulario de postulación</h2>
         <p className='mb-2'><strong>Vacante:</strong> {item.name}</p>
         <strong>Descripción de la vacante:</strong>

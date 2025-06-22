@@ -122,11 +122,6 @@ public class ProfessorManagementUseCase : IProfessorManagementUseCase
         if (user != null)
             throw new ArgumentException("El correo institucional ya esta en uso");
         
-        user = _userRepository.GetByEmail(personalEmail);
-
-        if (user != null)
-            throw new ArgumentException("El correo personal ya esta en uso");
-        
         if(!IsValidEmail(institutionalEmail))
             throw new ArgumentException("El correo institucional no es valido");
         
@@ -140,11 +135,6 @@ public class ProfessorManagementUseCase : IProfessorManagementUseCase
 
         if (user != null && user.Id != userId)
             throw new ArgumentException("El correo institucional ya esta en uso");
-        
-        user = _userRepository.GetByEmail(personalEmail);
-
-        if (user != null && user.Id != userId)
-            throw new ArgumentException("El correo personal ya esta en uso");
         
         if(!IsValidEmail(institutionalEmail))
             throw new ArgumentException("El correo institucional no es valido");
