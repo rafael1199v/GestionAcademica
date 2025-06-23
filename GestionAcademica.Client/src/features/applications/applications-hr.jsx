@@ -2,8 +2,6 @@ import React from "react";
 import ApplicationCardHr from "./components/application-card-hr";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { getApplicationsByStatus } from "../../services/ApplicationService";
-import { STATUS } from "../../config/status-const";
 import applicationService from "../../services/ApplicationService";
 
 function ApplicationsHr() {

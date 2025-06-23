@@ -4,6 +4,8 @@ using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Domain.Entities;
 using GestionAcademica.API.Domain.Enums;
 using GestionAcademica.API.Infrastructure.Persistence.Context;
+using GestionAcademica.API.Infrastructure.Persistence.Models;
+using Microsoft.EntityFrameworkCore;
 using GestionAcademica.API.Infrastructure.Mappers;
 
 namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
