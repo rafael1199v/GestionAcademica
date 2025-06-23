@@ -15,7 +15,8 @@ public class ApplicantRepository : IApplicantRepository
     }
     public int GetIdByUserId(int userId)
     {
-        var applicant = _context.Applicants.Include(applicant => applicant.User).FirstOrDefault(x => x.UserId == userId)
+        var applicant = _context.Applicants.Include(applicant => applicant.User)
+            .FirstOrDefault(x => x.UserId == userId)
             ?? throw new Exception("El solicitante no fue encontrado");
         return applicant.Id;
     }

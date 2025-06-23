@@ -49,7 +49,9 @@ builder.Services.AddScoped<IFileRepository, FileRepository>();
 
 builder.Services.AddScoped<IHashUtility, HashUtility>();
 
+builder.Services.AddScoped<IUserMapper, UserMapper>();
 builder.Services.AddScoped<IProfessorMapper, ProfessorMapper>();
+builder.Services.AddScoped<IApplicantMapper, ApplicantMapper>();
 
 builder.Services.AddScoped<ILoginUseCase, LoginUseCase>();
 builder.Services.AddScoped<IDetailSubjectUseCase, DetailSubjectUseCase>();
