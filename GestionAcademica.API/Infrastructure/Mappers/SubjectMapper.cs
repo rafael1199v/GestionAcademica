@@ -1,11 +1,18 @@
+using GestionAcademica.API.Application.DTOs;
 using GestionAcademica.API.Application.DTOs.Career;
 using GestionAcademica.API.Application.DTOs.Subject;
+using GestionAcademica.API.Application.Interfaces.UseCases;
 using GestionAcademica.API.Infrastructure.Persistence.Models;
 
 namespace GestionAcademica.API.Infrastructure.Mappers;
 
 public class SubjectMapper
 {
+    private readonly IProfessorManagementUseCase _professorManagementUseCase;
+    public SubjectMapper(IProfessorManagementUseCase professorManagementUseCase)
+    {
+        _professorManagementUseCase = professorManagementUseCase;
+    }
     public static SubjectWithCareersDTO MapToSubjectWithCareersDTO(Subject subject)
     {
         return new SubjectWithCareersDTO
@@ -21,7 +28,18 @@ public class SubjectMapper
                 AdministratorId = career.AdministratorId,
             }).ToList()
         };
-
+    }
+    public static SubjectDTO ModelToDTO(Subject subject, string professorName)
+    {
+        return new SubjectDTO
+            {
+                Id = subject.Id,
+                Name = subject.Name,
+                Description = subject.Description,
+                Credits = subject.Credits,
+                ProfessorId = subject.ProfessorId ?? 0,
+                ProfessorName = professorName
+            };
     }
 
     public static Subject UpdateInfo(Subject existingInfo, Subject newInfo)

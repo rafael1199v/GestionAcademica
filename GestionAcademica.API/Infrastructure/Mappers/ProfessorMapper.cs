@@ -131,4 +131,41 @@ public class ProfessorMapper : IProfessorMapper
 
         return existingInfo;
     }
+    public static ProfessorEntity UserEntityToProfessorEntity(UserEntity userEntity)
+    {
+        ProfessorEntity professorEntity = new()
+        {
+            User = userEntity,
+        };
+
+        professorEntity.User.Name = userEntity.Name;
+        professorEntity.User.LastName = userEntity.LastName;
+        professorEntity.User.Address = userEntity.Address;
+        professorEntity.User.PersonalEmail = userEntity.PersonalEmail;
+        professorEntity.User.InstitutionalEmail = userEntity.InstitutionalEmail;
+        professorEntity.User.Password = userEntity.Password;
+        professorEntity.User.PhoneNumber = userEntity.PhoneNumber;
+        professorEntity.User.BirthDate = userEntity.BirthDate;
+        professorEntity.User.Status = userEntity.Status;
+        professorEntity.User.RoleId = userEntity.RoleId;
+
+        return professorEntity;
+    }
+    public static ProfessorEntity UpdateProfessorEntity(UpdateProfessorDTO updateProfessorDto, ProfessorEntity professor, DateOnly birthDate)
+    {
+        professor.User = new UserEntity(
+            updateProfessorDto.Name,
+            updateProfessorDto.LastName,
+            updateProfessorDto.Address,
+            updateProfessorDto.PersonalEmail,
+            updateProfessorDto.InstitutionalEmail,
+            professor.User.Password,
+            updateProfessorDto.PhoneNumber,
+            birthDate,
+            professor.User.Status,
+            professor.User.RoleId
+        );
+
+        return professor;
+    }
 }

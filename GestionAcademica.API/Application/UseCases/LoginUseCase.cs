@@ -3,7 +3,6 @@ using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Application.Interfaces.UseCases;
 using GestionAcademica.API.Application.Interfaces.Utilities;
 using GestionAcademica.API.Domain.Entities;
-using GestionAcademica.API.Domain.Enums;
 using GestionAcademica.API.Infrastructure.Mappers;
 using GestionAcademica.API.Infrastructure.Persistence.Models;
 
@@ -71,26 +70,26 @@ namespace GestionAcademica.API.Application.UseCases
         }
         private int GetSpecialId(int userId, int roleId)
         {
-            switch (roleId)
+            return roleId switch
             {
-                case 1: //Admin
-                    return _administratorRepository.GetIdByUserId(userId);
+                //Admin
+                1 => _administratorRepository.GetIdByUserId(userId),
 
-                case 2: //Professor
-                    return _professorRepository.GetIdByUserId(userId);
+                //Professor
+                2 => _professorRepository.GetIdByUserId(userId),
 
-                case 3: //Student, en desuso
-                    return -1;
+                //Student, en desuso
+                3 => -1,
 
-                case 4: //Applicant
-                    return _applicantRepository.GetIdByUserId(userId);
+                //Applicant
+                4 => _applicantRepository.GetIdByUserId(userId),
 
-                case 5: //Human Resources
-                    return _hrRepository.GetIdByUserId(userId);
+                //Human Resources
+                5 => _hrRepository.GetIdByUserId(userId),
 
-                default: //??????????????
-                    return -1;
-            }
+                //Default, debería ser imposible llegar a este caso
+                _ => -1,
+            };
         }
     }
 }

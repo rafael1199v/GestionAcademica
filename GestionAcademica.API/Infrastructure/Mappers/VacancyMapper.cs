@@ -1,4 +1,5 @@
 using GestionAcademica.API.Application.DTOs.Vacancy;
+using GestionAcademica.API.Domain.Entities;
 using GestionAcademica.API.Domain.Enums;
 using GestionAcademica.API.Infrastructure.Persistence.Models;
 
@@ -37,5 +38,29 @@ public class VacancyMapper
             CareerId = vacancy.CareerId,
             SubjectId = vacancy.SubjectId
         };
+    }
+    public static Vacancy EntityToModel(VacancyEntity entity)
+    {
+        return new Vacancy
+        {
+            Name = entity.Name,
+            Description = entity.Description,
+            StartTime = entity.StartTime,
+            EndTime = entity.EndTime,
+            SubjectId = entity.SubjectId,
+            CareerId = entity.CareerId,
+            AdminId = entity.AdminId
+        };
+    }
+    public static Vacancy UpdateVacancy(Vacancy existingData, VacancyEntity newData)
+    {
+        existingData.Name = newData.Name;
+        existingData.Description = newData.Description;
+        existingData.StartTime = newData.StartTime;
+        existingData.EndTime = newData.EndTime;
+        existingData.SubjectId = newData.SubjectId;
+        existingData.CareerId = newData.CareerId;
+
+        return existingData;
     }
 }

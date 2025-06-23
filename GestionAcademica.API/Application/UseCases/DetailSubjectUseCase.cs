@@ -1,6 +1,7 @@
 using GestionAcademica.API.Application.DTOs;
 using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Application.Interfaces.UseCases;
+using GestionAcademica.API.Infrastructure.Mappers;
 using GestionAcademica.API.Infrastructure.Persistence.Models;
 
 namespace GestionAcademica.API.Application.UseCases
@@ -22,15 +23,8 @@ namespace GestionAcademica.API.Application.UseCases
 
             foreach (var item in list)
             {
-                result.Add(new SubjectDTO
-                {
-                    Id = item.Id,
-                    Name = item.Name,
-                    Description = item.Description,
-                    Credits = item.Credits,
-                    ProfessorId = item.ProfessorId.HasValue ? (int)item.ProfessorId : 0,
-                    ProfessorName = item.ProfessorId.HasValue ? _professorManagementUseCase.GetProfessorInformation((int)item.ProfessorId).Name + " " + _professorManagementUseCase.GetProfessorInformation((int)item.ProfessorId).LastName : ""
-                });
+                string professorName = GetProfessorName(item.ProfessorId);
+                result.Add(SubjectMapper.ModelToDTO(item, professorName));
             }
 
             return result;
@@ -40,32 +34,30 @@ namespace GestionAcademica.API.Application.UseCases
             Subject subject = _subjectRepository.GetById(id)
             ?? throw new Exception("Asignatura no encontrada");
 
-            string professorName = "";
-            if (subject.ProfessorId.HasValue)
-            {
-                var professor = _professorManagementUseCase.GetProfessorInformation((int)subject.ProfessorId);
-                professorName = professor.Name + " " + professor.LastName;
-            }
+            string professorName = GetProfessorName(subject.ProfessorId);
 
-            return new SubjectDTO
-            {
-                Id = subject.Id,
-                Name = subject.Name,
-                Description = subject.Description,
-                Credits = subject.Credits,
-                ProfessorId = subject.ProfessorId ?? 0,
-                ProfessorName = professorName
-            };
+            return SubjectMapper.ModelToDTO(subject, professorName);
         }
 
         public void UpdateSubject(SubjectDTO subjectDTO)
         {
             Subject subject = _subjectRepository.GetById(subjectDTO.Id)
             ?? throw new Exception("Asignatura no encontrada");
-            
+
             subject.ProfessorId = subjectDTO.ProfessorId;
 
+            // Siendo una sola línea, no creo que necesite un mapper, al menos no por ahora
+
             _subjectRepository.Update(subject);
+        }
+        private string GetProfessorName(int? id)
+        {
+            if (id != null)
+            {
+                var professor = _professorManagementUseCase.GetProfessorInformation((int)id);
+                return professor.Name + " " + professor.LastName;
+            }
+            return "";
         }
     }
 }

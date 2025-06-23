@@ -32,16 +32,10 @@ public class ManageVacancies : IManageVacancies
         if (!DateTime.TryParse(vacancyDto.EndTime, out DateTime endTime) || !DateTime.TryParse(vacancyDto.StartTime, out DateTime startTime))
             throw new ArgumentException("La fecha es invalida");
         
-        var vacancy = _vacancyRepository.GetById(vacancyDto.Id);
+        Vacancy vacancy = _vacancyRepository.GetById(vacancyDto.Id);
         VacancyEntity entity = VacancyEntity.CreateVacancy(vacancyDto.Name, vacancyDto.Description, startTime, endTime, vacancyDto.SubjectId, vacancyDto.CareerId, vacancy.AdminId);
-        
-        vacancy.Name = entity.Name;
-        vacancy.Description = entity.Description;
-        vacancy.StartTime = entity.StartTime;
-        vacancy.EndTime = entity.EndTime;
-        vacancy.SubjectId = entity.SubjectId;
-        vacancy.CareerId = entity.CareerId;
-        
+
+        vacancy = VacancyMapper.UpdateVacancy(vacancy, entity);
         _vacancyRepository.Update(vacancy);
     }
 

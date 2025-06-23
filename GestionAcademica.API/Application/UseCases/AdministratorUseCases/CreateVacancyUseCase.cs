@@ -4,7 +4,6 @@ using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Application.Interfaces.UseCases;
 using GestionAcademica.API.Domain.Entities;
 using GestionAcademica.API.Infrastructure.Mappers;
-using GestionAcademica.API.Infrastructure.Persistence.Models;
 
 namespace GestionAcademica.API.Application.UseCases.AdministratorUseCases;
 
@@ -26,23 +25,11 @@ public class CreateVacancyUseCase : ICreateVacancyUseCase
         if (!DateTime.TryParse(createVacancyDto.EndTime, out DateTime endTime) || !DateTime.TryParse(createVacancyDto.StartTime, out DateTime startTime))
             throw new ArgumentException("La fecha es invalida");
 
-
-        var administratorId = _administratorRepository.GetIdByUserId(createVacancyDto.UserId);
+        int administratorId = _administratorRepository.GetIdByUserId(createVacancyDto.UserId);
         
         VacancyEntity entity = VacancyEntity.CreateVacancy(createVacancyDto.Name, createVacancyDto.Description, startTime, endTime, createVacancyDto.SubjectId, createVacancyDto.CareerId,  administratorId);
         
-        Vacancy model = new Vacancy
-        {
-            Name = entity.Name,
-            Description = entity.Description,
-            StartTime = entity.StartTime,
-            EndTime = entity.EndTime,
-            SubjectId = entity.SubjectId,
-            CareerId = entity.CareerId,
-            AdminId = entity.AdminId
-        };
-        
-        _vacancyRepository.Add(model);
+        _vacancyRepository.Add(VacancyMapper.EntityToModel(entity));
     }
 
 

@@ -3,7 +3,6 @@ using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Application.Interfaces.UseCases;
 using GestionAcademica.API.Application.Interfaces.Utilities;
 using GestionAcademica.API.Domain.Entities;
-using GestionAcademica.API.Domain.Enums;
 using GestionAcademica.API.Infrastructure.Mappers;
 
 namespace GestionAcademica.API.Application.UseCases.AdministratorUseCases;
@@ -12,13 +11,15 @@ public class ProfessorManagementUseCase : IProfessorManagementUseCase
 {
     private readonly IProfessorRepository _professorRepository;
     private readonly IUserRepository _userRepository;
+    private readonly IUserMapper _userMapper;
     private readonly IHashUtility _hashUtility;
-    
-    public ProfessorManagementUseCase(IProfessorRepository professorRepository, IUserRepository userRepository, IHashUtility hashUtility)
+
+    public ProfessorManagementUseCase(IProfessorRepository professorRepository, IUserRepository userRepository, IHashUtility hashUtility, IUserMapper userMapper)
     {
         _professorRepository = professorRepository;
         _userRepository = userRepository;
         _hashUtility = hashUtility;
+        _userMapper = userMapper;
     }
 
     public ResponseProfessorDTO RegisterProfessor(CreateProfessorDTO createProfessorDto)
@@ -28,34 +29,9 @@ public class ProfessorManagementUseCase : IProfessorManagementUseCase
         if (!DateOnly.TryParse(createProfessorDto.BirthDate, out DateOnly birthDate))
             throw new ArgumentException("La fecha es invalida");
         
-        UserEntity userEntity = new UserEntity(
-            createProfessorDto.Name, 
-            createProfessorDto.LastName, 
-            createProfessorDto.Address, 
-            createProfessorDto.PersonalEmail, 
-            createProfessorDto.InstitutionalEmail, 
-            _hashUtility.CreateHash(createProfessorDto.Password), 
-            createProfessorDto.PhoneNumber, 
-            birthDate,
-            "Habilitado", 
-            (int)RoleEnum.Professor
-        );
+        UserEntity userEntity = _userMapper.CreateProfessorDTOToUserEntity(createProfessorDto, birthDate);
 
-        ProfessorEntity professorEntity = new ProfessorEntity
-        {
-            User = userEntity,
-        };
-        
-        professorEntity.User.Name = userEntity.Name;
-        professorEntity.User.LastName = userEntity.LastName;
-        professorEntity.User.Address = userEntity.Address;
-        professorEntity.User.PersonalEmail = userEntity.PersonalEmail;
-        professorEntity.User.InstitutionalEmail = userEntity.InstitutionalEmail;
-        professorEntity.User.Password = userEntity.Password;
-        professorEntity.User.PhoneNumber = userEntity.PhoneNumber;
-        professorEntity.User.BirthDate = userEntity.BirthDate;
-        professorEntity.User.Status = userEntity.Status;
-        professorEntity.User.RoleId = userEntity.RoleId;
+        ProfessorEntity professorEntity = ProfessorMapper.UserEntityToProfessorEntity(userEntity);
         
         professorEntity = _professorRepository.Add(professorEntity);
         
@@ -66,30 +42,15 @@ public class ProfessorManagementUseCase : IProfessorManagementUseCase
 
     public void UpdateProfessor(UpdateProfessorDTO updateProfessorDto)
     {
-        ProfessorEntity professor = _professorRepository.GetById(updateProfessorDto.Id);
-        
-        if(professor == null)
-            throw new Exception("Professor no existe");
-        
+        ProfessorEntity professor = _professorRepository.GetById(updateProfessorDto.Id)
+        ?? throw new Exception("Professor no existe");
+
         ValidateUpdateEmails(professor.UserId, updateProfessorDto.InstitutionalEmail, updateProfessorDto.PersonalEmail);
 
         if (!DateOnly.TryParse(updateProfessorDto.BirthDate, out DateOnly birthDate))
             throw new ArgumentException("La fecha es invalida");
-        
-        UserEntity userEntity = new UserEntity(
-            updateProfessorDto.Name,
-            updateProfessorDto.LastName,
-            updateProfessorDto.Address,
-            updateProfessorDto.PersonalEmail,
-            updateProfessorDto.InstitutionalEmail,
-            professor.User.Password,
-            updateProfessorDto.PhoneNumber,
-            birthDate,
-            professor.User.Status,
-            professor.User.RoleId
-        );
 
-        professor.User = userEntity;
+        professor = ProfessorMapper.UpdateProfessorEntity(updateProfessorDto, professor, birthDate);
         
         _professorRepository.Update(professor);
     }
