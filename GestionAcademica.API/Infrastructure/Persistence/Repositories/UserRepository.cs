@@ -2,6 +2,7 @@ using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Domain.Entities;
 using GestionAcademica.API.Infrastructure.Persistence.Context;
 using GestionAcademica.API.Infrastructure.Persistence.Models;
+using GestionAcademica.API.Infrastructure.Mappers;
 
 namespace GestionAcademica.API.Infrastructure.Persistence.Repositories;
 
@@ -17,12 +18,9 @@ public class UserRepository : IUserRepository
 
     public UserEntity GetById(int id)
     {
-        User? user = _context.Users.FirstOrDefault(x => x.Id == id);
-
-        if (user == null)
-            throw new Exception("No se encontro el usuario");
-        
-        return ToEntity(user);
+        User? user = _context.Users.FirstOrDefault(x => x.Id == id)
+        ?? throw new Exception("No se encontro el usuario");
+        return UserMapper.UserModelToEntity(user);
     }
 
     public UserEntity? GetByInstitutionalEmail(string institutionalEmail)
@@ -31,8 +29,8 @@ public class UserRepository : IUserRepository
 
         if (userModel is null)
             return null;
-        
-        return ToEntity(userModel);
+
+        return UserMapper.UserModelToEntity(userModel);
     }
     public UserEntity? GetByEmail(string Email)
     {
@@ -40,53 +38,7 @@ public class UserRepository : IUserRepository
 
         if (userModel is null)
             return null;
-        
-        return ToEntity(userModel);
-    }
-    
-    
-    //TODO: Mover esto al repositorio de aplicantes
-    public Applicant Add(Applicant user)
-    {
-        _context.Applicants.Add(user);
-        _context.SaveChanges();
 
-        return user;
-    }
-
-    private User ToModel(UserEntity user)
-    {
-        return new User
-        {
-            Id = user.Id,
-            Name = user.Name,
-            LastName = user.LastName,
-            Address = user.Address,
-            PersonalEmail = user.PersonalEmail,
-            InstitutionalEmail = user.InstitutionalEmail,
-            Password = user.Password,
-            PhoneNumber = user.PhoneNumber,
-            BirthDate = user.BirthDate,
-            Status = user.Status,
-            RoleId = user.RoleId
-        };
-    }
-
-    private UserEntity ToEntity(User user)
-    {
-        return new UserEntity
-        {
-            Id = user.Id,
-            Name = user.Name,
-            LastName = user.LastName,
-            Address = user.Address,
-            PersonalEmail = user.PersonalEmail,
-            InstitutionalEmail = user.InstitutionalEmail,
-            Password = user.Password,
-            PhoneNumber = user.PhoneNumber,
-            BirthDate = user.BirthDate,
-            Status = user.Status,
-            RoleId = user.RoleId
-        };
+        return UserMapper.UserModelToEntity(userModel);
     }
 }

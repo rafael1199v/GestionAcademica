@@ -21,6 +21,16 @@ public class SubjectMapper
                 AdministratorId = career.AdministratorId,
             }).ToList()
         };
-        
+
+    }
+
+    public static Subject UpdateInfo(Subject existingInfo, Subject newInfo)
+    {
+        existingInfo.Name = newInfo.Name;
+        existingInfo.Description = newInfo.Description;
+        existingInfo.Credits = newInfo.Credits;
+        existingInfo.ProfessorId = newInfo.ProfessorId;
+
+        return existingInfo;
     }
 }

@@ -8,5 +8,4 @@ public interface IUserRepository
     UserEntity GetById(int id);
     UserEntity? GetByInstitutionalEmail(string institutionalEmail);
     public UserEntity? GetByEmail(string Email);
-    Applicant Add(Applicant user);
 }

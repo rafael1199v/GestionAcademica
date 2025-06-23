@@ -4,6 +4,7 @@ using GestionAcademica.API.Application.Interfaces.UseCases;
 using GestionAcademica.API.Application.Interfaces.Utilities;
 using GestionAcademica.API.Domain.Entities;
 using GestionAcademica.API.Domain.Enums;
+using GestionAcademica.API.Infrastructure.Mappers;
 using GestionAcademica.API.Infrastructure.Persistence.Models;
 
 namespace GestionAcademica.API.Application.UseCases
@@ -16,9 +17,10 @@ namespace GestionAcademica.API.Application.UseCases
         private readonly IApplicantRepository _applicantRepository;
         private readonly IProfessorRepository _professorRepository;
         private readonly IHrRepository _hrRepository;
+        private readonly IApplicantMapper _applicantMapper;
         public LoginUseCase(IUserRepository userRepository, IHashUtility hashUtility,
             IAdministratorRepository administratorRepository, IApplicantRepository applicantRepository,
-            IProfessorRepository professorRepository, IHrRepository hrRepository)
+            IProfessorRepository professorRepository, IHrRepository hrRepository, IApplicantMapper applicantMapper)
         {
             _userRepository = userRepository;
             _hashUtility = hashUtility;
@@ -26,6 +28,7 @@ namespace GestionAcademica.API.Application.UseCases
             _applicantRepository = applicantRepository;
             _professorRepository = professorRepository;
             _hrRepository = hrRepository;
+            _applicantMapper = applicantMapper;
         }
 
         public (string, string, string) Login(string email, string password)
@@ -49,8 +52,8 @@ namespace GestionAcademica.API.Application.UseCases
         public void SignUp(CreateUserDTO userDto)
         {
             Validate(userDto);
-            Applicant user = MapDtoToUser(userDto);
-            _userRepository.Add(user);
+            Applicant user = _applicantMapper.CreateUserDTOToModel(userDto);
+            _applicantRepository.Add(user);
         }
         private void Validate(CreateUserDTO Dto)
         {
@@ -65,26 +68,6 @@ namespace GestionAcademica.API.Application.UseCases
             if (date > DateOnly.FromDateTime(DateTime.Now))
                 throw new ArgumentException("La fecha de nacimiento no puede estar en el futuro");
 
-        }
-        private Applicant MapDtoToUser(CreateUserDTO user)
-        {
-            Applicant result = new Applicant
-            {
-                User = new User
-                {
-                    Name = user.Name,
-                    LastName = user.LastName,
-                    Password = _hashUtility.CreateHash(user.Password),
-                    Address = user.Address,
-                    PersonalEmail = user.Email,
-                    InstitutionalEmail = user.Email,
-                    PhoneNumber = user.PhoneNumber,
-                    BirthDate = DateOnly.Parse(user.BirthDate),
-                    RoleId = (int)RoleEnum.Applicant
-                }
-            };
-
-            return result;
         }
         private int GetSpecialId(int userId, int roleId)
         {

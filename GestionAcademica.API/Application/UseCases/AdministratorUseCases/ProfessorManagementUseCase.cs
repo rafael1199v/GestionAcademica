@@ -12,14 +12,12 @@ public class ProfessorManagementUseCase : IProfessorManagementUseCase
 {
     private readonly IProfessorRepository _professorRepository;
     private readonly IUserRepository _userRepository;
-    private readonly IProfessorMapper _professorMapper;
     private readonly IHashUtility _hashUtility;
     
-    public ProfessorManagementUseCase(IProfessorRepository professorRepository, IUserRepository userRepository, IProfessorMapper professorMapper, IHashUtility hashUtility)
+    public ProfessorManagementUseCase(IProfessorRepository professorRepository, IUserRepository userRepository, IHashUtility hashUtility)
     {
         _professorRepository = professorRepository;
         _userRepository = userRepository;
-        _professorMapper = professorMapper;
         _hashUtility = hashUtility;
     }
 
@@ -61,7 +59,7 @@ public class ProfessorManagementUseCase : IProfessorManagementUseCase
         
         professorEntity = _professorRepository.Add(professorEntity);
         
-        ResponseProfessorDTO responseProfessorDto = _professorMapper.ProfessorToResponseProfessor(professorEntity);
+        ResponseProfessorDTO responseProfessorDto = ProfessorMapper.ProfessorToResponseProfessor(professorEntity);
 
         return responseProfessorDto;
     }
@@ -103,7 +101,7 @@ public class ProfessorManagementUseCase : IProfessorManagementUseCase
 
         foreach (var item in list)
         {
-            result.Add(_professorMapper.ProfessorEntityToProfessorDetailsDto(item));
+            result.Add(ProfessorMapper.ProfessorEntityToProfessorDetailsDto(item));
         }
 
         return result;
@@ -112,7 +110,7 @@ public class ProfessorManagementUseCase : IProfessorManagementUseCase
     public ResponseProfessorDTO GetProfessorInformation(int id)
     {
         ProfessorEntity professor = _professorRepository.GetById(id);
-        return _professorMapper.ProfessorToResponseProfessor(professor);
+        return ProfessorMapper.ProfessorToResponseProfessor(professor);
     }
     
     private void ValidateEmails(string institutionalEmail, string personalEmail)

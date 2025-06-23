@@ -44,16 +44,9 @@ public class FileRepository : IFileRepository
 
     public DownloadFileDTO GetInformationToDownloadById(int fileId)
     {
-        var file = _context.Files.FirstOrDefault(x => x.Id == fileId);
-        
-        if(file is null)
-            throw new Exception("No se encontro la postulacion");
+        File file = _context.Files.FirstOrDefault(x => x.Id == fileId)
+        ?? throw new Exception("No se encontro la postulacion");
 
-        return new DownloadFileDTO
-        {
-            FileExtension = file.FileExtension,
-            FileName = file.Filename,
-            FilePath = file.FilePath,
-        };
+        return FileMapper.FileToDownloadDTO(file);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Infrastructure.Persistence.Context;
 using GestionAcademica.API.Infrastructure.Persistence.Models;
+using GestionAcademica.API.Infrastructure.Mappers;
 using Microsoft.EntityFrameworkCore;
 
 namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
@@ -32,10 +33,8 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
         public Subject GetById(int id)
         {
             Subject? subject = _context.Subjects
-                .FirstOrDefault(s => s.Id == id);
-
-            if (subject == null)
-                throw new Exception("Asignatura no encontrada");
+                .FirstOrDefault(s => s.Id == id)
+                ?? throw new Exception("Asignatura no encontrada");
 
             return subject;
         }
@@ -43,15 +42,10 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
         public void Update(Subject subject)
         {
             Subject? existingSubject = _context.Subjects
-                .FirstOrDefault(s => s.Id == subject.Id);
+                .FirstOrDefault(s => s.Id == subject.Id)
+                ?? throw new Exception("Asignatura no encontrada");
 
-            if (existingSubject == null)
-                throw new Exception("Asignatura no encontrada");
-
-            existingSubject.Name = subject.Name;
-            existingSubject.Description = subject.Description;
-            existingSubject.Credits = subject.Credits;
-            existingSubject.ProfessorId = subject.ProfessorId;
+            existingSubject = SubjectMapper.UpdateInfo(existingSubject, subject);
 
             _context.Entry(existingSubject).State = EntityState.Modified;
             _context.SaveChanges();
