@@ -1,4 +1,5 @@
 using GestionAcademica.API.Application.DTOs.File;
+using GestionAcademica.API.Application.DTOs.User;
 
 namespace GestionAcademica.API.Application.DTOs.Application;
 
@@ -14,7 +15,8 @@ public class ApplicationDetailDTO
     public string? ApplicantName { get; set; }
     public string? AdministratorName { get; set; }
     
+    public string? VacancySubjectName { get; set; }
     public List<FileDTO> Files { get; set; }
 
-    // TODO: Retornar el usuario solicitante
+    public UserDTO?  User { get; set; }
 }

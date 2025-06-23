@@ -3,7 +3,6 @@ import ApplicationCardAdmin from "./components/application-card-admin";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useAuthContext } from "../../hooks/UseAuthContext";
-import { getApplicationsByAdmin } from "../../services/ApplicationService";
 import { useParams } from "react-router-dom";
 import applicationService from "../../services/ApplicationService";
 

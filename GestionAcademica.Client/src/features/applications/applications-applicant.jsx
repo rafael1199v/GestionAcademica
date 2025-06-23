@@ -3,7 +3,6 @@ import ApplicationCardApplicant from "./components/application-card-applicant";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useAuthContext } from "../../hooks/UseAuthContext";
-import { getApplicationsByApplicant } from "../../services/ApplicationService";
 import applicationService from "../../services/ApplicationService";
 
 function ApplicationsApplicant() {

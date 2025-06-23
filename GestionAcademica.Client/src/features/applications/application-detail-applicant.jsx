@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getApplicationById } from "../../services/ApplicationService";
 import applicationService from "../../services/ApplicationService";
 import fileService from "../../services/FileService";
 

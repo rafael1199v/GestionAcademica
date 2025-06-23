@@ -8,6 +8,7 @@ using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Domain.Entities;
 using GestionAcademica.API.Domain.Enums;
 using GestionAcademica.API.Infrastructure.Persistence.Context;
+using GestionAcademica.API.Infrastructure.Persistence.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
@@ -63,15 +64,27 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
                     VacancyDescription = _application.Vacancy.Description,
                     VacancyCareerName = _application.Vacancy.Career.Name,
                     ApplicantName = _application.Applicant.User.Name + " " + _application.Applicant.User.LastName,
-                    AdministratorName = _application.Vacancy.Admin.User.Name + " " +
-                                        _application.Vacancy.Admin.User.LastName,
+                    AdministratorName = _application.Vacancy.Admin.User.Name + " " + _application.Vacancy.Admin.User.LastName,
+                    VacancySubjectName = _application.Vacancy.Subject.Name,
                     Files = _application.Files.Select(file => new FileDTO
                     {
                         Id = file.Id,
                         Name = file.Filename,
                         Description = file.FileDescription,
                         Extension = file.FileExtension
-                    }).ToList()
+                    }).ToList(),
+                    User = new UserDTO {
+                        Id =  _application.Applicant.User.Id,
+                        Name = _application.Applicant.User.Name,
+                        LastName = _application.Applicant.User.LastName,
+                        Address = _application.Applicant.User.Address,
+                        BirthDate = _application.Applicant.User.BirthDate.ToString("O"),
+                        PersonalEmail = _application.Applicant.User.PersonalEmail,
+                        InstitutionalEmail = _application.Applicant.User.InstitutionalEmail,
+                        PhoneNumber = _application.Applicant.User.PhoneNumber,
+                        Status =  _application.Applicant.User.Status,
+                        RoleId = _application.Applicant.User.RoleId
+                    }
                 })
                 .FirstOrDefault();
             

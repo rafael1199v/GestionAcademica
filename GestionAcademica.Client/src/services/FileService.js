@@ -27,7 +27,8 @@ class FileService {
         }
         catch(error) {
             console.log(error);
-            throw new Error(error.response.data);
+            alert("No se pudo descargar el archivo");
+            throw new Error("No se pudo descargar el archivo");
         }
     }
 

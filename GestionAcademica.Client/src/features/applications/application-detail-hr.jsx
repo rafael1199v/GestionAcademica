@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import {
-  getApplicationById,
-  updateAppStatus,
-} from "../../services/ApplicationService";
 import { STATUS } from "../../config/status-const";
 import applicationService from "../../services/ApplicationService";
 import fileService from "../../services/FileService";
@@ -16,21 +12,6 @@ function ApplicationDetailHr() {
   const fetchApplication = async () => {
     const data = await applicationService.getApplicationDetailForHr(id);
     setApplication(data);
-  };
-
-  const handleAction = async (id, newStatus) => {
-    try {
-      await updateAppStatus(request);
-      window.alert(
-        newStatus == STATUS.APPROVED
-          ? "Solicitud aprobada exitosamente"
-          : "Solicitud rechazada exitosamente"
-      );
-      navigate("/hr/applications");
-    } catch (err) {
-      window.alert("Hubo un error con la solicitud...");
-      console.error(err.message);
-    }
   };
 
   const rejectApplication = async (id) => {
@@ -77,31 +58,34 @@ function ApplicationDetailHr() {
 
       <div className="grid grid-cols-2 gap-4 text-gray-700 pb-5">
         <div>
-          <strong>Vacante: </strong> {application?.vacancyName}
-        </div>
-        <div>
-          <strong>Administrador: </strong> {application.administratorName}
-        </div>
-        <div>
           <strong>Materia: </strong> {application?.vacancySubjectName}
         </div>
         <div>
           <strong>Carrera: </strong> {application?.vacancyCareerName}
         </div>
+        <div>
+          <strong>Estado: </strong> {applicationService.getStatusName(application?.statusId)}
+        </div>
       </div>
       <strong className="block text-xl font-bold text-gray-800">Datos del solicitante:</strong>
       <div className="grid grid-cols-2 gap-5 text-gray-700">
         <div>
-          <strong>Nombre completo:</strong> {application?.user}
+          <strong>Nombre</strong> {application?.user?.name}
+        </div>
+         <div>
+          <strong>Apellido</strong> {application?.user?.lastName}
         </div>
         <div>
-          <strong>CI:</strong> {application?.user}
+          <strong>Direccion </strong> {application?.user?.address}
         </div>
         <div>
-          <strong>Correo:</strong> {application?.user}
+          <strong>Correo:</strong> {application?.user?.institutionalEmail}
         </div>
         <div>
-          <strong>Teléfono:</strong> {application?.user}
+          <strong>Teléfono:</strong> {application?.user?.phoneNumber}
+        </div>
+        <div>
+          <strong>Fecha de nacimiento</strong> {application?.user?.birthDate}
         </div>
       </div>
 

@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import {
-  getApplicationById,
-  updateAppStatus,
-} from "../../services/ApplicationService";
 import { STATUS } from "../../config/status-const";
 import applicationService from "../../services/ApplicationService";
 import fileService from "../../services/FileService";
@@ -65,20 +61,29 @@ function ApplicationDetailAdmin() {
         <div>
           <strong>Carrera: </strong> {application?.vacancyCareerName}
         </div>
+        <div>
+          <strong>Estado: </strong> {applicationService.getStatusName(application?.statusId)}
+        </div>
       </div>
       <strong className="block text-xl font-bold text-gray-800">Datos del solicitante:</strong>
       <div className="grid grid-cols-2 gap-5 text-gray-700">
         <div>
-          <strong>Nombre completo:</strong> {application?.user}
+          <strong>Nombre</strong> {application?.user?.name}
+        </div>
+         <div>
+          <strong>Apellido</strong> {application?.user?.lastName}
         </div>
         <div>
-          <strong>CI:</strong> {application?.user}
+          <strong>Direccion </strong> {application?.user?.address}
         </div>
         <div>
-          <strong>Correo:</strong> {application?.user}
+          <strong>Correo:</strong> {application?.user?.institutionalEmail}
         </div>
         <div>
-          <strong>Teléfono:</strong> {application?.user}
+          <strong>Teléfono:</strong> {application?.user?.phoneNumber}
+        </div>
+        <div>
+          <strong>Fecha de nacimiento</strong> {application?.user?.birthDate}
         </div>
       </div>
 
