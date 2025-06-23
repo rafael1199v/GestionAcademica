@@ -13,14 +13,7 @@ public class HrRepository : IHrRepository
     {
         _context = context;
     }
-
-    // public Hr GetById(int id)
-    // {
-    //     var hr = _context.Hrs.Include(hr => hr.User).FirstOrDefault(x => x.Id == id)
-    //     ?? throw new Exception("El HR no fue encontrado");
-    //     return hr;
-    // }
-
+    
     public int GetIdByUserId(int userId)
     {
         var hr = _context.Hrs.Include(hr => hr.User).FirstOrDefault(x => x.UserId == userId)

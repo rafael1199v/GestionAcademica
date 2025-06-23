@@ -7,6 +7,7 @@ using ApplicationModel = GestionAcademica.API.Infrastructure.Persistence.Models.
 using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Domain.Entities;
 using GestionAcademica.API.Domain.Enums;
+using GestionAcademica.API.Infrastructure.Mappers;
 using GestionAcademica.API.Infrastructure.Persistence.Context;
 using GestionAcademica.API.Infrastructure.Persistence.Models;
 using Microsoft.EntityFrameworkCore;
@@ -23,7 +24,7 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
 
         public int Add(ApplicationEntity application)
         {
-            var applicationModel = ToModel(application);
+            var applicationModel = ApplicationMapper.MapApplicationEntitytoApplicationModel(application);
             
             _context.Applications.Add(applicationModel);
             _context.SaveChanges();
@@ -34,19 +35,7 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
         public List<ApplicationDTO> GetApplicationsForApplicant(int applicantId)
         {
             var applications =  _context.Applications.Where(application => application.ApplicantId == applicantId)
-                .Select(application => new ApplicationDTO
-                {
-                    Id = application.Id,
-                    VacancyId = application.VacancyId,
-                    ApplicantId = application.ApplicantId,
-                    StatusId = application.StatusId,
-                    VacancyName = application.Vacancy.Name,
-                    VacancyDescription = application.Vacancy.Description,
-                    VacancyCareerName = application.Vacancy.Career.Name,
-                    ApplicantName = application.Applicant.User.Name + " " + application.Applicant.User.LastName,
-                    AdministratorName = application.Vacancy.Admin.User.Name + " " + application.Vacancy.Admin.User.LastName,
-                    VacancySubjectName = application.Vacancy.Subject.Name
-                }).ToList();
+                .Select(application => ApplicationMapper.ApplicationModelToApplicationDTO(application)).ToList();
 
             return applications;
         }
@@ -54,40 +43,8 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
         public ApplicationDetailDTO GetApplicationDetails(int applicationId)
         {
             var application = _context.Applications.Where(application => application.Id == applicationId)
-                .Select(_application => new ApplicationDetailDTO
-                {
-                    Id = _application.Id,
-                    VacancyId = _application.VacancyId,
-                    ApplicantId = _application.ApplicantId,
-                    StatusId = _application.StatusId,
-                    VacancyName = _application.Vacancy.Name,
-                    VacancyDescription = _application.Vacancy.Description,
-                    VacancyCareerName = _application.Vacancy.Career.Name,
-                    ApplicantName = _application.Applicant.User.Name + " " + _application.Applicant.User.LastName,
-                    AdministratorName = _application.Vacancy.Admin.User.Name + " " + _application.Vacancy.Admin.User.LastName,
-                    VacancySubjectName = _application.Vacancy.Subject.Name,
-                    Files = _application.Files.Select(file => new FileDTO
-                    {
-                        Id = file.Id,
-                        Name = file.Filename,
-                        Description = file.FileDescription,
-                        Extension = file.FileExtension
-                    }).ToList(),
-                    User = new UserDTO {
-                        Id =  _application.Applicant.User.Id,
-                        Name = _application.Applicant.User.Name,
-                        LastName = _application.Applicant.User.LastName,
-                        Address = _application.Applicant.User.Address,
-                        BirthDate = _application.Applicant.User.BirthDate.ToString("O"),
-                        PersonalEmail = _application.Applicant.User.PersonalEmail,
-                        InstitutionalEmail = _application.Applicant.User.InstitutionalEmail,
-                        PhoneNumber = _application.Applicant.User.PhoneNumber,
-                        Status =  _application.Applicant.User.Status,
-                        RoleId = _application.Applicant.User.RoleId
-                    }
-                })
+                .Select(_application => ApplicationMapper.ApplicationModelToApplicationDetailDTO(_application))
                 .FirstOrDefault();
-            
             
             if(application is null)
                 throw new Exception("La postulacion no se encontro el sistema");
@@ -99,19 +56,7 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
         {
             var applications = _context.Applications.Where(application => application.Status.Id == (int)StatusEnum.UNDER_REVIEW 
             && application.Vacancy.StartTime <= DateTime.Now && DateTime.Now < application.Vacancy.EndTime)
-                .Select(application => new ApplicationDTO
-                {
-                    Id = application.Id,
-                    VacancyId = application.VacancyId,
-                    ApplicantId = application.ApplicantId,
-                    StatusId = application.Status.Id,
-                    VacancyName = application.Vacancy.Name,
-                    VacancyDescription = application.Vacancy.Description,
-                    VacancyCareerName = application.Vacancy.Career.Name,
-                    ApplicantName = application.Applicant.User.Name + " " + application.Applicant.User.LastName,
-                    AdministratorName = application.Vacancy.Admin.User.Name + " " + application.Vacancy.Admin.User.LastName,
-                    VacancySubjectName = application.Vacancy.Subject.Name
-                }).ToList();
+                .Select(application => ApplicationMapper.ApplicationModelToApplicationDTO(application)).ToList();
             
             return applications;
         }
@@ -119,21 +64,8 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
         public List<ApplicationDTO> GetApplicationsForAdministrator(int vacancyId)
         {
             var applications = _context.Applications.Where(application => application.VacancyId == vacancyId)
-                .Select(application => new ApplicationDTO
-                {
-                    Id = application.Id,
-                    VacancyId = application.VacancyId,
-                    ApplicantId = application.ApplicantId,
-                    StatusId = application.Status.Id,
-                    VacancyName = application.Vacancy.Name,
-                    VacancyDescription = application.Vacancy.Description,
-                    VacancyCareerName = application.Vacancy.Career.Name,
-                    ApplicantName = application.Applicant.User.Name + " " + application.Applicant.User.LastName,
-                    AdministratorName = application.Applicant.User.Name + " " + application.Applicant.User.LastName,
-                    VacancySubjectName = application.Vacancy.Subject.Name
-                })
+                .Select(application => ApplicationMapper.ApplicationModelToApplicationDTO(application))
                 .ToList();
-
             
             return applications;
         }
@@ -153,24 +85,7 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
         public ApplicantDTO GetApplicantByApplication(int applicationId)
         {
             var applicant = _context.Applications.Where(application => application.Id == applicationId)
-                .Select(application => new ApplicantDTO
-                {
-                    Id = application.Applicant.Id,
-                    UserId = application.Applicant.User.Id,
-                    User = new UserDTO
-                    {
-                        Id =  application.Applicant.User.Id,
-                        Name = application.Applicant.User.Name,
-                        LastName = application.Applicant.User.LastName,
-                        Address = application.Applicant.User.Address,
-                        PersonalEmail = application.Applicant.User.PersonalEmail,
-                        InstitutionalEmail = application.Applicant.User.InstitutionalEmail,
-                        PhoneNumber = application.Applicant.User.PhoneNumber,
-                        BirthDate = application.Applicant.User.BirthDate.ToString("O"),
-                        Status = application.Applicant.User.Status,
-                        RoleId = application.Applicant.User.RoleId,
-                    }
-                }).FirstOrDefault();
+                .Select(application => ApplicationMapper.ApplicationModelToApplicantDTO(application)).FirstOrDefault();
 
             if (applicant is null)
                 throw new Exception("El aplicante no pudo ser encontrado");
@@ -197,17 +112,6 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
             }
 
             _context.SaveChanges();
-        }
-
-        private ApplicationModel ToModel(ApplicationEntity application)
-        {
-            return new ApplicationModel
-            {
-                Id = application.Id,
-                ApplicantId = application.ApplicantId,
-                StatusId = application.StatusId,
-                VacancyId = application.VacancyId,
-            };
         }
     }
 }

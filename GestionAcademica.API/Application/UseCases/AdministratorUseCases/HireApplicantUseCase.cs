@@ -17,6 +17,9 @@ public class HireApplicantUseCase : IHireApplicantUseCase
     
     public ApplicantDTO HireApplicantByApplication(int applicationId)
     {
+        if (applicationId <= 0)
+            throw new ArgumentException("Se tiene que contar con una postulación para poder aceptar a un postulante");
+        
         _applicationRepository.ChangeApplicationStatus(StatusEnum.ACCEPTED, applicationId);
         _applicationRepository.FinishOtherApplications(applicationId);
         

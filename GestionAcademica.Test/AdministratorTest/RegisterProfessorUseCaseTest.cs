@@ -79,6 +79,9 @@ public class RegisterProfessorUseCaseTest
                 }
             });
 
+        A.CallTo(() => _hashUtility.CreateHash(A<string>._))
+            .Returns("HASH");
+
         A.CallTo(() => _userRepository.GetByInstitutionalEmail(A<string>._))
             .Returns(null);
         
@@ -165,6 +168,9 @@ public class RegisterProfessorUseCaseTest
             PhoneNumber = "12345678",
             BirthDate = "2026-01-01",
         };
+        
+        A.CallTo(() => _hashUtility.CreateHash(A<string>._))
+            .Returns("HASH");
         
         A.CallTo(() => _userRepository.GetByInstitutionalEmail(A<string>._))
             .Returns(null);
