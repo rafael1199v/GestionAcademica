@@ -31,6 +31,11 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
         public List<ApplicationDTO> GetApplicationsForApplicant(int applicantId)
         {
             List<ApplicationDTO> applications =  _context.Applications.Where(application => application.ApplicantId == applicantId)
+                .Include(application => application.Vacancy)
+                .Include(application => application.Vacancy.Career)
+                .Include(application => application.Applicant.User)
+                .Include(application => application.Vacancy.Admin.User)
+                .Include(application => application.Vacancy.Subject)
                 .Select(ApplicationMapper.ModelToDTO)
                 .ToList();
             return applications;
@@ -39,6 +44,10 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
         public ApplicationDetailDTO GetApplicationDetails(int applicationId)
         {
             ApplicationDetailDTO? application = _context.Applications.Where(application => application.Id == applicationId)
+                .Include(application => application.Vacancy)
+                .Include(application => application.Vacancy.Career)
+                .Include(application => application.Applicant.User)
+                .Include(application => application.Vacancy.Admin.User)
                 .Select(ApplicationMapper.ModelToDetailDTO)
                 .FirstOrDefault()
                 ?? throw new Exception("La postulacion no se encontro el sistema");
@@ -48,8 +57,13 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
 
         public List<ApplicationDTO> GetApplicationsForHr()
         {
-            List<ApplicationDTO> applications = _context.Applications.Where(application => application.Status.Id == (int)StatusEnum.UNDER_REVIEW
+            var applications = _context.Applications.Where(application => application.Status.Id == (int)StatusEnum.UNDER_REVIEW
             && application.Vacancy.StartTime <= DateTime.Now && DateTime.Now < application.Vacancy.EndTime)
+                .Include(application => application.Vacancy)
+                .Include(application => application.Vacancy.Career)
+                .Include(application => application.Applicant.User)
+                .Include(application => application.Vacancy.Admin.User)
+                .Include(application => application.Vacancy.Subject)
                 .Select(ApplicationMapper.ModelToDTO)
                 .ToList();
             
@@ -59,6 +73,11 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
         public List<ApplicationDTO> GetApplicationsForAdministrator(int vacancyId)
         {
             List<ApplicationDTO> applications = _context.Applications.Where(application => application.VacancyId == vacancyId)
+                .Include(application => application.Vacancy)
+                .Include(application => application.Vacancy.Career)
+                .Include(application => application.Applicant.User)
+                .Include(application => application.Vacancy.Admin.User)
+                .Include(application => application.Vacancy.Subject)
                 .Select(ApplicationMapper.ModelToDTO)
                 .ToList();
             
@@ -80,6 +99,7 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
         public ApplicantDTO GetApplicantByApplication(int applicationId)
         { // Este está bien aquí????
             ApplicantDTO applicant = _context.Applications.Where(application => application.Id == applicationId)
+                .Include(applicant => applicant.Applicant.User)
                 .Select(ApplicantMapper.ExtractApplicantData)
                 .FirstOrDefault()
                 ?? throw new Exception("El aplicante no pudo ser encontrado");

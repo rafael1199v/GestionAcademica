@@ -26,11 +26,8 @@ public class FileRepository : IFileRepository
     public void AddWithApplication(FileEntity file, int applicationId)
     {
         File newFile = FileMapper.FileEntityToFile(file);
-        Models.Application? application = _context.Applications.FirstOrDefault(x => x.Id == applicationId);
-
-        if (application is null)
-            throw new Exception("No se encontro la postulacion");
-        
+        Models.Application? application = _context.Applications.FirstOrDefault(x => x.Id == applicationId)
+            ?? throw new Exception("No se encontro la postulacion");
         newFile.Applications.Add(application);
         
         _context.Files.Add(newFile);
