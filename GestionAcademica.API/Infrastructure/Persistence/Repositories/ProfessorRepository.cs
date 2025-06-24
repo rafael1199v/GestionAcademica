@@ -54,10 +54,16 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
 
         public void Update(ProfessorEntity professor)
         {
-            Professor professorModel = _context.Professors.FirstOrDefault(_professor => _professor.Id == professor.Id)
+            Professor professorModel = _context.Professors.Include(professor => professor.User).FirstOrDefault(_professor => _professor.Id == professor.Id)
             ?? throw new Exception("Profesor no encontrado");
 
-            professorModel = ProfessorMapper.UpdateInfo(professorModel, professor);
+            professorModel.User.Name = professor.User.Name;
+            professorModel.User.LastName = professor.User.LastName;
+            professorModel.User.PersonalEmail = professor.User.PersonalEmail;
+            professorModel.User.InstitutionalEmail = professor.User.InstitutionalEmail;
+            professorModel.User.Address = professor.User.Address;
+            professorModel.User.BirthDate = professor.User.BirthDate;
+            professorModel.User.PhoneNumber = professor.User.PhoneNumber;
             
             _context.SaveChanges();
         }

@@ -119,18 +119,7 @@ public class ProfessorMapper
         };
 
     }
-    public static Professor UpdateInfo(Professor existingInfo, ProfessorEntity newInfo)
-    {
-        existingInfo.User.Name = newInfo.User.Name;
-        existingInfo.User.LastName = newInfo.User.LastName;
-        existingInfo.User.PersonalEmail = newInfo.User.PersonalEmail;
-        existingInfo.User.InstitutionalEmail = newInfo.User.InstitutionalEmail;
-        existingInfo.User.Address = newInfo.User.Address;
-        existingInfo.User.BirthDate = newInfo.User.BirthDate;
-        existingInfo.User.PhoneNumber = newInfo.User.PhoneNumber;
-
-        return existingInfo;
-    }
+    
     public static ProfessorEntity UserEntityToProfessorEntity(UserEntity userEntity)
     {
         ProfessorEntity professorEntity = new()

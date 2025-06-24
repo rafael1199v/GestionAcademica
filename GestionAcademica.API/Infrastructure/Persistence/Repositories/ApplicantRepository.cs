@@ -22,13 +22,6 @@ public class ApplicantRepository : IApplicantRepository
             ?? throw new Exception("El solicitante no fue encontrado");
         return applicant.Id;
     }
-    // public Applicant Add(Applicant user)
-    // {
-    //     _context.Applicants.Add(user);
-    //     _context.SaveChanges();
-    //
-    //     return user;
-    // }
 
     public void Add(ApplicantEntity applicantEntity)
     {
