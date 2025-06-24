@@ -3,6 +3,7 @@ using GestionAcademica.API.Application.DTOs.Applicant;
 using GestionAcademica.API.Application.DTOs.Application;
 using GestionAcademica.API.Application.DTOs.User;
 using GestionAcademica.API.Application.Interfaces.Utilities;
+using GestionAcademica.API.Application.Utilities;
 using GestionAcademica.API.Domain.Entities;
 using GestionAcademica.API.Domain.Enums;
 using GestionAcademica.API.Infrastructure.Persistence.Models;
@@ -10,14 +11,8 @@ using ApplicationModel = GestionAcademica.API.Infrastructure.Persistence.Models.
 
 namespace GestionAcademica.API.Infrastructure.Mappers;
 
-public class ApplicantMapper : IApplicantMapper
+public class ApplicantMapper
 {
-    private readonly IHashUtility _hashUtility;
-
-    public ApplicantMapper(IHashUtility hashUtility)
-    {
-        _hashUtility = hashUtility;
-    }
     public static ApplicantDTO ExtractApplicantData(ApplicationModel data)
     {
         return new ApplicantDTO
@@ -39,22 +34,27 @@ public class ApplicantMapper : IApplicantMapper
             }
         };
     }
-    public Applicant CreateUserDTOToModel(CreateUserDTO user)
+    public static Applicant ApplicantEntityToModel(ApplicantEntity applicantEntity)
+    {
+        IHashUtility hashUtility = new HashUtility();
+
+        Applicant applicant = new Applicant
         {
-            return new Applicant
+            User = new User
             {
-                User = new User
-                {
-                    Name = user.Name,
-                    LastName = user.LastName,
-                    Password = _hashUtility.CreateHash(user.Password),
-                    Address = user.Address,
-                    PersonalEmail = user.Email,
-                    InstitutionalEmail = user.Email,
-                    PhoneNumber = user.PhoneNumber,
-                    BirthDate = DateOnly.Parse(user.BirthDate),
-                    RoleId = (int)RoleEnum.Applicant
-                }
-            };
-        }
+                Name = applicantEntity.User.Name,
+                LastName = applicantEntity.User.LastName,
+                Address = applicantEntity.User.Address,
+                InstitutionalEmail = applicantEntity.User.InstitutionalEmail,
+                PersonalEmail = applicantEntity.User.PersonalEmail,
+                Password = hashUtility.CreateHash(applicantEntity.User.Password),
+                PhoneNumber = applicantEntity.User.PhoneNumber,
+                BirthDate = applicantEntity.User.BirthDate,
+                Status = applicantEntity.User.Status,
+                RoleId = applicantEntity.User.RoleId,
+            }
+        };
+        
+        return applicant;
+    }
 }

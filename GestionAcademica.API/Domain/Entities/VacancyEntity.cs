@@ -56,4 +56,9 @@ public class VacancyEntity
             AdminId = adminId
         };
     }
+
+    public void SetIdentifier(int id)
+    {
+        Id = id;
+    }
 }

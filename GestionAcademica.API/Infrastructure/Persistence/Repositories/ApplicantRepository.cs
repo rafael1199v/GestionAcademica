@@ -1,4 +1,6 @@
 using GestionAcademica.API.Application.Interfaces.Repositories;
+using GestionAcademica.API.Domain.Entities;
+using GestionAcademica.API.Infrastructure.Mappers;
 using GestionAcademica.API.Infrastructure.Persistence.Context;
 using GestionAcademica.API.Infrastructure.Persistence.Models;
 using Microsoft.EntityFrameworkCore;
@@ -19,11 +21,18 @@ public class ApplicantRepository : IApplicantRepository
             ?? throw new Exception("El solicitante no fue encontrado");
         return applicant.Id;
     }
-    public Applicant Add(Applicant user)
-    {
-        _context.Applicants.Add(user);
-        _context.SaveChanges();
+    // public Applicant Add(Applicant user)
+    // {
+    //     _context.Applicants.Add(user);
+    //     _context.SaveChanges();
+    //
+    //     return user;
+    // }
 
-        return user;
+    public void Add(ApplicantEntity applicantEntity)
+    {
+        Applicant applicant = ApplicantMapper.ApplicantEntityToModel(applicantEntity);
+        _context.Applicants.Add(applicant);
+        _context.SaveChanges();
     }
 }

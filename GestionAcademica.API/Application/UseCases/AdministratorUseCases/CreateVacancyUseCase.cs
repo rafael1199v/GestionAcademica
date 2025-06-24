@@ -29,13 +29,13 @@ public class CreateVacancyUseCase : ICreateVacancyUseCase
         
         VacancyEntity entity = VacancyEntity.CreateVacancy(createVacancyDto.Name, createVacancyDto.Description, startTime, endTime, createVacancyDto.SubjectId, createVacancyDto.CareerId,  administratorId);
         
-        _vacancyRepository.Add(VacancyMapper.EntityToModel(entity));
+        _vacancyRepository.Add(entity);
     }
-
-
+    
     public List<SubjectWithCareersDTO> GetSubjectsWithCareers()
     {
-        return _subjectRepository.GetWithCareers().Select(subject => SubjectMapper.MapToSubjectWithCareersDTO(subject)).ToList();
+        return _subjectRepository.GetWithCareers();
     }
+    
     
 }

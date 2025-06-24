@@ -27,7 +27,7 @@ public class RegisterProfessorUseCaseTest
         _professorRepository = A.Fake<IProfessorRepository>();
         _userRepository = A.Fake<IUserRepository>();
         _hashUtility = A.Fake<IHashUtility>();
-        _professorManagementUseCase = new ProfessorManagementUseCase(_professorRepository, _userRepository, _hashUtility, new UserMapper(_hashUtility));
+        _professorManagementUseCase = new ProfessorManagementUseCase(_professorRepository, _userRepository, _hashUtility);
     }
     
     [Fact]

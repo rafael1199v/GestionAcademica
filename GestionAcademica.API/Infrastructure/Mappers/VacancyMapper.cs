@@ -24,8 +24,6 @@ public class VacancyMapper
             Closed = vacancy.Applications.Any(application => application.Status.Id == (int)StatusEnum.ACCEPTED) || vacancy.EndTime <= DateTime.Now
         };
     }
-
-
     public static UpdateVacancyDTO MapVacancyToUpdateVacancyDto(Vacancy vacancy)
     {
         return new UpdateVacancyDTO
@@ -52,6 +50,22 @@ public class VacancyMapper
             AdminId = entity.AdminId
         };
     }
+
+    public static VacancyEntity ModelToVacancyEntity(Vacancy entity)
+    {
+        return new VacancyEntity
+        {
+            Id = entity.Id,
+            Name = entity.Name,
+            Description = entity.Description,
+            StartTime = entity.StartTime,
+            EndTime = entity.EndTime,
+            CareerId = entity.CareerId,
+            SubjectId = entity.SubjectId,
+            AdminId = entity.AdminId
+        };
+    }
+    
     public static Vacancy UpdateVacancy(Vacancy existingData, VacancyEntity newData)
     {
         existingData.Name = newData.Name;

@@ -1,4 +1,5 @@
-﻿using GestionAcademica.API.Application.Interfaces.Repositories;
+﻿using GestionAcademica.API.Application.DTOs.Subject;
+using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Infrastructure.Persistence.Context;
 using GestionAcademica.API.Infrastructure.Persistence.Models;
 using GestionAcademica.API.Infrastructure.Mappers;
@@ -51,10 +52,11 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
             _context.SaveChanges();
         }
 
-        public List<Subject> GetWithCareers()
+        public List<SubjectWithCareersDTO> GetWithCareers()
         {
             return _context.Subjects
                 .Include(s => s.Careers)
+                .Select(subject => SubjectMapper.MapToSubjectWithCareersDTO(subject))
                 .ToList();
         }
     }

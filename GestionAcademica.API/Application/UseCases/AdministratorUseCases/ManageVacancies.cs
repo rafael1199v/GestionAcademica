@@ -30,24 +30,20 @@ public class ManageVacancies : IManageVacancies
     {
         if (!DateTime.TryParse(vacancyDto.EndTime, out DateTime endTime) || !DateTime.TryParse(vacancyDto.StartTime, out DateTime startTime))
             throw new ArgumentException("La fecha es invalida");
-        
-        Vacancy vacancy = _vacancyRepository.GetById(vacancyDto.Id);
-        VacancyEntity entity = VacancyEntity.CreateVacancy(vacancyDto.Name, vacancyDto.Description, startTime, endTime, vacancyDto.SubjectId, vacancyDto.CareerId, vacancy.AdminId);
 
-        vacancy = VacancyMapper.UpdateVacancy(vacancy, entity);
-        _vacancyRepository.Update(vacancy);
+        int adminId = _vacancyRepository.GetAdminId(vacancyDto.Id);
+        VacancyEntity entity = VacancyEntity.CreateVacancy(vacancyDto.Name, vacancyDto.Description, startTime, endTime, vacancyDto.SubjectId, vacancyDto.CareerId, adminId);
+
+        entity.SetIdentifier(vacancyDto.Id);
+        
+        _vacancyRepository.Update(entity);
     }
 
     public void DeleteVacancy(int vacancyId)
     {
         _vacancyRepository.Delete(vacancyId);
     }
-
-    public DetailVacancyDTO GetVacancy(int vacancyId)
-    {
-        throw new NotImplementedException();
-    }
-
+    
     public UpdateVacancyDTO GetVacancyToUpdate(int vacancyId)
     {
         if (vacancyId <= 0)
@@ -55,6 +51,23 @@ public class ManageVacancies : IManageVacancies
         
         var vacancy = _vacancyRepository.GetById(vacancyId);
 
-        return VacancyMapper.MapVacancyToUpdateVacancyDto(vacancy);
+        return EntityToUpdateVacancyDto(vacancy);
     }
+
+    public UpdateVacancyDTO EntityToUpdateVacancyDto(VacancyEntity vacancy)
+    {
+        return new UpdateVacancyDTO
+        {
+            Id = vacancy.Id,
+            Name = vacancy.Name,
+            Description = vacancy.Description,
+            StartTime = vacancy.StartTime.ToString("yyyy-MM-dd HH:mm:ss"),
+            EndTime = vacancy.EndTime.ToString("yyyy-MM-dd HH:mm:ss"),
+            CareerId = vacancy.CareerId,
+            SubjectId = vacancy.SubjectId
+        };
+    }
+    
+    
+    
 }

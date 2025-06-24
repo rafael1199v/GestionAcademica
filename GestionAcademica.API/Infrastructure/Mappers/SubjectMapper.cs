@@ -8,11 +8,7 @@ namespace GestionAcademica.API.Infrastructure.Mappers;
 
 public class SubjectMapper
 {
-    private readonly IProfessorManagementUseCase _professorManagementUseCase;
-    public SubjectMapper(IProfessorManagementUseCase professorManagementUseCase)
-    {
-        _professorManagementUseCase = professorManagementUseCase;
-    }
+    
     public static SubjectWithCareersDTO MapToSubjectWithCareersDTO(Subject subject)
     {
         return new SubjectWithCareersDTO

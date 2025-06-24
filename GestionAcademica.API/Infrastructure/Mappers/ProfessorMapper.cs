@@ -7,7 +7,7 @@ using GestionAcademica.API.Infrastructure.Persistence.Models;
 
 namespace GestionAcademica.API.Infrastructure.Mappers;
 
-public class ProfessorMapper : IProfessorMapper
+public class ProfessorMapper
 {
     private readonly IHashUtility _hashUtility;
 

@@ -3,6 +3,7 @@ using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Application.Interfaces.UseCases;
 using GestionAcademica.API.Application.Interfaces.Utilities;
 using GestionAcademica.API.Domain.Entities;
+using GestionAcademica.API.Domain.Enums;
 using GestionAcademica.API.Infrastructure.Mappers;
 using GestionAcademica.API.Infrastructure.Persistence.Models;
 
@@ -16,10 +17,9 @@ namespace GestionAcademica.API.Application.UseCases
         private readonly IApplicantRepository _applicantRepository;
         private readonly IProfessorRepository _professorRepository;
         private readonly IHrRepository _hrRepository;
-        private readonly IApplicantMapper _applicantMapper;
         public LoginUseCase(IUserRepository userRepository, IHashUtility hashUtility,
             IAdministratorRepository administratorRepository, IApplicantRepository applicantRepository,
-            IProfessorRepository professorRepository, IHrRepository hrRepository, IApplicantMapper applicantMapper)
+            IProfessorRepository professorRepository, IHrRepository hrRepository)
         {
             _userRepository = userRepository;
             _hashUtility = hashUtility;
@@ -27,7 +27,6 @@ namespace GestionAcademica.API.Application.UseCases
             _applicantRepository = applicantRepository;
             _professorRepository = professorRepository;
             _hrRepository = hrRepository;
-            _applicantMapper = applicantMapper;
         }
 
         public (string, string, string) Login(string email, string password)
@@ -51,8 +50,29 @@ namespace GestionAcademica.API.Application.UseCases
         public void SignUp(CreateUserDTO userDto)
         {
             Validate(userDto);
-            Applicant user = _applicantMapper.CreateUserDTOToModel(userDto);
-            _applicantRepository.Add(user);
+
+            if (!DateOnly.TryParse(userDto.BirthDate, out var birthDate))
+                throw new ArgumentException("La fecha de nacimiento es invalida");
+
+            UserEntity userEntity = new UserEntity(
+                userDto.Name,
+                userDto.LastName,
+                userDto.Address,
+                userDto.Email,
+                userDto.Email,
+                userDto.Password,
+                userDto.PhoneNumber,
+                birthDate,
+                "Habilitado",
+                (int)RoleEnum.Applicant
+            );
+
+            ApplicantEntity applicantEntity = new ApplicantEntity
+            {
+                User = userEntity,
+            };
+            
+            _applicantRepository.Add(applicantEntity);
         }
         private void Validate(CreateUserDTO Dto)
         {

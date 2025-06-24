@@ -7,7 +7,7 @@ using GestionAcademica.API.Application.Interfaces.Utilities;
 
 namespace GestionAcademica.API.Infrastructure.Mappers;
 
-public class UserMapper : IUserMapper
+public class UserMapper
 {
     private readonly IHashUtility _hashUtility;
     public UserMapper(IHashUtility hashUtility)

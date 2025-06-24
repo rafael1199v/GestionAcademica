@@ -1,5 +1,6 @@
 using GestionAcademica.API.Application.DTOs.Vacancy;
 using GestionAcademica.API.Application.Interfaces.Repositories;
+using GestionAcademica.API.Domain.Entities;
 using GestionAcademica.API.Domain.Enums;
 using GestionAcademica.API.Infrastructure.Mappers;
 using GestionAcademica.API.Infrastructure.Persistence.Context;
@@ -17,8 +18,10 @@ public class VacancyRepository : IVacancyRepository
         _context = context;
     }
     
-    public void Add(Vacancy vacancy)
+    public void Add(VacancyEntity entity)
     {
+        var vacancy = VacancyMapper.EntityToModel(entity);
+        
         _context.Vacancies.Add(vacancy);
         _context.SaveChanges();
     }
@@ -36,7 +39,7 @@ public class VacancyRepository : IVacancyRepository
         return vacancies;
     }
 
-    public Vacancy GetById(int vacancyId)
+    public VacancyEntity GetById(int vacancyId)
     {
         var vacancy = _context.Vacancies
             .Include(vacancy => vacancy.Admin)
@@ -48,18 +51,28 @@ public class VacancyRepository : IVacancyRepository
 
             ?? throw new Exception("La vacante no fue encontrada");
 
-        return vacancy;
+        return VacancyMapper.ModelToVacancyEntity(vacancy);
     }
 
-    public void Update(Vacancy vacancy)
+    public void Update(VacancyEntity entity)
     {
+        var vacancy = _context.Vacancies.Find(entity.Id) ?? throw new Exception("La vacante no fue encontrada");
+        
+        vacancy.Name = entity.Name;
+        vacancy.Description = entity.Description;
+        vacancy.StartTime = entity.StartTime;
+        vacancy.EndTime = entity.EndTime;
+        vacancy.SubjectId = entity.SubjectId;
+        vacancy.CareerId = entity.CareerId;
+        
         _context.Vacancies.Update(vacancy);
         _context.SaveChanges();
     }
 
     public void Delete(int vacancyId)
     {
-        var vacancy = this.GetById(vacancyId);
+        var vacancy = _context.Vacancies.FirstOrDefault(vacancy => vacancy.Id == vacancyId) ?? throw new Exception("La vacante no fue encontrada");
+        
         _context.Vacancies.Remove(vacancy);
         _context.SaveChanges();
     }
@@ -76,5 +89,12 @@ public class VacancyRepository : IVacancyRepository
             .ToList();
         
         return vacancies;
+    }
+
+    public int GetAdminId(int vacancyId)
+    {
+        var adminId = _context.Vacancies.Where(vacancy => vacancy.Id == vacancyId).Select(vacancy => vacancy.AdminId).FirstOrDefault();
+        
+        return adminId;
     }
 }
