@@ -81,7 +81,12 @@ function ApplyModal({ isOpen, onClose, item, applicantId }) {
             )}
             {files.length < 2 && (
               <label className="block text-xs mb-2 mt-4 text-gray-700">
-                Para subir más de un archivo, selecciona todos los que necesites antes de aceptar (o arrastrar al campo) para recibirlos todos al mismo tiempo. En caso de subir el archivo indebido, suba los correctos nuevamente para sobreescribirlos.
+                Máximo de 6 archivos por postulación. Para subir más de un archivo, selecciona todos los que necesites antes de aceptar (o arrastrar al campo) para recibirlos todos al mismo tiempo. En caso de subir el archivo indebido, suba los correctos nuevamente para sobreescribirlos.
+              </label>
+            )}
+            {files.length > 6 &&(
+              <label className="block text-xs mb-2 mt-4 text-red-500">
+                Solo puedes subir hasta 6 archivos en la postulación, reduce la cantidad antes de subir tu postulación.
               </label>
             )}
           </div>

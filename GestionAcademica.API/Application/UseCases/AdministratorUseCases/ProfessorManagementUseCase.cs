@@ -94,20 +94,6 @@ public class ProfessorManagementUseCase : IProfessorManagementUseCase
         
         _professorRepository.Update(professor);
     }
-
-    public List<ProfessorDetailsDTO> ObtainAllProfessors()
-    {
-        List<ProfessorEntity> list = _professorRepository.GetAllWithDetails();
-        List<ProfessorDetailsDTO> result = list.Select(professor => ToProfessorDetailsDTO(professor)).ToList();
-        
-        return result;
-    }
-
-    public ResponseProfessorDTO GetProfessorInformation(int id)
-    {
-        ProfessorEntity professor = _professorRepository.GetById(id);
-        return ToResponseProfessor(professor);
-    }
     
     private void ValidateEmails(string institutionalEmail, string personalEmail)
     {

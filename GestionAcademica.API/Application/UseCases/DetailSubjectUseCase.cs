@@ -9,11 +9,11 @@ namespace GestionAcademica.API.Application.UseCases
     public class DetailSubjectUseCase : IDetailSubjectUseCase
     {
         private readonly ISubjectRepository _subjectRepository;
-        private readonly IProfessorManagementUseCase _professorManagementUseCase;
-        public DetailSubjectUseCase(ISubjectRepository subjectRepository, IProfessorManagementUseCase professorManagementUseCase)
+        private readonly IDetailProfessorUseCase _detailProfessorUseCase;
+        public DetailSubjectUseCase(ISubjectRepository subjectRepository, IDetailProfessorUseCase detailProfessorUseCase)
         {
             _subjectRepository = subjectRepository;
-            _professorManagementUseCase = professorManagementUseCase;
+            _detailProfessorUseCase = detailProfessorUseCase;
         }
         public List<SubjectDTO> ObtainAllSubjects()
         {
@@ -54,7 +54,7 @@ namespace GestionAcademica.API.Application.UseCases
         {
             if (id != null)
             {
-                var professor = _professorManagementUseCase.GetProfessorInformation((int)id);
+                var professor = _detailProfessorUseCase.GetProfessorInformation((int)id);
                 return professor.Name + " " + professor.LastName;
             }
             return "";

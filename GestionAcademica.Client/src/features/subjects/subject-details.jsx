@@ -2,9 +2,9 @@ import { useParams, Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import {
   getSubjectById,
-  getAllProfessors,
   updateSubject,
 } from "../../services/AdministratorService";
+import { getAllProfessors } from "../../services/ProfessorService";
 
 function SubjectDetails() {
   const { id } = useParams();

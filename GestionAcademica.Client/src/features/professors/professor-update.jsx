@@ -2,7 +2,8 @@ import React, { useState, useEffect} from "react";
 import Button from "../../components/button";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ValidateProfessorUpdateForm } from "../../services/ValidationService";
-import { updateProfessor, getProfessorById } from "../../services/AdministratorService";
+import { updateProfessor } from "../../services/AdministratorService";
+import { getProfessorById } from "../../services/ProfessorService";
 import { parse, format } from "date-fns"
 
 

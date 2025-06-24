@@ -10,10 +10,4 @@ public interface IProfessorManagementUseCase
     
     //Update
     void UpdateProfessor(UpdateProfessorDTO updateProfessorDto);
-    
-    //Get All
-    List<ProfessorDetailsDTO> ObtainAllProfessors();
-    
-    //Get
-    ResponseProfessorDTO GetProfessorInformation(int id);
 }
