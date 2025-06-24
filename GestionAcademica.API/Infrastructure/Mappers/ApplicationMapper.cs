@@ -1,5 +1,6 @@
 using GestionAcademica.API.Application.DTOs.Applicant;
 using GestionAcademica.API.Application.DTOs.Application;
+using GestionAcademica.API.Application.DTOs.File;
 using GestionAcademica.API.Application.DTOs.User;
 using GestionAcademica.API.Domain.Entities;
 using ApplicationModel = GestionAcademica.API.Infrastructure.Persistence.Models.Application;
@@ -18,7 +19,7 @@ public class ApplicationMapper
             VacancyId = application.VacancyId
         };
     }
-    public static ApplicationDTO ModelToDTO(ApplicationModel application)
+    public static ApplicationDTO ModelToDTO(Infrastructure.Persistence.Models.Application application)
     {
         return new ApplicationDTO
         {
@@ -34,7 +35,7 @@ public class ApplicationMapper
             VacancySubjectName = application.Vacancy.Subject.Name
         };
     }
-    public static ApplicationDetailDTO ModelToDetailDTO(ApplicationModel application)
+    public static ApplicationDetailDTO ApplicationModelToApplicationDetailDTO(Persistence.Models.Application application)
     {
         return new ApplicationDetailDTO
         {
@@ -47,9 +48,27 @@ public class ApplicationMapper
             VacancyCareerName = application.Vacancy.Career.Name,
             ApplicantName = application.Applicant.User.Name + " " + application.Applicant.User.LastName,
             AdministratorName = application.Vacancy.Admin.User.Name + " " + application.Vacancy.Admin.User.LastName,
-
-            Files = application.Files.Select(file => FileMapper.ModelToDTO(file))
-                .ToList()
+            VacancySubjectName = application.Vacancy.Subject.Name,
+            Files = application.Files.Select(file => new FileDTO
+            {
+                Id = file.Id,
+                Name = file.Filename,
+                Description = file.FileDescription,
+                Extension = file.FileExtension
+            }).ToList(),
+            User = new UserDTO
+            {
+                Id = application.Applicant.User.Id,
+                Name = application.Applicant.User.Name,
+                LastName = application.Applicant.User.LastName,
+                Address = application.Applicant.User.Address,
+                BirthDate = application.Applicant.User.BirthDate.ToString("O"),
+                PersonalEmail = application.Applicant.User.PersonalEmail,
+                InstitutionalEmail = application.Applicant.User.InstitutionalEmail,
+                PhoneNumber = application.Applicant.User.PhoneNumber,
+                Status = application.Applicant.User.Status,
+                RoleId = application.Applicant.User.RoleId
+            }
         };
     }
 }

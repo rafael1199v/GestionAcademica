@@ -30,25 +30,46 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
 
         public List<ApplicationDTO> GetApplicationsForApplicant(int applicantId)
         {
-            List<ApplicationDTO> applications =  _context.Applications.Where(application => application.ApplicantId == applicantId)
-                .Include(application => application.Vacancy)
-                .Include(application => application.Vacancy.Career)
-                .Include(application => application.Applicant.User)
-                .Include(application => application.Vacancy.Admin.User)
-                .Include(application => application.Vacancy.Subject)
-                .Select(ApplicationMapper.ModelToDTO)
-                .ToList();
+             List<ApplicationDTO> applications =  _context.Applications.Where(application => application.ApplicantId == applicantId)
+                 .Include(application => application.Vacancy)
+                 .ThenInclude(vacancy => vacancy.Career)
+                 
+                 .Include(application => application.Applicant)
+                 .ThenInclude(applicant => applicant.User)
+                 
+                 .Include(application => application.Vacancy)
+                 .ThenInclude(vacancy => vacancy.Admin)
+                 .ThenInclude(admin => admin.User)
+                 
+                 .Include(application => application.Vacancy)
+                 .ThenInclude(vacancy => vacancy.Subject)
+                 
+                 .Select(application => ApplicationMapper.ModelToDTO(application))
+                 .ToList();
+            
             return applications;
+            
         }
 
         public ApplicationDetailDTO GetApplicationDetails(int applicationId)
         {
             ApplicationDetailDTO? application = _context.Applications.Where(application => application.Id == applicationId)
                 .Include(application => application.Vacancy)
-                .Include(application => application.Vacancy.Career)
-                .Include(application => application.Applicant.User)
-                .Include(application => application.Vacancy.Admin.User)
-                .Select(ApplicationMapper.ModelToDetailDTO)
+                .ThenInclude(vacancy => vacancy.Career)
+
+                .Include(application => application.Applicant)
+                .ThenInclude(applicant => applicant.User)
+
+                .Include(application => application.Vacancy)
+                .ThenInclude(vacancy => vacancy.Admin)
+                .ThenInclude(admin => admin.User)
+
+                .Include(application => application.Vacancy)
+                .ThenInclude(vacancy => vacancy.Subject)
+                
+                .Include(application => application.Files)
+
+                .Select(_application => ApplicationMapper.ApplicationModelToApplicationDetailDTO(_application))
                 .FirstOrDefault()
                 ?? throw new Exception("La postulacion no se encontro el sistema");
 
@@ -60,11 +81,19 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
             var applications = _context.Applications.Where(application => application.Status.Id == (int)StatusEnum.UNDER_REVIEW
             && application.Vacancy.StartTime <= DateTime.Now && DateTime.Now < application.Vacancy.EndTime)
                 .Include(application => application.Vacancy)
-                .Include(application => application.Vacancy.Career)
-                .Include(application => application.Applicant.User)
-                .Include(application => application.Vacancy.Admin.User)
-                .Include(application => application.Vacancy.Subject)
-                .Select(ApplicationMapper.ModelToDTO)
+                .ThenInclude(vacancy => vacancy.Career)
+                
+                .Include(application => application.Applicant)
+                .ThenInclude(applicant => applicant.User)
+                
+                .Include(application => application.Vacancy)
+                .ThenInclude(vacancy => vacancy.Admin)
+                .ThenInclude(admin => admin.User)
+                
+                .Include(application => application.Vacancy)
+                .ThenInclude(vacancy => vacancy.Subject)
+                
+                .Select(application => ApplicationMapper.ModelToDTO(application))
                 .ToList();
             
             return applications;
@@ -74,11 +103,19 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
         {
             List<ApplicationDTO> applications = _context.Applications.Where(application => application.VacancyId == vacancyId)
                 .Include(application => application.Vacancy)
-                .Include(application => application.Vacancy.Career)
-                .Include(application => application.Applicant.User)
-                .Include(application => application.Vacancy.Admin.User)
-                .Include(application => application.Vacancy.Subject)
-                .Select(ApplicationMapper.ModelToDTO)
+                .ThenInclude(vacancy => vacancy.Career)
+                
+                .Include(application => application.Applicant)
+                .ThenInclude(applicant => applicant.User)
+                
+                .Include(application => application.Vacancy)
+                .ThenInclude(vacancy => vacancy.Admin)
+                .ThenInclude(admin => admin.User)
+                
+                .Include(application => application.Vacancy)
+                .ThenInclude(vacancy => vacancy.Subject)
+                
+                .Select(application => ApplicationMapper.ModelToDTO(application))
                 .ToList();
             
             return applications;
@@ -99,8 +136,11 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
         public ApplicantDTO GetApplicantByApplication(int applicationId)
         { // Este está bien aquí????
             ApplicantDTO applicant = _context.Applications.Where(application => application.Id == applicationId)
-                .Include(applicant => applicant.Applicant.User)
-                .Select(ApplicantMapper.ExtractApplicantData)
+                                         
+                 .Include(application => application.Applicant)
+                 .ThenInclude(applicant => applicant.User)
+                 
+                .Select(_applicant => ApplicantMapper.ExtractApplicantData(_applicant))
                 .FirstOrDefault()
                 ?? throw new Exception("El aplicante no pudo ser encontrado");
 
