@@ -31,9 +31,9 @@ public class LoginUseCaseTest
     public void Login_Returns()
     {
         // Arrange
-        string emailInput = "";
-        string passwordInput = "";
-        (string, string, string) expectedResult = ("", "", "");
+        string emailInput = "rmendoza@universidad.edu.bo";
+        string passwordInput = "admin123";
+        (string, string, string) expectedResult = ("1", "1", "1");
 
         A.CallTo(() => _loginUseCase.Login(emailInput, passwordInput))
             .Returns(expectedResult);
