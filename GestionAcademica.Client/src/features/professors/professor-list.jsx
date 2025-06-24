@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Button from "../../components/button";
-import { getAllProfessors } from "../../services/AdministratorService";
+import { getAllProfessors } from "../../services/ProfessorService";
 import ProfessorItem from "./components/professor-item";
 import { useAuthContext } from "../../hooks/UseAuthContext";
 import { ROLES } from "../../config/role-const";

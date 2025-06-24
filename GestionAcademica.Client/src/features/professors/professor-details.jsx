@@ -1,6 +1,6 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import { getProfessorById } from "../../services/AdministratorService";
+import { getProfessorById } from "../../services/ProfessorService";
 import { useAuthContext } from "../../hooks/UseAuthContext";
 import { ROLES } from "../../config/role-const";
 import { getRoleLink } from "../../services/AuthService";

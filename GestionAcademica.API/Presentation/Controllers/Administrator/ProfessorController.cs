@@ -30,25 +30,6 @@ public class ProfessorController : ControllerBase
         }
     }
 
-    [HttpGet]
-    public IActionResult ProfessorListSimple()
-    {
-        try
-        {
-            var result = _professorManagementUseCase.ObtainAllProfessors();
-            if (result == null || result.Count == 0)
-            {
-                return NotFound("No se encontraron profesores");
-            }
-            return Ok(result);
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
-    }
-
-
     [HttpPut]
     public IActionResult UpdateProfessor(UpdateProfessorDTO updateProfessorDto)
     {
@@ -56,20 +37,6 @@ public class ProfessorController : ControllerBase
         {
             _professorManagementUseCase.UpdateProfessor(updateProfessorDto);
             return Ok(new { message = "Docente actualizado correctamente" });
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
-    }
-
-    [HttpGet]
-    [Route("{id}")]
-    public IActionResult GetProfessorInformation(int id)
-    {
-        try
-        {
-            return Ok(_professorManagementUseCase.GetProfessorInformation(id));
         }
         catch (Exception ex)
         {
