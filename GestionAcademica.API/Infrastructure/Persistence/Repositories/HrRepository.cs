@@ -1,5 +1,6 @@
 using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Infrastructure.Persistence.Context;
+using GestionAcademica.API.Infrastructure.Persistence.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace GestionAcademica.API.Infrastructure.Persistence.Repositories;

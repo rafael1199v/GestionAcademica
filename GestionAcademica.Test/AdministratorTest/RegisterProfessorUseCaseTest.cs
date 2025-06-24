@@ -27,7 +27,7 @@ public class RegisterProfessorUseCaseTest
         _professorRepository = A.Fake<IProfessorRepository>();
         _userRepository = A.Fake<IUserRepository>();
         _hashUtility = A.Fake<IHashUtility>();
-        _professorManagementUseCase = new ProfessorManagementUseCase(_professorRepository, _userRepository, new ProfessorMapper(_hashUtility), _hashUtility);
+        _professorManagementUseCase = new ProfessorManagementUseCase(_professorRepository, _userRepository, _hashUtility, new UserMapper(_hashUtility));
     }
     
     [Fact]
@@ -78,6 +78,9 @@ public class RegisterProfessorUseCaseTest
                     RoleId = (int) RoleEnum.Professor
                 }
             });
+
+        A.CallTo(() => _hashUtility.CreateHash(A<string>._))
+            .Returns("HASH");
 
         A.CallTo(() => _userRepository.GetByInstitutionalEmail(A<string>._))
             .Returns(null);
@@ -165,6 +168,9 @@ public class RegisterProfessorUseCaseTest
             PhoneNumber = "12345678",
             BirthDate = "2026-01-01",
         };
+        
+        A.CallTo(() => _hashUtility.CreateHash(A<string>._))
+            .Returns("HASH");
         
         A.CallTo(() => _userRepository.GetByInstitutionalEmail(A<string>._))
             .Returns(null);

@@ -21,9 +21,8 @@ public class ManageVacancies : IManageVacancies
     public List<VacancyDTO> GetVacancies(int userId)
     {
         var administratorId =  _administratorRepository.GetIdByUserId(userId);
-        List<Vacancy> vacancies = _vacancyRepository.GetByCreator(administratorId);
-        List<VacancyDTO> vacanciesDTO = vacancies.Select(vacancy => VacancyMapper.MapVacancyModelToVacancyDto(vacancy)).ToList();
-        
+        List<VacancyDTO> vacanciesDTO = _vacancyRepository.GetByCreator(administratorId);
+       
         return  vacanciesDTO;
     }
 
@@ -51,6 +50,9 @@ public class ManageVacancies : IManageVacancies
 
     public UpdateVacancyDTO GetVacancyToUpdate(int vacancyId)
     {
+        if (vacancyId <= 0)
+            throw new ArgumentException("Se necesita una vacante valida para actualizar");
+        
         var vacancy = _vacancyRepository.GetById(vacancyId);
 
         return VacancyMapper.MapVacancyToUpdateVacancyDto(vacancy);

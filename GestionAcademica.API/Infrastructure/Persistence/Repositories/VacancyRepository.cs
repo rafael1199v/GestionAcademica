@@ -23,13 +23,14 @@ public class VacancyRepository : IVacancyRepository
         _context.SaveChanges();
     }
 
-    public List<Vacancy> GetByCreator(int adminId)
+    public List<VacancyDTO> GetByCreator(int adminId)
     {
         var vacancies = _context.Vacancies.Where(vacancy => vacancy.AdminId == adminId)
             .Include(vacancy => vacancy.Career)
             .Include(vacancy => vacancy.Subject)
             .Include(vacancy => vacancy.Applications)
             .ThenInclude(application => application.Status)
+            .Select(vacancy => VacancyMapper.MapVacancyModelToVacancyDto(vacancy))
             .ToList();
  
         return vacancies;
