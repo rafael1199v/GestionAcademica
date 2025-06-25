@@ -66,15 +66,4 @@ public class VacancyMapper
         };
     }
     
-    public static Vacancy UpdateVacancy(Vacancy existingData, VacancyEntity newData)
-    {
-        existingData.Name = newData.Name;
-        existingData.Description = newData.Description;
-        existingData.StartTime = newData.StartTime;
-        existingData.EndTime = newData.EndTime;
-        existingData.SubjectId = newData.SubjectId;
-        existingData.CareerId = newData.CareerId;
-
-        return existingData;
-    }
 }

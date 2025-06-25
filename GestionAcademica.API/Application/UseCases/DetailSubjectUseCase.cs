@@ -46,8 +46,6 @@ namespace GestionAcademica.API.Application.UseCases
 
             subject.ProfessorId = subjectDTO.ProfessorId;
 
-            // Siendo una sola línea, no creo que necesite un mapper, al menos no por ahora
-
             _subjectRepository.Update(subject);
         }
         private string GetProfessorName(int? id)

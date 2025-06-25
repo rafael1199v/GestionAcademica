@@ -45,9 +45,5 @@ public class ManageFileUseCase : IManageFileUseCase
 
         return file;
     }
-
-    public void DeleteFile(int fileId)
-    {
-        throw new NotImplementedException();
-    }
+    
 }

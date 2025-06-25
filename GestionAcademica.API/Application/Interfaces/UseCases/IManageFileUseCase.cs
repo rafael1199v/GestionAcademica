@@ -5,7 +5,5 @@ namespace GestionAcademica.API.Application.Interfaces.UseCases;
 public interface IManageFileUseCase
 {
     DownloadFileDTO DownloadFile(int fileId);
-
-    void DeleteFile(int fileId);
     
 }

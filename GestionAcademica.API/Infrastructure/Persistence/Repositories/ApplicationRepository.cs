@@ -134,7 +134,7 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
         }
 
         public ApplicantDTO GetApplicantByApplication(int applicationId)
-        { // Este está bien aquí????
+        {
             ApplicantDTO applicant = _context.Applications.Where(application => application.Id == applicationId)
                                          
                  .Include(application => application.Applicant)

@@ -51,7 +51,6 @@ builder.Services.AddScoped<IHashUtility, HashUtility>();
 
 builder.Services.AddScoped<ILoginUseCase, LoginUseCase>();
 builder.Services.AddScoped<IDetailSubjectUseCase, DetailSubjectUseCase>();
-builder.Services.AddScoped<ICreateSubjectUseCase, CreateSubjectUseCase>();
 builder.Services.AddScoped<IDetailProfessorUseCase, DetailProfessorUseCase>();
 builder.Services.AddScoped<IProfessorManagementUseCase, ProfessorManagementUseCase>();
 builder.Services.AddScoped<ICreateVacancyUseCase, CreateVacancyUseCase>();
