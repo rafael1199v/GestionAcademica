@@ -68,22 +68,22 @@ function ApplicationDetailAdmin() {
       <strong className="block text-xl font-bold text-gray-800">Datos del solicitante:</strong>
       <div className="grid grid-cols-2 gap-5 text-gray-700">
         <div>
-          <strong>Nombre</strong> {application?.user?.name}
+          <strong>Nombre: </strong> {application?.user?.name}
         </div>
          <div>
-          <strong>Apellido</strong> {application?.user?.lastName}
+          <strong>Apellido: </strong> {application?.user?.lastName}
         </div>
         <div>
-          <strong>Direccion </strong> {application?.user?.address}
+          <strong>Direccion: </strong> {application?.user?.address}
         </div>
         <div>
-          <strong>Correo:</strong> {application?.user?.institutionalEmail}
+          <strong>Correo: </strong> {application?.user?.institutionalEmail}
         </div>
         <div>
-          <strong>Teléfono:</strong> {application?.user?.phoneNumber}
+          <strong>Teléfono: </strong> {application?.user?.phoneNumber}
         </div>
         <div>
-          <strong>Fecha de nacimiento</strong> {application?.user?.birthDate}
+          <strong>Fecha de nacimiento: </strong> {application?.user?.birthDate}
         </div>
       </div>
 
