@@ -85,6 +85,9 @@ function ApplicationDetailAdmin() {
         <div>
           <strong>Fecha de nacimiento: </strong> {application?.user?.birthDate}
         </div>
+        <div>
+          <strong>Observacion </strong> {application?.observed ? "Observado. Este postulante ha sido rechazado anteriormente" : "Ninguna observacion"}
+        </div>
       </div>
 
       <div>

@@ -68,6 +68,11 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
                 .ThenInclude(vacancy => vacancy.Subject)
                 
                 .Include(application => application.Files)
+                
+                .Include(application => application.Applicant)
+                .ThenInclude(applicant => applicant.Applications)
+                .ThenInclude(application => application.Status)
+                
 
                 .Select(_application => ApplicationMapper.ApplicationModelToApplicationDetailDTO(_application))
                 .FirstOrDefault()

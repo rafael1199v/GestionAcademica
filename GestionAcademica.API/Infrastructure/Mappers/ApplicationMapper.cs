@@ -3,6 +3,7 @@ using GestionAcademica.API.Application.DTOs.Application;
 using GestionAcademica.API.Application.DTOs.File;
 using GestionAcademica.API.Application.DTOs.User;
 using GestionAcademica.API.Domain.Entities;
+using GestionAcademica.API.Domain.Enums;
 using ApplicationModel = GestionAcademica.API.Infrastructure.Persistence.Models.Application;
 
 namespace GestionAcademica.API.Infrastructure.Mappers;
@@ -68,7 +69,8 @@ public class ApplicationMapper
                 PhoneNumber = application.Applicant.User.PhoneNumber,
                 Status = application.Applicant.User.Status,
                 RoleId = application.Applicant.User.RoleId
-            }
+            },
+            Observed = application.Applicant.Applications.Any(application => application.StatusId == (int)StatusEnum.REJECTED)
         };
     }
 }

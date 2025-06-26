@@ -27,6 +27,8 @@ function ApplicationDetailApplicant() {
         return "bg-green-100 text-green-800";
       case 4:
         return "bg-red-100 text-red-800";
+      case 6:
+        return "bg-orange-100 text-orange-800"
       default:
         return "bg-gray-300 text-gray-800";
     }
@@ -42,6 +44,8 @@ function ApplicationDetailApplicant() {
         return "Felicidades, has sido aceptado. Te hablaremos lo mas rapido que podamos. Bienvenido";
       case 4:
         return "Lo siento. Como organización agradecemos que hayas presentado tu postulación. No dudes que volveremos a contactarte!!!";
+      case 6:
+        return "Hemos detectado que fuiste rechazado en anteriores postulaciones. No te preocupes, esto no afectará a tu participación actual"
       default:
         return "Hubo un problema al obtener los datos de la postulación, intente nuevamente...";
     }

@@ -19,4 +19,6 @@ public class ApplicationDetailDTO
     public List<FileDTO> Files { get; set; }
 
     public UserDTO?  User { get; set; }
+    
+    public bool Observed { get; set; }
 }
