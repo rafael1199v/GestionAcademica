@@ -106,7 +106,7 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
 
         public List<ApplicationDTO> GetApplicationsForAdministrator(int vacancyId)
         {
-            List<ApplicationDTO> applications = _context.Applications.Where(application => application.VacancyId == vacancyId)
+            List<ApplicationDTO> applications = _context.Applications.Where(application => application.VacancyId == vacancyId && (application.Status.Id != (int)StatusEnum.OBSERVED && application.Status.Id != (int)StatusEnum.UNDER_REVIEW))
                 .Include(application => application.Vacancy)
                 .ThenInclude(vacancy => vacancy.Career)
                 
