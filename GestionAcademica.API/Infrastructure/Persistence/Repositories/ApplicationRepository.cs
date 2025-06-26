@@ -78,7 +78,7 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
 
         public List<ApplicationDTO> GetApplicationsForHr()
         {
-            var applications = _context.Applications.Where(application => application.Status.Id == (int)StatusEnum.UNDER_REVIEW
+            var applications = _context.Applications.Where(application => (application.Status.Id == (int)StatusEnum.UNDER_REVIEW || application.Status.Id == (int)StatusEnum.OBSERVED)
             && application.Vacancy.StartTime <= DateTime.Now && DateTime.Now < application.Vacancy.EndTime)
                 .Include(application => application.Vacancy)
                 .ThenInclude(vacancy => vacancy.Career)
@@ -166,6 +166,13 @@ namespace GestionAcademica.API.Infrastructure.Persistence.Repositories
             }
 
             _context.SaveChanges();
+        }
+
+        public bool ApplicantWasRejected(int applicantId)
+        {
+            bool wasRejected = _context.Applications.Any(application => application.ApplicantId == applicantId && application.StatusId == (int)StatusEnum.REJECTED);
+            
+            return wasRejected;
         }
     }
 }

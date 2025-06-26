@@ -1,3 +1,4 @@
+using GestionAcademica.API.Domain.Enums;
 using GestionAcademica.API.Domain.Exceptions;
 
 namespace GestionAcademica.API.Domain.Entities;
@@ -30,5 +31,10 @@ public class ApplicationEntity
             ApplicantId = applicantId,
             StatusId = statusId
         };
+    }
+    
+    public void ChangeStatus(StatusEnum newStatus)
+    {
+        StatusId = (int)newStatus;
     }
 }

@@ -3,6 +3,7 @@ using GestionAcademica.API.Application.DTOs.Vacancy;
 using GestionAcademica.API.Application.Interfaces.Repositories;
 using GestionAcademica.API.Application.Interfaces.UseCases;
 using GestionAcademica.API.Domain.Entities;
+using GestionAcademica.API.Domain.Enums;
 
 namespace GestionAcademica.API.Application.UseCases.ApplicantUseCases;
 
@@ -37,6 +38,11 @@ public class ApplyForVacancy : IApplyForVacancy
         
         ApplicationEntity applicationEntity = ApplicationEntity.CreateApplication(dto.VacancyId, dto.ApplicantId, dto.StatusId);
       
+        bool wasRejected = _applicationRepository.ApplicantWasRejected(applicationEntity.ApplicantId);
+        
+        if(wasRejected)
+            applicationEntity.ChangeStatus(StatusEnum.OBSERVED);
+        
         int applicationId = _applicationRepository.Add(applicationEntity);
         
         _uploadFilesUseCase.Uploadfiles(dto.Files, applicationId);

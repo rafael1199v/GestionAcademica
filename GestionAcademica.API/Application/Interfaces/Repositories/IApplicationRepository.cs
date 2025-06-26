@@ -17,4 +17,6 @@ public interface IApplicationRepository
     void ChangeApplicationStatus(StatusEnum newStatus, int applicationId);
     ApplicantDTO GetApplicantByApplication(int applicationId);
     void FinishOtherApplications(int applicationAcceptedId);
+
+    bool ApplicantWasRejected(int applicantId);
 }
