@@ -54,6 +54,7 @@ builder.Services.AddScoped<IDetailSubjectUseCase, DetailSubjectUseCase>();
 builder.Services.AddScoped<IDetailProfessorUseCase, DetailProfessorUseCase>();
 builder.Services.AddScoped<IProfessorManagementUseCase, ProfessorManagementUseCase>();
 builder.Services.AddScoped<ICreateVacancyUseCase, CreateVacancyUseCase>();
+builder.Services.AddScoped<IIsApplicantObservedUseCase, IsApplicantObservedUseCase>();
 builder.Services.AddScoped<IApplyForVacancy, ApplyForVacancy>();
 builder.Services.AddScoped<IUploadFilesUseCase, UploadFilesUseCase>();
 builder.Services.AddScoped<IViewOwnApplications, ViewOwnApplications>();

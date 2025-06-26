@@ -10,11 +10,12 @@ namespace GestionAcademica.API.Application.Interfaces.Repositories;
 public interface IApplicationRepository
 {
     int Add(ApplicationEntity application);
-    List<ApplicationDTO> GetApplicationsForApplicant(int applicantId); 
+    List<ApplicationDTO> GetApplicationsForApplicant(int applicantId);
     ApplicationDetailDTO GetApplicationDetails(int applicationId);
     List<ApplicationDTO> GetApplicationsForHr();
     List<ApplicationDTO> GetApplicationsForAdministrator(int vacancyId);
     void ChangeApplicationStatus(StatusEnum newStatus, int applicationId);
     ApplicantDTO GetApplicantByApplication(int applicationId);
     void FinishOtherApplications(int applicationAcceptedId);
+    bool IsObserved(int applicantId);
 }

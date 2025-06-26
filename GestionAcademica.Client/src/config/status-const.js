@@ -3,5 +3,7 @@ export const STATUS = {
     MEETING: 2,
     APPROVED: 3,
     REJECTED: 4,
-    FINISHED: 5
+    FINISHED: 5,
+    OBSERVED: 1002
+    // OBSERVED_MEETING: 1003
 };

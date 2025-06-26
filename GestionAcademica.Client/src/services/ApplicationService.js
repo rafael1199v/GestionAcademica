@@ -120,6 +120,12 @@ class ApplicationService {
 
       case STATUS.REJECTED:
         return "Rechazado";
+
+      case STATUS.OBSERVED:
+        return "Observado";
+
+      // case STATUS.OBSERVED_MEETING:
+      //   return "Entrevista (observado)"
     }
   }
 

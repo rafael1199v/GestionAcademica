@@ -27,6 +27,8 @@ function ApplicationDetailApplicant() {
         return "bg-green-100 text-green-800";
       case 4:
         return "bg-red-100 text-red-800";
+      case 1002:
+        return "bg-red-100 text-red-800";
       default:
         return "bg-gray-300 text-gray-800";
     }
@@ -42,6 +44,10 @@ function ApplicationDetailApplicant() {
         return "Felicidades, has sido aceptado. Te hablaremos lo mas rapido que podamos. Bienvenido";
       case 4:
         return "Lo siento. Como organización agradecemos que hayas presentado tu postulación. No dudes que volveremos a contactarte!!!";
+      case 1002:
+        return "Se ha recibido tu postulación, sin embargo, el sistema indica que tienes una dificultad en la institución, pero no se preocupe, está en buenas manos.";
+      // case 1003:
+      //   return "El agente de recursos humanos a aceptado tu curriculum. Genial!!!. Se te hablará por teléfono para coordinar una entrevista";
       default:
         return "Hubo un problema al obtener los datos de la postulación, intente nuevamente...";
     }
